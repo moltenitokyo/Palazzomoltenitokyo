@@ -12,6 +12,7 @@
             --accent: #007AFF; 
             --grey: #86868B; 
             --border: #D2D2D7; 
+            /* 全てのフォントをTabac SemiBoldに統合 */
             --main-font: "Tabac SemiBold", "Tabac-SemiBold", "Tabac Sans SemiBold", "Libre Bodoni", serif;
             --panel-w: 350px; 
         }
@@ -20,35 +21,43 @@
 
         /* --- HEADER & FOOTER --- */
         header { position: fixed; top: 0; width: 100%; height: 85px; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); z-index: 2000; border-bottom: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .brand-title { font-family: var(--main-font); font-size: 24px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 5px; }
-        .location { font-size: 8px; letter-spacing: 0.5em; color: var(--grey); text-transform: uppercase; margin-top: 8px; margin-bottom: 5px; }
+        
+        .brand-title { 
+            font-family: var(--main-font);
+            font-size: 24px;
+            font-weight: 600; /* Semi Bold */
+            letter-spacing: 0.15em;
+            text-transform: uppercase; 
+            margin-top: 5px;
+        }
+        .location { font-size: 8px; letter-spacing: 0.5em; color: var(--grey); text-transform: uppercase; margin-top: 8px; margin-bottom: 5px; font-family: var(--main-font); }
 
         footer { position: fixed; bottom: 0; width: 100%; height: 85px; background: #000; display: flex; z-index: 3000; }
         .floor-btn { flex: 1; color: #fff; text-align: center; padding: 18px 0; opacity: 0.35; cursor: pointer; border: none; background: none; font-family: var(--main-font); }
         .floor-btn.active { opacity: 1; }
         .floor-num { display: block; font-family: var(--main-font); font-size: 24px; font-weight: 600; }
-        .floor-label { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
+        .floor-label { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-family: var(--main-font); }
 
-        /* --- VIEWPORT (120% BREAKOUT) --- */
+        /* --- VIEWPORT --- */
         #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
         body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); }
 
         .area-nav { display: flex; gap: 35px; padding: 25px 40px; overflow-x: auto; background: #fff; border-bottom: 1px solid #f2f2f2; scrollbar-width: none; position: sticky; top: 0; z-index: 500; }
         .area-nav::-webkit-scrollbar { display: none; }
-        .area-item { font-size: 13px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--grey); cursor: pointer; white-space: nowrap; padding-bottom: 8px; border-bottom: 2px solid transparent; transition: 0.3s; }
+        .area-item { font-family: var(--main-font); font-size: 13px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--grey); cursor: pointer; white-space: nowrap; padding-bottom: 8px; border-bottom: 2px solid transparent; transition: 0.3s; }
         .area-item.active { color: #000; font-weight: bold; border-bottom-color: #000; }
 
         .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; z-index: 1500; cursor: pointer; color: rgba(0,0,0,0.5); background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border-radius: 50%; transition: 0.3s; pointer-events: auto; }
         .nav-arrow:hover { color: rgba(0,0,0,1); background: rgba(255,255,255,0.8); }
         .arrow-left { left: 25px; } .arrow-right { right: 25px; }
 
-        .mol-breakout-wrap { width: 120% !important; margin-left: -10% !important; position: relative; left: 0; text-align: center; line-height: 0; font-size: 0; }
-        .mol-breakout-wrap img { width: 100%; height: auto; display: block; border-radius: 0; border: none; }
+        .scene-wrap { width: 100%; position: relative; line-height: 0; font-size: 0; }
+        .scene-wrap img { width: 100%; height: auto; display: block; border-radius: 0; border: none; }
 
-        /* PIN ◎ & CARD */
+        /* PIN DESIGN */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
+        .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
         .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 12px 18px; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: max-content; max-width: 220px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: center; line-height: 1.5; color: #000; }
         .mol-card strong { font-family: var(--main-font); font-size: 12px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 4px; }
@@ -58,7 +67,7 @@
 
         /* DESIGNER UI */
         #ui-mode-toggle { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; background: rgba(255,255,255,0.9); padding: 4px; border: 1px solid var(--border); border-radius: 2px; }
-        #ui-mode-toggle button { border: none; background: none; padding: 8px 18px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: var(--main-font); }
+        #ui-mode-toggle button { border: none; background: none; padding: 8px 18px; font-size: 10px; font-weight: bold; cursor: pointer; }
         #ui-mode-toggle button.active { background: #000; color: #fff; }
         #admin-panel { position: fixed; top: 0; left: -400px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
         #admin-panel.open { left: 0; }
@@ -79,8 +88,8 @@
             #ui-mode-toggle, .nav-arrow, #admin-panel { display: none !important; }
             .location { display: block; font-size: 7px; letter-spacing: 0.3em; }
             .brand-title { font-size: 18px; letter-spacing: 0.12em; font-weight: 600; }
-            .mol-breakout-wrap { width: 100% !important; margin: 0 !important; }
-            .mol-breakout-wrap img { width: 100% !important; height: auto !important; max-width: 100vw !important; }
+            .scene-wrap { width: 100% !important; margin: 0 !important; }
+            .scene-wrap img { width: 100% !important; height: auto !important; max-width: 100vw !important; }
         }
     </style>
 </head>
@@ -93,7 +102,7 @@
 
 <header>
     <div class="brand-title">Palazzo Molteni Tokyo</div>
-    <div class="location">Experience Tour Suite</div>
+    <div class="location">Experience Tour</div>
 </header>
 
 <div class="nav-arrow arrow-left" onclick="navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
@@ -120,7 +129,7 @@
         </div>
         <button class="btn btn-accent" onclick="commitChanges()">1. Save Progress</button>
         <button class="btn btn-black" style="margin-top:10px;" onclick="exportPermanentHTML()">2. Export for GitHub</button>
-        <button class="btn" style="margin-top:20px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove This Area</button>
+        <button class="btn" style="margin-top:20px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove Area</button>
     </div>
 </div>
 
@@ -128,7 +137,7 @@
     <div style="max-width: 800px; margin: auto;">
         <h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2>
         <p style="font-size: 13px; color: #666;">Copy everything below and paste into GitHub index.html.</p>
-        <textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea>
+        <textarea id="export-text" readonly style="height: 400px; font-size: 10px; width: 100%;"></textarea>
         <button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back to App</button>
     </div>
 </div>
@@ -147,10 +156,11 @@
 
 <script>
     const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-    const DB_NAME = "pmt_master_v27";
+    const DB_NAME = "pmt_master_v26";
     
-    // --- 永久保存されたデータ ---
+    // --- 【超重要】永久保存データ (Tabac版に更新済み) ---
     let store = JSON.parse(localStorage.getItem(DB_NAME)) || {"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[],"2F":[],"3F":[{"id":"a1766734621445","name":"A","img":"https://i.ibb.co/nMKmfKdM/682ee5105f756-Molteni-C-Palazzo-Molteni-Tokyo-02.jpg","pins":[{"id":"p1766734648580","x":35.16,"y":39.92,"title":"ARIAL","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734655028","x":57.58,"y":38.47,"title":"505up","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734663812","x":30.19,"y":82.63,"title":"AUGUSTO","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734680242","x":15.03,"y":45.35,"title":"エコスマート","link":"","sub":"エコスマート","type":"detail"},{"id":"p1766734684899","x":82.42,"y":45.61,"title":"アート","link":"","sub":"アート","type":"detail"}]}]};
+    // --------------------------------------------------
 
     let floor = '1F';
     let areaId = null;
@@ -251,7 +261,7 @@
             pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a ${linkAttrs} class="mol-card" ontouchstart=""><strong>${p.title}</strong><span>${p.sub}</span></a></div>`;
         });
         const container = document.getElementById('scene-display');
-        container.innerHTML = `<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
+        container.innerHTML = `<div class="scene-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
     }
 
     function navigateArea(dir) {
@@ -275,7 +285,7 @@
             const nt = prompt("Update Title:", p.title);
             if (nt) {
                 p.title = nt;
-                if(p.type === 'product') p.link = prompt("URL:", p.link) || p.link;
+                if(p.type === 'product') p.link = prompt("Update URL:", p.link) || p.link;
                 else p.sub = prompt("Desc:", p.sub) || p.sub;
                 renderActiveScene();
             }
@@ -284,4 +294,67 @@
 
     function handleDeletePin(e, pid) {
         e.stopPropagation();
-        const a = store[floor].find(x =>
+        const a = store[floor].find(x => x.id === areaId);
+        a.pins = a.pins.filter(x => x.id !== pid);
+        renderActiveScene();
+    }
+
+    function addPinAt(x, y) {
+        const t = document.getElementById('marker-type').value;
+        const name = prompt("Title:"); if(!name) return;
+        let l = "", s = "商品詳細はこちら >";
+        if(t==='product') l = prompt("URL:", "https://"); else s = prompt("Detail:");
+        store[floor].find(x => x.id === areaId).pins.push({ id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, link:l, sub:s, type:t });
+        renderActiveScene();
+    }
+
+    function handleCreateArea() {
+        const n = document.getElementById('new-area-name').value; if(!n) return;
+        const id = 'a' + Date.now();
+        store[floor].push({ id, name: n, img: '', pins: [] });
+        document.getElementById('new-area-name').value = '';
+        commitChanges(true); renderNavList(); selectActiveArea(id);
+    }
+
+    function handleDeleteArea() {
+        if(confirm('Delete area?')) {
+            store[floor] = store[floor].filter(x => x.id !== areaId);
+            areaId = null; commitChanges(true); renderNavList();
+        }
+    }
+
+    function commitChanges(silent = false) {
+        localStorage.setItem(DB_NAME, JSON.stringify(store));
+        if(!silent) alert("Progress saved locally.");
+    }
+
+    function updateImageManual(v) {
+        const a = store[floor].find(x => x.id === areaId);
+        if(a) { a.img = v; renderActiveScene(); }
+    }
+
+    document.getElementById('file-input').onchange = async (e) => {
+        const f = e.target.files[0]; if(!f) return;
+        const fd = new FormData(); fd.append("image", f);
+        try {
+            const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
+            const j = await res.json();
+            if(j.success) { updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
+        } catch(err) { alert("Upload Fail"); }
+    };
+
+    function exportPermanentHTML() {
+        const currentData = JSON.stringify(store);
+        let fullSource = document.documentElement.outerHTML;
+        const regex = /let store = JSON\.parse\(localStorage\.getItem\(DB_NAME\)\) \|\| \{ 'B1F':\[\], '1F':\[\], '2F':\[\], '3F':\[\] \};/;
+        const replacement = `let store = ${currentData};`;
+        fullSource = fullSource.replace(regex, replacement);
+        const exportDiv = document.getElementById('export-output');
+        const exportText = document.getElementById('export-text');
+        exportText.value = "<!DOCTYPE html>\n" + fullSource;
+        exportDiv.style.display = 'block';
+        exportText.select();
+    }
+</script>
+</body>
+</html>
