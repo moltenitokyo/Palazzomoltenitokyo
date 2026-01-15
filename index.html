@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALAZZO MOLTENI TOKYO | Architectural Tour</title>
+    <title>PALAZZO MOLTENI TOKYO | Virtual Tour Suite</title>
     <style>
         /* --- BRANDING & FONTS --- */
         @import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&display=swap');
         :root { 
             --accent: #007AFF; --grey: #86868B; --border: #D2D2D7; 
             --main-font: "Tabac SemiBold", "Tabac-SemiBold", "Tabac Sans SemiBold", "Libre Bodoni", serif;
-            --panel-w: 380px; 
+            --panel-w: 350px; 
         }
 
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: var(--main-font); overflow: hidden; color: #000; -webkit-font-smoothing: antialiased; }
@@ -25,54 +25,56 @@
         .floor-num { display: block; font-family: var(--main-font); font-size: 24px; font-weight: 600; }
         .floor-label { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
 
-        #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
-        @media screen and (min-width: 769px) { body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); } }
+        /* --- 2階層ナビゲーション --- */
+        .sub-nav-container { position: sticky; top: 0; z-index: 500; background: #fff; }
+        
+        /* 階層1: MAP / TOUR 切り替え */
+        .mode-nav { display: flex; justify-content: center; gap: 40px; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
+        .mode-item { font-size: 11px; letter-spacing: 0.2em; color: var(--grey); cursor: pointer; transition: 0.3s; }
+        .mode-item.active { color: #000; font-weight: bold; border-bottom: 1.5px solid #000; }
 
-        .area-nav { display: flex; gap: 35px; padding: 25px 40px; overflow-x: auto; background: #fff; border-bottom: 1px solid #f2f2f2; scrollbar-width: none; position: sticky; top: 0; z-index: 500; }
+        /* 階層2: A, B, C エリア選択 */
+        .area-nav { display: flex; gap: 30px; padding: 15px 40px; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #f2f2f2; }
         .area-nav::-webkit-scrollbar { display: none; }
-        .area-item { font-family: var(--main-font); font-size: 13px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--grey); cursor: pointer; white-space: nowrap; padding-bottom: 8px; border-bottom: 2px solid transparent; transition: 0.3s; }
-        .area-item.active { color: #000; font-weight: bold; border-bottom-color: #000; }
+        .area-item { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--grey); cursor: pointer; white-space: nowrap; padding-bottom: 5px; transition: 0.3s; }
+        .area-item.active { color: #000; font-weight: bold; }
 
-        .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; z-index: 1500; cursor: pointer; color: rgba(0,0,0,0.5); background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border-radius: 50%; transition: 0.3s; pointer-events: auto; }
-        .nav-arrow:hover { color: rgba(0,0,0,1); background: rgba(255,255,255,0.8); }
-        .arrow-left { left: 25px; } .arrow-right { right: 25px; }
+        #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
+        @media screen and (min-width: 769px) {
+            body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); }
+        }
 
-        .mol-breakout-wrap { width: 120% !important; margin-left: -10% !important; position: relative; left: 0; text-align: center; line-height: 0; font-size: 0; }
-        @media screen and (max-width: 768px) { .mol-breakout-wrap { width: 100% !important; margin-left: 0 !important; } }
-        .mol-breakout-wrap img { width: 100%; height: auto; display: block; border: none; }
+        .scene-wrap { width: 100%; position: relative; line-height: 0; font-size: 0; }
+        .scene-wrap img { width: 100%; height: auto; display: block; border-radius: 0; }
 
-        /* --- FLOOR METRICS OVERLAY --- */
-        .floor-metrics { padding: 20px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; gap: 30px; font-size: 11px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
-        .metric-item b { color: #000; margin-right: 5px; }
+        /* FLOOR METRICS */
+        .floor-metrics { padding: 20px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; gap: 30px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
 
-        /* --- REFINED PIN ◎ & SPEC CARD --- */
+        /* PIN & CARD */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
-        
         .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 18px 22px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 200px; max-width: 260px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0; }
-        .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 14px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; letter-spacing: 0.05em; }
-        
+        .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 14px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
         .spec-row { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 3px; gap: 15px; }
-        .spec-label { color: var(--grey); text-transform: uppercase; font-weight: bold; }
-        .spec-value { text-align: right; font-weight: 500; }
         .mol-card .price { font-size: 11px; font-weight: bold; margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; display: block; text-align: center; }
-        .mol-card .link-hint { font-size: 8px; color: var(--accent); font-weight: bold; text-align: center; display: block; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.1em; }
-
         .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 32px; }
-        .mol-hs:hover .mol-dot-outer { background: rgba(255,255,255,0.6); transform: scale(1.1); }
+
+        /* INQUIRY BUTTON (常に表示) */
+        #inquiry-btn { position: fixed; bottom: 100px; right: 25px; z-index: 2500; background: #fff; color: #000; border: 1px solid #000; padding: 12px 20px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em; text-decoration: none; transition: 0.3s; }
+        #inquiry-btn:hover { background: #000; color: #fff; }
 
         /* DESIGNER UI */
         #ui-mode-toggle { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; background: rgba(255,255,255,0.9); padding: 4px; border: 1px solid var(--border); border-radius: 2px; }
         #ui-mode-toggle button { border: none; background: none; padding: 8px 18px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: var(--main-font); }
         #ui-mode-toggle button.active { background: #000; color: #fff; }
-        #admin-panel { position: fixed; top: 0; left: -420px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
+        #admin-panel { position: fixed; top: 0; left: -400px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
         #admin-panel.open { left: 0; }
-        .admin-section { margin-bottom: 30px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
-        .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 12px; display: block; }
-        input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; font-family: inherit; }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 11px; text-transform: uppercase; }
+        .admin-section { margin-bottom: 25px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
+        .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 8px; display: block; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 11px; text-transform: uppercase; }
         .btn-black { background: #000; color: #fff; }
         .btn-accent { background: var(--accent); color: #fff; }
         .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; }
@@ -80,49 +82,48 @@
         #export-output { display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; }
 
         @media screen and (max-width: 768px) {
-            #ui-mode-toggle, .nav-arrow, #admin-panel, .location { display: none !important; }
-            .brand-title { font-size: 18px; letter-spacing: 0.12em; font-weight: 600; }
-            .mol-breakout-wrap { width: 100% !important; margin: 0 !important; left: 0 !important; }
-            #viewport { width: 100% !important; transform: none !important; padding: 85px 0 85px 0 !important; }
-            .floor-metrics { gap: 15px; padding: 15px 20px; font-size: 9px; flex-wrap: wrap; }
+            #ui-mode-toggle, #admin-panel, .location { display: none !important; }
+            #viewport { width: 100% !important; transform: none !important; padding-top: 85px !important; }
+            #inquiry-btn { bottom: 95px; right: 15px; padding: 10px 15px; font-size: 9px; }
         }
     </style>
 
     <script>
-        /* --- ARCHITECTURAL SUITE v37 --- */
+        /* --- INTEGRATED TOUR SUITE v39 --- */
         const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_v37";
+        const DB_NAME = "pmt_master_v39";
 
-        // 初期データにメトリクス構造を追加
-        let store = JSON.parse(localStorage.getItem(DB_NAME)) || { 
-            'B1F': { metrics: { ch: '2980', sqm: '29', jo: '18', tsubo: '9' }, areas: [] },
-            '1F': { metrics: { ch: '2900', sqm: '40', jo: '25', tsubo: '12' }, areas: [] },
-            '2F': { metrics: { ch: '2650', sqm: '32', jo: '20', tsubo: '10' }, areas: [] },
-            '3F': { metrics: { ch: '2650', sqm: '32', jo: '20', tsubo: '9' }, areas: [] }
+        // データ構造のアップグレード
+        let store = JSON.parse(localStorage.getItem(DB_NAME)) || {
+            inquiryUrl: "https://www.molteni.it/jp/contact",
+            'B1F': { metrics: {ch:'2980', sqm:'29', jo:'18', tsubo:'9'}, map: [], tour: [] },
+            '1F': { metrics: {ch:'2900', sqm:'40', jo:'25', tsubo:'12'}, map: [], tour: [] },
+            '2F': { metrics: {ch:'2650', sqm:'32', jo:'20', tsubo:'10'}, map: [], tour: [] },
+            '3F': { metrics: {ch:'2650', sqm:'32', jo:'20', tsubo:'9'}, map: [], tour: [] }
         };
 
         let floor = '1F';
+        let viewMode = 'map'; // 'map' or 'tour'
         let areaId = null;
-        let mode = 'view';
+        let adminMode = 'view';
         let isPinning = false;
 
         window.changeAppMode = function(m) {
             if (window.innerWidth <= 768) return;
-            mode = m; isPinning = false;
+            adminMode = m; isPinning = false;
             document.getElementById('mode-view').className = (m === 'view' ? 'active' : '');
             document.getElementById('mode-edit').className = (m === 'edit' ? 'active' : '');
             document.getElementById('admin-panel').classList.toggle('open', m === 'edit');
             document.body.classList.remove('pinning-mode-active');
-            if (areaId && mode === 'edit') document.getElementById('edit-tools').style.display = 'block';
             renderActiveScene();
         };
 
         window.handleViewportClick = function(e) {
-            if (mode === 'edit' && !isPinning) {
-                if (e.target.closest('.area-nav') || e.target.closest('.mol-hs')) return;
+            if (adminMode === 'edit' && !isPinning) {
+                if (e.target.closest('.area-nav') || e.target.closest('.mode-nav') || e.target.closest('.mol-hs')) return;
                 window.changeAppMode('view'); return;
             }
-            if (mode === 'edit' && isPinning) {
+            if (adminMode === 'edit' && isPinning) {
                 const stage = document.getElementById('scene-stage');
                 if (stage && e.target.closest('#scene-stage') && !e.target.closest('.mol-hs')) {
                     const r = stage.getBoundingClientRect();
@@ -142,32 +143,37 @@
         window.handleFloorChange = function(f) {
             floor = f;
             document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('active'));
-            const btn = document.getElementById('f-'+f); if(btn) btn.classList.add('active');
+            document.getElementById('f-'+f).classList.add('active');
             document.getElementById('admin-f-label').innerText = f;
             
-            // 編集用メトリクスの同期
             const m = store[floor].metrics;
             document.getElementById('m-ch').value = m.ch;
             document.getElementById('m-sqm').value = m.sqm;
             document.getElementById('m-jo').value = m.jo;
             document.getElementById('m-tsubo').value = m.tsubo;
+            document.getElementById('inquiry-url-in').value = store.inquiryUrl;
 
-            renderNavList();
+            renderAreaNav();
         };
 
-        function renderNavList() {
+        window.switchViewMode = function(m) {
+            viewMode = m;
+            document.getElementById('mode-map').classList.toggle('active', m === 'map');
+            document.getElementById('mode-tour').classList.toggle('active', m === 'tour');
+            areaId = null;
+            renderAreaNav();
+        };
+
+        function renderAreaNav() {
             const nav = document.getElementById('area-nav');
             nav.innerHTML = '';
-            const list = store[floor].areas;
+            const list = store[floor][viewMode];
 
-            // 各フロアの最初に「FLOOR MAP」を固定追加
-            const mapItem = document.createElement('div');
-            mapItem.className = `area-item ${areaId === 'map' ? 'active' : ''}`;
-            mapItem.id = `nav-map`;
-            mapItem.innerText = 'FLOOR MAP';
-            mapItem.onclick = (e) => { e.stopPropagation(); selectActiveArea('map'); };
-            nav.appendChild(mapItem);
-
+            if(list.length === 0) {
+                document.getElementById('scene-display').innerHTML = '<div style="padding:100px; text-align:center; color:#ccc;">Create ' + viewMode.toUpperCase() + ' area in Designer.</div>';
+                document.getElementById('edit-tools').style.display = 'none';
+                return;
+            }
             list.forEach(a => {
                 const el = document.createElement('div');
                 el.className = `area-item ${a.id === areaId ? 'active' : ''}`;
@@ -176,146 +182,102 @@
                 el.onclick = (e) => { e.stopPropagation(); selectActiveArea(a.id); };
                 nav.appendChild(el);
             });
-
-            if(!areaId) selectActiveArea('map');
+            if(!areaId || !list.find(x => x.id === areaId)) selectActiveArea(list[0].id);
             else selectActiveArea(areaId);
         }
 
         function selectActiveArea(id) {
             areaId = id;
-            const list = store[floor].areas;
-            const a = (id === 'map') ? { name: 'FLOOR MAP', img: store[floor].mapImg, pins: store[floor].mapPins || [] } : list.find(x => x.id === id);
-            
-            document.querySelectorAll('.area-item').forEach(el => el.classList.remove('active'));
-            const targetNav = document.getElementById(`nav-${id}`);
-            if(targetNav) targetNav.classList.add('active');
-
+            const a = store[floor][viewMode].find(x => x.id === id);
+            document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
             renderActiveScene();
-            if(mode === 'edit') document.getElementById('edit-tools').style.display = 'block';
+            if(adminMode === 'edit') document.getElementById('edit-tools').style.display = 'block';
             document.getElementById('manual-url').value = a ? a.img : '';
-            if(targetNav) targetNav.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            document.getElementById('inquiry-btn').href = store.inquiryUrl;
         }
 
         function renderActiveScene() {
-            const list = store[floor].areas;
-            const a = (areaId === 'map') ? { name: 'FLOOR MAP', img: store[floor].mapImg, pins: store[floor].mapPins || [] } : list.find(x => x.id === areaId);
+            const a = store[floor][viewMode].find(x => x.id === areaId);
             if(!a) return;
-
             const m = store[floor].metrics;
             const metricsHTML = `<div class="floor-metrics"><div class="metric-item"><b>CH</b> ${m.ch}mm</div><div class="metric-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
-
+            
             let pinsHTML = '';
             (a.pins || []).forEach(p => {
                 const isP = p.type === 'product';
-                const xBtn = (mode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
-                
-                // スペック情報の構築
-                let specContent = '';
-                if(isP) {
-                    specContent = `
-                        <div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">${p.cat || '-'}</span></div>
-                        <div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">${p.model || '-'}</span></div>
-                        <div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">${p.size || '-'}</span></div>
-                        <div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">${p.finish || '-'}</span></div>
-                        <div class="price">¥${p.price || 'Contact Staff'}</div>
-                        <div class="link-hint">VIEW PRODUCT DETAILS &gt;</div>
-                    `;
-                } else {
-                    specContent = `<span>${p.sub}</span>`;
-                }
-
-                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a ${isP?`href="${p.link}" target="_blank"`:''} class="mol-card" ontouchstart=""><strong>${p.title}</strong>${specContent}</a></div>`;
+                const xBtn = (adminMode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
+                let specs = isP ? `<div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">${p.cat||'-'}</span></div><div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">${p.model||'-'}</span></div><div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">${p.size||'-'}</span></div><div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">${p.finish||'-'}</span></div><div class="price">¥${p.price||'Ask'}</div>` : `<span>${p.sub}</span>`;
+                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a ${isP?`href="${p.link}" target="_blank"`:''} class="mol-card" ontouchstart=""><strong>${p.title}</strong>${specs}</a></div>`;
             });
+            document.getElementById('scene-display').innerHTML = metricsHTML + `<div class="scene-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
+        }
 
-            document.getElementById('scene-display').innerHTML = `${metricsHTML}<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
+        function addPinAt(x, y) {
+            const t = document.getElementById('marker-type').value;
+            const name = prompt("Name:"); if(!name) return;
+            const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
+            if(t === 'product') {
+                p.cat = prompt("Category:"); p.model = prompt("Model No:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://");
+            } else { p.sub = prompt("Detail:"); }
+            store[floor][viewMode].find(x => x.id === areaId).pins.push(p);
+            renderActiveScene();
         }
 
         window.handlePinInteraction = function(e, pid) {
-            if (mode === 'edit') {
+            if (adminMode === 'edit') {
                 e.stopPropagation();
-                const a = (areaId === 'map') ? { pins: store[floor].mapPins } : store[floor].areas.find(x => x.id === areaId);
-                const p = a.pins.find(x => x.id === pid);
-                
-                p.title = prompt("Product Name:", p.title) || p.title;
+                const p = store[floor][viewMode].find(x => x.id === areaId).pins.find(x => x.id === pid);
+                p.title = prompt("Update Name:", p.title) || p.title;
                 if(p.type === 'product') {
-                    p.cat = prompt("Category:", p.cat || "");
-                    p.model = prompt("Model No:", p.model || "");
-                    p.size = prompt("Size (W D H SH):", p.size || "");
-                    p.finish = prompt("Finish:", p.finish || "");
-                    p.price = prompt("Price (inc. tax):", p.price || "");
-                    p.link = prompt("URL:", p.link) || p.link;
-                } else {
-                    p.sub = prompt("Description:", p.sub) || p.sub;
-                }
+                    p.cat = prompt("Category:", p.cat); p.model = prompt("Model:", p.model); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link);
+                } else { p.sub = prompt("Desc:", p.sub); }
                 renderActiveScene();
             }
         };
 
         window.handleDeletePin = function(e, pid) {
             e.stopPropagation();
-            const a = (areaId === 'map') ? store[floor] : store[floor].areas.find(x => x.id === areaId);
-            const targetPins = (areaId === 'map') ? 'mapPins' : 'pins';
-            a[targetPins] = a[targetPins].filter(x => x.id !== pid);
+            const a = store[floor][viewMode].find(x => x.id === areaId);
+            a.pins = a.pins.filter(x => x.id !== pid);
             renderActiveScene();
         };
-
-        function addPinAt(x, y) {
-            const t = document.getElementById('marker-type').value;
-            const name = prompt("Name:"); if(!name) return;
-            const pObj = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
-            
-            if(t === 'product') {
-                pObj.cat = prompt("Category:");
-                pObj.model = prompt("Model No:");
-                pObj.size = prompt("Size (W D H SH):");
-                pObj.finish = prompt("Finish:");
-                pObj.price = prompt("Price:");
-                pObj.link = prompt("URL:", "https://");
-            } else {
-                pObj.sub = prompt("Detail:");
-            }
-
-            if(areaId === 'map') {
-                if(!store[floor].mapPins) store[floor].mapPins = [];
-                store[floor].mapPins.push(pObj);
-            } else {
-                store[floor].areas.find(x => x.id === areaId).pins.push(pObj);
-            }
-            renderActiveScene();
-        }
 
         window.handleCreateArea = function() {
             const n = document.getElementById('new-area-name').value; if(!n) return;
             const id = 'a' + Date.now();
-            store[floor].areas.push({ id, name: n, img: '', pins: [] });
+            store[floor][viewMode].push({ id, name: n, img: '', pins: [] });
             document.getElementById('new-area-name').value = '';
-            window.commitChanges(true); renderNavList(); selectActiveArea(id);
+            window.commitChanges(true); renderAreaNav(); selectActiveArea(id);
         };
 
         window.handleDeleteArea = function() {
-            if(areaId === 'map') { alert("Cannot delete the Map."); return; }
             if(confirm('Delete area?')) {
-                store[floor].areas = store[floor].areas.filter(x => x.id !== areaId);
-                areaId = 'map'; window.commitChanges(true); renderNavList();
+                store[floor][viewMode] = store[floor][viewMode].filter(x => x.id !== areaId);
+                areaId = null; window.commitChanges(true); renderAreaNav();
             }
         };
 
         window.commitChanges = function(silent = false) {
             const m = store[floor].metrics;
-            m.ch = document.getElementById('m-ch').value;
-            m.sqm = document.getElementById('m-sqm').value;
-            m.jo = document.getElementById('m-jo').value;
-            m.tsubo = document.getElementById('m-tsubo').value;
-
+            m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
+            m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
+            store.inquiryUrl = document.getElementById('inquiry-url-in').value;
             localStorage.setItem(DB_NAME, JSON.stringify(store));
-            if(!silent) alert("Workspace committed.");
+            if(!silent) alert("Progress saved.");
             renderActiveScene();
         };
 
         window.updateImageManual = function(v) {
-            if(areaId === 'map') store[floor].mapImg = v;
-            else store[floor].areas.find(x => x.id === areaId).img = v;
-            renderActiveScene();
+            const a = store[floor][viewMode].find(x => x.id === areaId);
+            if(a) { a.img = v; renderActiveScene(); }
+        };
+
+        window.handleFileUpload = async (e) => {
+            const f = e.target.files[0]; if(!f) return;
+            const fd = new FormData(); fd.append("image", f);
+            const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
+            const j = await res.json();
+            if(j.success) { window.updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
         };
 
         window.exportPermanentHTML = function() {
@@ -331,55 +293,54 @@
             exportText.select();
         };
 
-        window.navigateArea = function(dir) {
-            if(mode === 'edit') return;
-            const list = [{id:'map', name:'FLOOR MAP'}, ...store[floor].areas];
-            const idx = list.findIndex(x => x.id === areaId);
-            const nextIdx = idx + dir;
-            if (nextIdx >= 0 && nextIdx < list.length) selectActiveArea(list[nextIdx].id);
-        };
-
         window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
 
         document.addEventListener('DOMContentLoaded', () => {
             window.handleFloorChange('1F');
-            const vp = document.getElementById('viewport');
-            let tX = 0;
-            vp.ontouchstart = e => tX = e.touches[0].screenX;
-            vp.ontouchend = e => {
-                if(mode === 'edit') return;
-                const d = e.changedTouches[0].screenX - tX;
-                if(Math.abs(d) > 80) window.navigateArea(d > 0 ? -1 : 1);
-            };
         });
     </script>
 </head>
 <body id="app-body">
+
 <div id="admin-overlay" onclick="closeAdmin()"></div>
-<div id="ui-mode-toggle"><button id="mode-view" class="active" onclick="changeAppMode('view')">VIEW</button><button id="mode-edit" onclick="changeAppMode('edit')">DESIGNER</button></div>
-<header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Architectural Experience</div></header>
-<div class="nav-arrow arrow-left" onclick="navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
-<div class="nav-arrow arrow-right" onclick="navigateArea(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+
+<div id="ui-mode-toggle">
+    <button id="mode-view" class="active" onclick="changeAppMode('view')">VIEW</button>
+    <button id="mode-edit" onclick="changeAppMode('edit')">DESIGNER</button>
+</div>
+
+<header>
+    <div class="brand-title">Palazzo Molteni Tokyo</div>
+    <div class="location">Interactive Suite</div>
+</header>
+
+<a href="#" id="inquiry-btn" target="_blank">Contact Us</a>
+
 <div id="admin-panel">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:40px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
+    
     <div class="admin-section">
-        <span class="admin-label">Floor Metrics</span>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <span class="admin-label">Floor Metrics & Inquiry</span>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:10px;">
             <input type="text" id="m-ch" placeholder="CH (mm)">
             <input type="text" id="m-sqm" placeholder="Area (sqm)">
             <input type="text" id="m-jo" placeholder="Mats (帖)">
             <input type="text" id="m-tsubo" placeholder="Tsubo (坪)">
         </div>
+        <input type="text" id="inquiry-url-in" placeholder="Inquiry Link URL">
     </div>
+
     <div class="admin-section">
-        <span class="admin-label">Area Management</span>
+        <span class="admin-label">Area Setup</span>
         <input type="text" id="new-area-name" placeholder="New Area Name">
-        <button class="btn btn-black" onclick="handleCreateArea()">Add Area to <span id="admin-f-label">1F</span></button>
+        <button class="btn btn-black" onclick="handleCreateArea()">Create Area</button>
     </div>
+
     <div id="edit-tools" style="display:none;">
         <div class="admin-section">
-            <span class="admin-label">Media Asset</span>
-            <input type="text" id="manual-url" placeholder="Paste Image URL" onchange="updateImageManual(this.value)">
+            <span class="admin-label">Content</span>
+            <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)">
+            <input type="text" id="manual-url" placeholder="Asset URL" onchange="updateImageManual(this.value)">
             <span class="admin-label" style="margin-top:20px;">Interaction</span>
             <div id="pin-switch-btn" class="pin-switch" onclick="handlePinToggle()">Placement Mode: OFF</div>
             <select id="marker-type"><option value="product">● Product Link</option><option value="detail">■ Interior Detail</option></select>
@@ -389,8 +350,32 @@
         <button class="btn" style="margin-top:20px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove Current Area</button>
     </div>
 </div>
-<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back to App</button></div></div>
-<div id="viewport" onclick="handleViewportClick(event)"><div class="area-nav" id="area-nav"></div><div id="scene-display"></div></div>
-<footer><div class="floor-btn" onclick="handleFloorChange('B1F')" id="f-B1F"><span class="floor-num">B1</span><span class="floor-label">Basement</span></div><div class="floor-btn active" onclick="handleFloorChange('1F')" id="f-1F"><span class="floor-num">1F</span><span class="floor-label">Ground</span></div><div class="floor-btn" onclick="handleFloorChange('2F')" id="f-2F"><span class="floor-num">2F</span><span class="floor-label">Living</span></div><div class="floor-btn" onclick="handleFloorChange('3F')" id="f-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div></footer>
+
+<div id="export-output">
+    <div style="max-width: 800px; margin: auto;">
+        <h2 style="font-family: var(--bodoni); font-weight: 600;">Final Export</h2>
+        <textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea>
+        <button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button>
+    </div>
+</div>
+
+<div id="viewport" onclick="handleViewportClick(event)">
+    <div class="sub-nav-container">
+        <div class="mode-nav">
+            <div id="mode-map" class="mode-item active" onclick="switchViewMode('map')">FLOORMAP</div>
+            <div id="mode-tour" class="mode-item" onclick="switchViewMode('tour')">TOUR</div>
+        </div>
+        <div class="area-nav" id="area-nav"></div>
+    </div>
+    <div id="scene-display"></div>
+</div>
+
+<footer>
+    <div class="floor-btn" onclick="handleFloorChange('B1F')" id="f-B1F"><span class="floor-num">B1</span><span class="floor-label">Basement</span></div>
+    <div class="floor-btn active" onclick="handleFloorChange('1F')" id="f-1F"><span class="floor-num">1F</span><span class="floor-label">Ground</span></div>
+    <div class="floor-btn" onclick="handleFloorChange('2F')" id="f-2F"><span class="floor-num">2F</span><span class="floor-label">Living</span></div>
+    <div class="floor-btn" onclick="handleFloorChange('3F')" id="f-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div>
+</footer>
+
 </body>
 </html>
