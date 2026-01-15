@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="ja">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PALAZZO MOLTENI TOKYO | Virtual Tour Suite</title>
@@ -14,48 +15,64 @@
 
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: var(--main-font); overflow: hidden; color: #000; -webkit-font-smoothing: antialiased; }
 
+        /* --- HEADER --- */
         header { position: fixed; top: 0; width: 100%; height: 85px; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); z-index: 2000; border-bottom: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .brand-title { font-family: var(--main-font); font-size: 24px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 5px; }
         .location { font-size: 8px; letter-spacing: 0.5em; color: var(--grey); text-transform: uppercase; margin-top: 8px; margin-bottom: 5px; }
 
-        footer { position: fixed; bottom: 0; width: 100%; height: 85px; background: #000; display: flex; z-index: 3000; }
-        .floor-btn { flex: 1; color: #fff; text-align: center; padding: 18px 0; opacity: 0.35; cursor: pointer; border: none; background: none; font-family: var(--main-font); }
-        .floor-btn.active { opacity: 1; }
-        .floor-num { display: block; font-family: var(--main-font); font-size: 24px; font-weight: 600; }
-        .floor-label { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
-
-        /* --- 2階層ナビゲーション --- */
-        .sub-nav-container { position: sticky; top: 0; z-index: 500; background: #fff; }
-        .mode-nav { display: flex; justify-content: center; gap: 40px; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
+        /* --- 3-TIER NAVIGATION --- */
+        .nav-stack { position: sticky; top: 0; z-index: 500; background: #fff; border-bottom: 1px solid #eee; }
+        
+        /* Tier 1: Mode */
+        .tier-mode { display: flex; justify-content: center; gap: 40px; padding: 12px 0; border-bottom: 1px solid #f2f2f2; }
         .mode-item { font-size: 11px; letter-spacing: 0.2em; color: var(--grey); cursor: pointer; transition: 0.3s; }
         .mode-item.active { color: #000; font-weight: bold; border-bottom: 1.5px solid #000; }
-        .area-nav { display: flex; gap: 30px; padding: 15px 40px; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #f2f2f2; }
-        .area-nav::-webkit-scrollbar { display: none; }
-        .area-item { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--grey); cursor: pointer; white-space: nowrap; padding-bottom: 5px; transition: 0.3s; }
-        .area-item.active { color: #000; font-weight: bold; }
 
-        #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
+        /* Tier 2: Floor */
+        .tier-floor { display: flex; justify-content: center; gap: 25px; padding: 10px 0; background: #fafafa; border-bottom: 1px solid #f2f2f2; }
+        .floor-item { font-size: 11px; font-weight: bold; color: var(--grey); cursor: pointer; transition: 0.2s; }
+        .floor-item.active { color: #000; text-decoration: underline; text-underline-offset: 4px; }
+
+        /* Tier 3: Zones */
+        .tier-zone { display: flex; gap: 30px; padding: 12px 40px; overflow-x: auto; scrollbar-width: none; background: #fff; }
+        .tier-zone::-webkit-scrollbar { display: none; }
+        .zone-item { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--grey); cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .zone-item.active { color: #000; font-weight: bold; }
+
+        /* --- VIEWPORT --- */
+        #viewport { width: 100%; height: 100%; padding: 85px 0 0 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
         @media screen and (min-width: 769px) { body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); } }
 
         .scene-wrap { width: 100%; position: relative; line-height: 0; font-size: 0; }
-        .scene-wrap img { width: 100%; height: auto; display: block; }
+        .mol-breakout-wrap { width: 120%; margin-left: -10%; position: relative; left: 0; text-align: center; }
+        @media screen and (max-width: 768px) { .mol-breakout-wrap { width: 100%; margin-left: 0; } }
+        .mol-breakout-wrap img { width: 100%; height: auto; display: block; border: none; }
 
-        .floor-metrics { padding: 20px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; gap: 30px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
+        /* ARCHITECTURAL INFO (Horizontal) */
+        .floor-info-bar { padding: 15px 40px; background: #fdfdfd; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 40px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
+        .info-item b { color: #000; margin-right: 6px; }
 
-        /* PIN ◎ & CARD */
+        /* PIN ◎ & SMART CARD */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
-        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 18px 22px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 200px; max-width: 260px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0; }
-        .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 14px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
-        .spec-row { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 3px; gap: 15px; }
-        .mol-card .price { font-size: 11px; font-weight: bold; margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; display: block; text-align: center; }
+        
+        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 20px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 220px; max-width: 280px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0; }
+        .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 15px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .spec-row { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 4px; gap: 20px; }
+        .spec-label { color: var(--grey); text-transform: uppercase; font-weight: bold; }
+        .spec-value { text-align: right; }
+        
+        .card-actions { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; display: grid; gap: 8px; }
+        .card-btn { display: block; padding: 10px; font-size: 9px; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; border-radius: 2px; transition: 0.2s; }
+        .btn-prod { background: #000; color: #fff; }
+        .btn-inq { border: 1px solid #000; color: #000; }
+
         .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 32px; }
 
-        /* CONTACT BUTTON */
-        #inquiry-btn { position: fixed; bottom: 100px; right: 25px; z-index: 2500; background: #fff; color: #000; border: 1px solid #000; padding: 12px 20px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em; text-decoration: none; transition: 0.3s; }
-        #inquiry-btn:hover { background: #000; color: #fff; }
+        /* CONTACT TAB (FLOATING) */
+        #global-inquiry { position: fixed; bottom: 30px; right: 30px; z-index: 2500; background: #000; color: #fff; padding: 14px 24px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
         /* DESIGNER UI */
         #ui-mode-toggle { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; background: rgba(255,255,255,0.9); padding: 4px; border: 1px solid var(--border); border-radius: 2px; }
@@ -63,12 +80,8 @@
         #ui-mode-toggle button.active { background: #000; color: #fff; }
         #admin-panel { position: fixed; top: 0; left: -400px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
         #admin-panel.open { left: 0; }
-        .admin-section { margin-bottom: 25px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
-        .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 8px; display: block; }
         input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 11px; text-transform: uppercase; }
-        .btn-black { background: #000; color: #fff; }
-        .btn-accent { background: var(--accent); color: #fff; }
+        .btn-black { background: #000; color: #fff; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 11px; }
         .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; }
         body.pinning-mode-active .edit-x { display: flex; }
         #export-output { display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; }
@@ -76,34 +89,36 @@
         @media screen and (max-width: 768px) {
             #ui-mode-toggle, #admin-panel, .location { display: none !important; }
             #viewport { width: 100% !important; transform: none !important; padding-top: 85px !important; }
-            #inquiry-btn { bottom: 95px; right: 15px; padding: 10px 15px; font-size: 9px; }
+            #global-inquiry { bottom: 20px; right: 20px; padding: 12px 18px; font-size: 9px; }
+            .floor-info-bar { gap: 15px; padding: 15px 20px; font-size: 9px; }
         }
     </style>
 
     <script>
-        /* --- AUTO-SAVE TOUR SUITE v40 --- */
+        /* --- MASTER SUITE v41 --- */
         const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_v40";
+        const DB_NAME = "pmt_master_v41";
 
-        // --- デフォルトデータ構造 ---
         let store = JSON.parse(localStorage.getItem(DB_NAME)) || {
             inquiryUrl: "https://www.molteni.it/jp/contact",
-            'B1F': { metrics: {ch:'2980', sqm:'29', jo:'18', tsubo:'9'}, map: [], tour: [] },
-            '1F': { metrics: {ch:'2900', sqm:'40', jo:'25', tsubo:'12'}, map: [], tour: [] },
-            '2F': { metrics: {ch:'2650', sqm:'32', jo:'20', tsubo:'10'}, map: [], tour: [] },
-            '3F': { metrics: {ch:'2650', sqm:'32', jo:'20', tsubo:'9'}, map: [], tour: [] }
+            map: { 'B1F':[], '1F':[], '2F':[], '3F':[] },
+            tour: { 'B1F':[], '1F':[], '2F':[], '3F':[] },
+            metrics: {
+                'B1F': {ch:'2980', sqm:'29', jo:'18', tsubo:'9'},
+                '1F': {ch:'2900', sqm:'40', jo:'25', tsubo:'12'},
+                '2F': {ch:'2650', sqm:'32', jo:'20', tsubo:'10'},
+                '3F': {ch:'2650', sqm:'32', jo:'20', tsubo:'9'}
+            }
         };
 
-        let floor = '1F';
-        let viewMode = 'map';
-        let areaId = null;
+        let currentMode = 'map';
+        let currentFloor = '1F';
+        let currentAreaId = null;
         let adminMode = 'view';
         let isPinning = false;
 
-        // 1. 自動保存関数（ローカル）
         function autoSave() {
             localStorage.setItem(DB_NAME, JSON.stringify(store));
-            console.log("Progress auto-saved locally.");
         }
 
         window.changeAppMode = function(m) {
@@ -118,7 +133,7 @@
 
         window.handleViewportClick = function(e) {
             if (adminMode === 'edit' && !isPinning) {
-                if (e.target.closest('.area-nav') || e.target.closest('.mode-nav') || e.target.closest('.mol-hs')) return;
+                if (e.target.closest('.nav-stack') || e.target.closest('.mol-hs')) return;
                 window.changeAppMode('view'); return;
             }
             if (adminMode === 'edit' && isPinning) {
@@ -134,76 +149,86 @@
             isPinning = !isPinning;
             const btn = document.getElementById('pin-switch-btn');
             btn.classList.toggle('active', isPinning);
-            btn.innerText = isPinning ? "Placement Mode: ACTIVE" : "Placement Mode: OFF";
+            btn.innerText = isPinning ? "Placement Mode: ON" : "Placement Mode: OFF";
             document.body.classList.toggle('pinning-mode-active', isPinning);
         };
 
-        window.handleFloorChange = function(f) {
-            floor = f;
-            document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById('f-'+f).classList.add('active');
+        window.setFloor = function(f) {
+            currentFloor = f;
+            document.querySelectorAll('.floor-item').forEach(el => el.classList.toggle('active', el.innerText === f));
             document.getElementById('admin-f-label').innerText = f;
-            const m = store[floor].metrics;
-            document.getElementById('m-ch').value = m.ch;
-            document.getElementById('m-sqm').value = m.sqm;
-            document.getElementById('m-jo').value = m.jo;
-            document.getElementById('m-tsubo').value = m.tsubo;
+            const m = store.metrics[f];
+            document.getElementById('m-ch').value = m.ch; document.getElementById('m-sqm').value = m.sqm;
+            document.getElementById('m-jo').value = m.jo; document.getElementById('m-tsubo').value = m.tsubo;
             document.getElementById('inquiry-url-in').value = store.inquiryUrl;
-            renderAreaNav();
+            currentAreaId = null;
+            renderZoneNav();
         };
 
-        window.switchViewMode = function(m) {
-            viewMode = m;
-            document.getElementById('mode-map').classList.toggle('active', m === 'map');
-            document.getElementById('mode-tour').classList.toggle('active', m === 'tour');
-            areaId = null;
-            renderAreaNav();
+        window.setMode = function(m) {
+            currentMode = m;
+            document.getElementById('mode-map-tab').classList.toggle('active', m === 'map');
+            document.getElementById('mode-tour-tab').classList.toggle('active', m === 'tour');
+            currentAreaId = null;
+            renderZoneNav();
         };
 
-        function renderAreaNav() {
+        function renderZoneNav() {
             const nav = document.getElementById('area-nav');
             nav.innerHTML = '';
-            const list = store[floor][viewMode];
+            const list = store[currentMode][currentFloor];
             if(list.length === 0) {
-                document.getElementById('scene-display').innerHTML = '<div style="padding:100px; text-align:center; color:#ccc;">Please build this section in Designer.</div>';
+                document.getElementById('scene-display').innerHTML = `<div class="empty-state" style="padding:100px;text-align:center;color:#ccc;">No content in ${currentMode.toUpperCase()} ${currentFloor}.<br>Add Zones in Designer mode.</div>`;
                 document.getElementById('edit-tools').style.display = 'none';
                 return;
             }
             list.forEach(a => {
                 const el = document.createElement('div');
-                el.className = `area-item ${a.id === areaId ? 'active' : ''}`;
-                el.id = `nav-${a.id}`;
+                el.className = `zone-item ${a.id === currentAreaId ? 'active' : ''}`;
                 el.innerText = a.name;
-                el.onclick = (e) => { e.stopPropagation(); selectActiveArea(a.id); };
+                el.onclick = (e) => { e.stopPropagation(); selectZone(a.id); };
                 nav.appendChild(el);
             });
-            if(!areaId || !list.find(x => x.id === areaId)) selectActiveArea(list[0].id);
-            else selectActiveArea(areaId);
+            if(!currentAreaId || !list.find(x => x.id === currentAreaId)) selectZone(list[0].id);
+            else selectZone(currentAreaId);
         }
 
-        function selectActiveArea(id) {
-            areaId = id;
-            const a = store[floor][viewMode].find(x => x.id === id);
-            document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
+        function selectZone(id) {
+            currentAreaId = id;
+            const a = store[currentMode][currentFloor].find(x => x.id === id);
+            document.querySelectorAll('.zone-item').forEach(el => el.classList.toggle('active', el.innerText === a.name));
             renderActiveScene();
             if(adminMode === 'edit') document.getElementById('edit-tools').style.display = 'block';
-            document.getElementById('manual-url').value = a ? a.img : '';
-            document.getElementById('inquiry-btn').href = store.inquiryUrl;
+            document.getElementById('manual-url').value = a.img || '';
+            document.getElementById('global-inquiry').href = store.inquiryUrl;
         }
 
         function renderActiveScene() {
-            const a = store[floor][viewMode].find(x => x.id === areaId);
+            const a = store[currentMode][currentFloor].find(x => x.id === currentAreaId);
             if(!a) return;
-            const m = store[floor].metrics;
-            const metricsHTML = `<div class="floor-metrics"><div class="metric-item"><b>CH</b> ${m.ch}mm</div><div class="metric-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
+            const m = store.metrics[currentFloor];
+            const metricsHTML = `<div class="floor-info-bar"><div class="info-item"><b>CH</b> ${m.ch}mm</div><div class="info-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
+            
             let pinsHTML = '';
             (a.pins || []).forEach(p => {
                 const isP = p.type === 'product';
                 const xBtn = (adminMode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
-                let specs = isP ? `<div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">${p.cat||'-'}</span></div><div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">${p.model||'-'}</span></div><div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">${p.size||'-'}</span></div><div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">${p.finish||'-'}</span></div><div class="price">¥${p.price||'Ask'}</div>` : `<span>${p.sub}</span>`;
-                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a ${isP?`href="${p.link}" target="_blank"`:''} class="mol-card" ontouchstart=""><strong>${p.title}</strong>${specs}</a></div>`;
+                
+                let specs = '';
+                if(isP) {
+                    if(p.cat) specs += `<div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">${p.cat}</span></div>`;
+                    if(p.model) specs += `<div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">${p.model}</span></div>`;
+                    if(p.size) specs += `<div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">${p.size}</span></div>`;
+                    if(p.finish) specs += `<div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">${p.finish}</span></div>`;
+                    if(p.price) specs += `<div class="price">¥${p.price}</div>`;
+                    specs += `<div class="card-actions"><a href="${p.link}" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="${store.inquiryUrl}" target="_blank" class="card-btn btn-inq">製品のお問い合わせ</a></div>`;
+                } else {
+                    specs = `<span>${p.sub}</span>`;
+                }
+
+                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>${p.title}</strong>${specs}</div></div>`;
             });
-            document.getElementById('scene-display').innerHTML = metricsHTML + `<div class="scene-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
+            document.getElementById('scene-display').innerHTML = metricsHTML + `<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
         }
 
         function addPinAt(x, y) {
@@ -211,73 +236,57 @@
             const name = prompt("Name:"); if(!name) return;
             const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
             if(t === 'product') {
-                p.cat = prompt("Category:"); p.model = prompt("Model No:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://");
+                p.cat = prompt("Category:"); p.model = prompt("Model:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("Product URL:", "https://");
             } else { p.sub = prompt("Detail:"); }
-            store[floor][viewMode].find(x => x.id === areaId).pins.push(p);
-            autoSave();
-            renderActiveScene();
+            store[currentMode][currentFloor].find(x => x.id === currentAreaId).pins.push(p);
+            autoSave(); renderActiveScene();
         }
 
         window.handlePinInteraction = function(e, pid) {
             if (adminMode === 'edit') {
                 e.stopPropagation();
-                const p = store[floor][viewMode].find(x => x.id === areaId).pins.find(x => x.id === pid);
-                p.title = prompt("Update Name:", p.title) || p.title;
+                const p = store[currentMode][currentFloor].find(x => x.id === currentAreaId).pins.find(x => x.id === pid);
+                p.title = prompt("Name:", p.title) || p.title;
                 if(p.type === 'product') {
                     p.cat = prompt("Category:", p.cat); p.model = prompt("Model:", p.model); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link);
                 } else { p.sub = prompt("Desc:", p.sub); }
-                autoSave();
-                renderActiveScene();
+                autoSave(); renderActiveScene();
             }
         };
 
         window.handleDeletePin = function(e, pid) {
             e.stopPropagation();
-            const a = store[floor][viewMode].find(x => x.id === areaId);
+            const a = store[currentMode][currentFloor].find(x => x.id === currentAreaId);
             a.pins = a.pins.filter(x => x.id !== pid);
-            autoSave();
-            renderActiveScene();
+            autoSave(); renderActiveScene();
         };
 
         window.handleCreateArea = function() {
             const n = document.getElementById('new-area-name').value; if(!n) return;
             const id = 'a' + Date.now();
-            store[floor][viewMode].push({ id, name: n, img: '', pins: [] });
+            store[currentMode][currentFloor].push({ id, name: n, img: '', pins: [] });
             document.getElementById('new-area-name').value = '';
-            autoSave();
-            renderAreaNav(); selectActiveArea(id);
+            autoSave(); renderZoneNav(); selectZone(id);
         };
 
         window.handleDeleteArea = function() {
-            if(confirm('Delete area?')) {
-                store[floor][viewMode] = store[floor][viewMode].filter(x => x.id !== areaId);
-                areaId = null;
-                autoSave();
-                renderAreaNav();
+            if(confirm('Delete zone?')) {
+                store[currentMode][currentFloor] = store[currentMode][currentFloor].filter(x => x.id !== currentAreaId);
+                currentAreaId = null; autoSave(); renderZoneNav();
             }
         };
 
         window.commitChanges = function() {
-            const m = store[floor].metrics;
+            const m = store.metrics[currentFloor];
             m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
             m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
             store.inquiryUrl = document.getElementById('inquiry-url-in').value;
-            autoSave();
-            alert("Workspace state saved to browser.");
-            renderActiveScene();
+            autoSave(); alert("Committed to storage."); renderActiveScene();
         };
 
         window.updateImageManual = function(v) {
-            const a = store[floor][viewMode].find(x => x.id === areaId);
+            const a = store[currentMode][currentFloor].find(x => x.id === currentAreaId);
             if(a) { a.img = v; autoSave(); renderActiveScene(); }
-        };
-
-        window.handleFileUpload = async (e) => {
-            const f = e.target.files[0]; if(!f) return;
-            const fd = new FormData(); fd.append("image", f);
-            const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
-            const j = await res.json();
-            if(j.success) { window.updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
         };
 
         window.exportPermanentHTML = function() {
@@ -296,17 +305,17 @@
         window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
 
         document.addEventListener('DOMContentLoaded', () => {
-            window.handleFloorChange('1F');
+            window.setFloor('1F');
         });
     </script>
 </head>
-<body id="app-body" class="">
+<body id="app-body">
 
 <div id="admin-overlay" onclick="closeAdmin()"></div>
 
 <div id="ui-mode-toggle">
-    <button id="mode-view" class="" onclick="changeAppMode('view')">VIEW</button>
-    <button id="mode-edit" onclick="changeAppMode('edit')" class="active">DESIGNER</button>
+    <button id="view-mode" class="active" onclick="changeAppMode('view')">VIEW</button>
+    <button id="edit-mode" onclick="changeAppMode('edit')">DESIGNER</button>
 </div>
 
 <header>
@@ -314,69 +323,69 @@
     <div class="location">Interactive Suite</div>
 </header>
 
-<a href="https://molteni.it/jp/product/emile" id="inquiry-btn" target="_blank">Contact Us</a>
+<a href="#" id="global-inquiry" target="_blank">製品についてお問い合わせ</a>
 
-<div id="admin-panel" class="open">
+<div id="admin-panel">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:40px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
     
     <div class="admin-section">
-        <span class="admin-label">Floor Metrics &amp; Inquiry</span>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:10px;">
+        <span class="admin-label">Global Inquiry URL</span>
+        <input type="text" id="inquiry-url-in" placeholder="https://www.molteni.it/...">
+    </div>
+
+    <div class="admin-section">
+        <span class="admin-label">Floor Metrics (<span id="admin-f-label">1F</span>)</span>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
             <input type="text" id="m-ch" placeholder="CH (mm)">
             <input type="text" id="m-sqm" placeholder="Area (sqm)">
             <input type="text" id="m-jo" placeholder="Mats (帖)">
             <input type="text" id="m-tsubo" placeholder="Tsubo (坪)">
         </div>
-        <input type="text" id="inquiry-url-in" placeholder="Inquiry Link URL">
     </div>
 
     <div class="admin-section">
-        <span class="admin-label">Area Setup</span>
-        <input type="text" id="new-area-name" placeholder="New Area Name">
-        <button class="btn btn-black" onclick="handleCreateArea()">Create Area</button>
+        <span class="admin-label">Zone Management</span>
+        <input type="text" id="new-area-name" placeholder="New Zone Name">
+        <button class="btn-black" style="width:100%;" onclick="handleCreateArea()">Create Zone</button>
     </div>
 
-    <div id="edit-tools" style="display: block;">
+    <div id="edit-tools" style="display:none;">
         <div class="admin-section">
-            <span class="admin-label">Content</span>
-            <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)">
+            <span class="admin-label">Zone Media & Interaction</span>
             <input type="text" id="manual-url" placeholder="Asset URL" onchange="updateImageManual(this.value)">
-            <span class="admin-label" style="margin-top:20px;">Interaction</span>
-            <div id="pin-switch-btn" class="pin-switch" onclick="handlePinToggle()">Placement Mode: OFF</div>
-            <select id="marker-type"><option value="product">● Product Link</option><option value="detail">■ Interior Detail</option></select>
+            <div id="pin-switch-btn" class="pin-switch" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: OFF</div>
+            <select id="marker-type"><option value="product">● Product Pin</option><option value="detail">■ Detail Pin</option></select>
         </div>
-        <button class="btn btn-accent" onclick="commitChanges()">Save Progress</button>
-        <button class="btn btn-black" style="margin-top:10px;" onclick="exportPermanentHTML()">Export GitHub Code</button>
-        <button class="btn" style="margin-top:20px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove Area</button>
+        <button class="btn-black" style="width:100%; background:var(--accent); color:#fff; border:none; margin-bottom:10px;" onclick="commitChanges()">Commit Floor Progress</button>
+        <button class="btn-black" style="width:100%; background:#333; color:#fff; border:none; margin-bottom:10px;" onclick="exportPermanentHTML()">Export GitHub Code</button>
+        <button class="btn-black" style="width:100%; background:#fff; color:red; border:1px solid red;" onclick="handleDeleteArea()">Remove Zone</button>
     </div>
 </div>
 
 <div id="export-output">
     <div style="max-width: 800px; margin: auto;">
         <h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2>
-        <textarea id="export-text" readonly="" style="height: 400px; font-size: 10px; width:100%;"></textarea>
-        <button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button>
+        <textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea>
+        <button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button>
     </div>
 </div>
 
 <div id="viewport" onclick="handleViewportClick(event)">
-    <div class="sub-nav-container">
+    <div class="nav-stack">
         <div class="mode-nav">
-            <div id="mode-map" class="mode-item active" onclick="switchViewMode('map')">FLOORMAP</div>
-            <div id="mode-tour" class="mode-item" onclick="switchViewMode('tour')">TOUR</div>
+            <div id="mode-map-tab" class="mode-item active" onclick="setMode('map')">FLOORMAP</div>
+            <div id="mode-tour-tab" class="mode-item" onclick="setMode('tour')">TOUR</div>
         </div>
-        <div class="area-nav" id="area-nav"><div class="area-item active" id="nav-a1768455435042">テスト</div></div>
+        <div class="tier-floor">
+            <div class="floor-item" onclick="setFloor('B1F')">B1F</div>
+            <div class="floor-item" onclick="setFloor('1F')">1F</div>
+            <div class="floor-item" onclick="setFloor('2F')">2F</div>
+            <div class="floor-item" onclick="setFloor('3F')">3F</div>
+        </div>
+        <div class="area-nav" id="area-nav"></div>
     </div>
-    <div id="scene-display"><div class="floor-metrics"><div class="metric-item"><b>CH</b> 99999mm</div><div class="metric-item"><b>Area</b> 9999㎡ / 99帖 / 99坪</div></div><div class="scene-wrap" id="scene-stage"><img src="https://i.ibb.co/FbW9vNns/1F-Front.png"><div class="mol-hs " style="top:46.73%; left:49.31%;" onclick="handlePinInteraction(event, 'p1768455457317')"><div class="edit-x" onclick="handleDeletePin(event,'p1768455457317')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a href="https://molteni.it/jp/product/emile" target="_blank" class="mol-card" ontouchstart=""><strong>テスト</strong><div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">テスト</span></div><div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">テスト</span></div><div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">テスト</span></div><div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">テスト</span></div><div class="price">¥99999999</div></a></div></div></div>
+    <div id="scene-display"></div>
 </div>
 
-<footer>
-    <div class="floor-btn" onclick="handleFloorChange('B1F')" id="f-B1F"><span class="floor-num">B1</span><span class="floor-label">Basement</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('1F')" id="f-1F"><span class="floor-num">1F</span><span class="floor-label">Ground</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('2F')" id="f-2F"><span class="floor-num">2F</span><span class="floor-label">Living</span></div>
-    <div class="floor-btn active" onclick="handleFloorChange('3F')" id="f-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div>
-</footer>
-
-
-
-</body></html>
+</body>
+</html>
