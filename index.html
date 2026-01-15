@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PALAZZO MOLTENI TOKYO | Virtual Tour Suite</title>
@@ -26,30 +27,23 @@
 
         /* --- 2階層ナビゲーション --- */
         .sub-nav-container { position: sticky; top: 0; z-index: 500; background: #fff; }
-        
-        /* 階層1: MAP / TOUR 切り替え */
         .mode-nav { display: flex; justify-content: center; gap: 40px; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
         .mode-item { font-size: 11px; letter-spacing: 0.2em; color: var(--grey); cursor: pointer; transition: 0.3s; }
         .mode-item.active { color: #000; font-weight: bold; border-bottom: 1.5px solid #000; }
-
-        /* 階層2: A, B, C エリア選択 */
         .area-nav { display: flex; gap: 30px; padding: 15px 40px; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #f2f2f2; }
         .area-nav::-webkit-scrollbar { display: none; }
         .area-item { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--grey); cursor: pointer; white-space: nowrap; padding-bottom: 5px; transition: 0.3s; }
         .area-item.active { color: #000; font-weight: bold; }
 
         #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
-        @media screen and (min-width: 769px) {
-            body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); }
-        }
+        @media screen and (min-width: 769px) { body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); } }
 
         .scene-wrap { width: 100%; position: relative; line-height: 0; font-size: 0; }
-        .scene-wrap img { width: 100%; height: auto; display: block; border-radius: 0; }
+        .scene-wrap img { width: 100%; height: auto; display: block; }
 
-        /* FLOOR METRICS */
         .floor-metrics { padding: 20px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; gap: 30px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
 
-        /* PIN & CARD */
+        /* PIN ◎ & CARD */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
@@ -60,7 +54,7 @@
         .mol-card .price { font-size: 11px; font-weight: bold; margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; display: block; text-align: center; }
         .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 32px; }
 
-        /* INQUIRY BUTTON (常に表示) */
+        /* CONTACT BUTTON */
         #inquiry-btn { position: fixed; bottom: 100px; right: 25px; z-index: 2500; background: #fff; color: #000; border: 1px solid #000; padding: 12px 20px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em; text-decoration: none; transition: 0.3s; }
         #inquiry-btn:hover { background: #000; color: #fff; }
 
@@ -88,11 +82,11 @@
     </style>
 
     <script>
-        /* --- INTEGRATED TOUR SUITE v39 --- */
+        /* --- AUTO-SAVE TOUR SUITE v40 --- */
         const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_v39";
+        const DB_NAME = "pmt_master_v40";
 
-        // データ構造のアップグレード
+        // --- デフォルトデータ構造 ---
         let store = JSON.parse(localStorage.getItem(DB_NAME)) || {
             inquiryUrl: "https://www.molteni.it/jp/contact",
             'B1F': { metrics: {ch:'2980', sqm:'29', jo:'18', tsubo:'9'}, map: [], tour: [] },
@@ -102,10 +96,16 @@
         };
 
         let floor = '1F';
-        let viewMode = 'map'; // 'map' or 'tour'
+        let viewMode = 'map';
         let areaId = null;
         let adminMode = 'view';
         let isPinning = false;
+
+        // 1. 自動保存関数（ローカル）
+        function autoSave() {
+            localStorage.setItem(DB_NAME, JSON.stringify(store));
+            console.log("Progress auto-saved locally.");
+        }
 
         window.changeAppMode = function(m) {
             if (window.innerWidth <= 768) return;
@@ -144,14 +144,12 @@
             document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('active'));
             document.getElementById('f-'+f).classList.add('active');
             document.getElementById('admin-f-label').innerText = f;
-            
             const m = store[floor].metrics;
             document.getElementById('m-ch').value = m.ch;
             document.getElementById('m-sqm').value = m.sqm;
             document.getElementById('m-jo').value = m.jo;
             document.getElementById('m-tsubo').value = m.tsubo;
             document.getElementById('inquiry-url-in').value = store.inquiryUrl;
-
             renderAreaNav();
         };
 
@@ -167,9 +165,8 @@
             const nav = document.getElementById('area-nav');
             nav.innerHTML = '';
             const list = store[floor][viewMode];
-
             if(list.length === 0) {
-                document.getElementById('scene-display').innerHTML = '<div style="padding:100px; text-align:center; color:#ccc;">Create ' + viewMode.toUpperCase() + ' area in Designer.</div>';
+                document.getElementById('scene-display').innerHTML = '<div style="padding:100px; text-align:center; color:#ccc;">Please build this section in Designer.</div>';
                 document.getElementById('edit-tools').style.display = 'none';
                 return;
             }
@@ -200,7 +197,6 @@
             if(!a) return;
             const m = store[floor].metrics;
             const metricsHTML = `<div class="floor-metrics"><div class="metric-item"><b>CH</b> ${m.ch}mm</div><div class="metric-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
-            
             let pinsHTML = '';
             (a.pins || []).forEach(p => {
                 const isP = p.type === 'product';
@@ -219,6 +215,7 @@
                 p.cat = prompt("Category:"); p.model = prompt("Model No:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://");
             } else { p.sub = prompt("Detail:"); }
             store[floor][viewMode].find(x => x.id === areaId).pins.push(p);
+            autoSave();
             renderActiveScene();
         }
 
@@ -230,6 +227,7 @@
                 if(p.type === 'product') {
                     p.cat = prompt("Category:", p.cat); p.model = prompt("Model:", p.model); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link);
                 } else { p.sub = prompt("Desc:", p.sub); }
+                autoSave();
                 renderActiveScene();
             }
         };
@@ -238,6 +236,7 @@
             e.stopPropagation();
             const a = store[floor][viewMode].find(x => x.id === areaId);
             a.pins = a.pins.filter(x => x.id !== pid);
+            autoSave();
             renderActiveScene();
         };
 
@@ -246,29 +245,32 @@
             const id = 'a' + Date.now();
             store[floor][viewMode].push({ id, name: n, img: '', pins: [] });
             document.getElementById('new-area-name').value = '';
-            window.commitChanges(true); renderAreaNav(); selectActiveArea(id);
+            autoSave();
+            renderAreaNav(); selectActiveArea(id);
         };
 
         window.handleDeleteArea = function() {
             if(confirm('Delete area?')) {
                 store[floor][viewMode] = store[floor][viewMode].filter(x => x.id !== areaId);
-                areaId = null; window.commitChanges(true); renderAreaNav();
+                areaId = null;
+                autoSave();
+                renderAreaNav();
             }
         };
 
-        window.commitChanges = function(silent = false) {
+        window.commitChanges = function() {
             const m = store[floor].metrics;
             m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
             m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
             store.inquiryUrl = document.getElementById('inquiry-url-in').value;
-            localStorage.setItem(DB_NAME, JSON.stringify(store));
-            if(!silent) alert("Progress saved.");
+            autoSave();
+            alert("Workspace state saved to browser.");
             renderActiveScene();
         };
 
         window.updateImageManual = function(v) {
             const a = store[floor][viewMode].find(x => x.id === areaId);
-            if(a) { a.img = v; renderActiveScene(); }
+            if(a) { a.img = v; autoSave(); renderActiveScene(); }
         };
 
         window.handleFileUpload = async (e) => {
@@ -299,13 +301,13 @@
         });
     </script>
 </head>
-<body id="app-body" class="">
+<body id="app-body">
 
 <div id="admin-overlay" onclick="closeAdmin()"></div>
 
 <div id="ui-mode-toggle">
-    <button id="mode-view" class="" onclick="changeAppMode('view')">VIEW</button>
-    <button id="mode-edit" onclick="changeAppMode('edit')" class="active">DESIGNER</button>
+    <button id="mode-view" class="active" onclick="changeAppMode('view')">VIEW</button>
+    <button id="mode-edit" onclick="changeAppMode('edit')">DESIGNER</button>
 </div>
 
 <header>
@@ -313,13 +315,13 @@
     <div class="location">Interactive Suite</div>
 </header>
 
-<a href="https://molteni.it/store/tokyo-flagship-store/jp/#open-contact-form" id="inquiry-btn" target="_blank">Contact Us</a>
+<a href="#" id="inquiry-btn" target="_blank">Contact Us</a>
 
-<div id="admin-panel" class="open">
+<div id="admin-panel">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:40px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
     
     <div class="admin-section">
-        <span class="admin-label">Floor Metrics &amp; Inquiry</span>
+        <span class="admin-label">Floor Metrics & Inquiry</span>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:10px;">
             <input type="text" id="m-ch" placeholder="CH (mm)">
             <input type="text" id="m-sqm" placeholder="Area (sqm)">
@@ -335,7 +337,7 @@
         <button class="btn btn-black" onclick="handleCreateArea()">Create Area</button>
     </div>
 
-    <div id="edit-tools" style="display: block;">
+    <div id="edit-tools" style="display:none;">
         <div class="admin-section">
             <span class="admin-label">Content</span>
             <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)">
@@ -345,15 +347,15 @@
             <select id="marker-type"><option value="product">● Product Link</option><option value="detail">■ Interior Detail</option></select>
         </div>
         <button class="btn btn-accent" onclick="commitChanges()">Save Progress</button>
-        <button class="btn btn-black" style="margin-top:10px;" onclick="exportPermanentHTML()">Export for GitHub</button>
-        <button class="btn" style="margin-top:20px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove Current Area</button>
+        <button class="btn btn-black" style="margin-top:10px;" onclick="exportPermanentHTML()">Export GitHub Code</button>
+        <button class="btn" style="margin-top:20px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove Area</button>
     </div>
 </div>
 
-<div id="export-output" style="display: none;">
+<div id="export-output">
     <div style="max-width: 800px; margin: auto;">
-        <h2 style="font-family: var(--bodoni); font-weight: 600;">Final Export</h2>
-        <textarea id="export-text" readonly="" style="height: 400px; font-size: 10px; width:100%;"></textarea>
+        <h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2>
+        <textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea>
         <button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button>
     </div>
 </div>
@@ -361,12 +363,12 @@
 <div id="viewport" onclick="handleViewportClick(event)">
     <div class="sub-nav-container">
         <div class="mode-nav">
-            <div id="mode-map" class="mode-item" onclick="switchViewMode('map')">FLOORMAP</div>
-            <div id="mode-tour" class="mode-item active" onclick="switchViewMode('tour')">TOUR</div>
+            <div id="mode-map" class="mode-item active" onclick="switchViewMode('map')">FLOORMAP</div>
+            <div id="mode-tour" class="mode-item" onclick="switchViewMode('tour')">TOUR</div>
         </div>
-        <div class="area-nav" id="area-nav"><div class="area-item active" id="nav-a1768450756005">1F - Living </div></div>
+        <div class="area-nav" id="area-nav"></div>
     </div>
-    <div id="scene-display"><div class="floor-metrics"><div class="metric-item"><b>CH</b> 2900mm</div><div class="metric-item"><b>Area</b> 約23㎡ / 約14帖 / 約7坪</div></div><div class="scene-wrap" id="scene-stage"><img src="https://i.ibb.co/DPtZ50qf/1F-01.png"><div class="mol-hs " style="top:68.09%; left:14.2%;" onclick="handlePinInteraction(event, 'p1768450794573')"><div class="edit-x" onclick="handleDeletePin(event,'p1768450794573')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a href="https://molteni.it/jp/product/emile" target="_blank" class="mol-card" ontouchstart=""><strong>GATWICK</strong><div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">Dining Table</span></div><div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">GTO2412F(BKN)</span></div><div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">Φ.2400 D.1200 H.740</span></div><div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">EU / Eucalyptus, BKN / Black Nickel colour</span></div><div class="price">¥2,245,100</div></a></div></div></div>
+    <div id="scene-display"></div>
 </div>
 
 <footer>
@@ -376,6 +378,5 @@
     <div class="floor-btn" onclick="handleFloorChange('3F')" id="f-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div>
 </footer>
 
-
-
-</body></html>
+</body>
+</html>
