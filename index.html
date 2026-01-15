@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALAZZO MOLTENI TOKYO | Virtual Tour Suite</title>
+    <title>PALAZZO MOLTENI TOKYO | Architectural Tour</title>
     <style>
         /* --- BRANDING & FONTS --- */
         @import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&display=swap');
         :root { 
             --accent: #007AFF; --grey: #86868B; --border: #D2D2D7; 
             --main-font: "Tabac SemiBold", "Tabac-SemiBold", "Tabac Sans SemiBold", "Libre Bodoni", serif;
-            --panel-w: 350px; 
+            --panel-w: 380px; 
         }
 
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: var(--main-font); overflow: hidden; color: #000; -webkit-font-smoothing: antialiased; }
 
-        /* --- HEADER & FOOTER --- */
         header { position: fixed; top: 0; width: 100%; height: 85px; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); z-index: 2000; border-bottom: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .brand-title { font-family: var(--main-font); font-size: 24px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 5px; }
         .location { font-size: 8px; letter-spacing: 0.5em; color: var(--grey); text-transform: uppercase; margin-top: 8px; margin-bottom: 5px; }
@@ -25,11 +25,8 @@
         .floor-num { display: block; font-family: var(--main-font); font-size: 24px; font-weight: 600; }
         .floor-label { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
 
-        /* --- VIEWPORT --- */
         #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
-        @media screen and (min-width: 769px) {
-            body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); }
-        }
+        @media screen and (min-width: 769px) { body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); } }
 
         .area-nav { display: flex; gap: 35px; padding: 25px 40px; overflow-x: auto; background: #fff; border-bottom: 1px solid #f2f2f2; scrollbar-width: none; position: sticky; top: 0; z-index: 500; }
         .area-nav::-webkit-scrollbar { display: none; }
@@ -40,79 +37,75 @@
         .nav-arrow:hover { color: rgba(0,0,0,1); background: rgba(255,255,255,0.8); }
         .arrow-left { left: 25px; } .arrow-right { right: 25px; }
 
-        /* --- IMAGE BREAKOUT (120%) --- */
-        .scene-wrap { width: 100%; position: relative; line-height: 0; font-size: 0; }
-        .mol-breakout-wrap { width: 120%; margin-left: -10%; position: relative; left: 0; text-align: center; line-height: 0; font-size: 0; }
-        .mol-breakout-wrap img { width: 100%; height: auto; display: block; border-radius: 0; border: none; }
+        .mol-breakout-wrap { width: 120% !important; margin-left: -10% !important; position: relative; left: 0; text-align: center; line-height: 0; font-size: 0; }
+        @media screen and (max-width: 768px) { .mol-breakout-wrap { width: 100% !important; margin-left: 0 !important; } }
+        .mol-breakout-wrap img { width: 100%; height: auto; display: block; border: none; }
 
-        /* --- PIN DESIGN ◎ --- */
+        /* --- FLOOR METRICS OVERLAY --- */
+        .floor-metrics { padding: 20px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; gap: 30px; font-size: 11px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
+        .metric-item b { color: #000; margin-right: 5px; }
+
+        /* --- REFINED PIN ◎ & SPEC CARD --- */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
-        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 12px 18px; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: max-content; max-width: 220px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: center; line-height: 1.5; color: #000; }
-        .mol-card strong { font-family: var(--main-font); font-size: 12px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 4px; }
-        .mol-card span { font-family: var(--main-font); font-size: 9px; color: var(--grey); font-weight: bold; display: block; }
-        .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 30px; }
+        
+        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 18px 22px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 200px; max-width: 260px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0; }
+        .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 14px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; letter-spacing: 0.05em; }
+        
+        .spec-row { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 3px; gap: 15px; }
+        .spec-label { color: var(--grey); text-transform: uppercase; font-weight: bold; }
+        .spec-value { text-align: right; font-weight: 500; }
+        .mol-card .price { font-size: 11px; font-weight: bold; margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; display: block; text-align: center; }
+        .mol-card .link-hint { font-size: 8px; color: var(--accent); font-weight: bold; text-align: center; display: block; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 32px; }
         .mol-hs:hover .mol-dot-outer { background: rgba(255,255,255,0.6); transform: scale(1.1); }
 
-        /* --- DESIGNER PANEL --- */
+        /* DESIGNER UI */
         #ui-mode-toggle { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; background: rgba(255,255,255,0.9); padding: 4px; border: 1px solid var(--border); border-radius: 2px; }
         #ui-mode-toggle button { border: none; background: none; padding: 8px 18px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: var(--main-font); }
         #ui-mode-toggle button.active { background: #000; color: #fff; }
-        #admin-panel { position: fixed; top: 0; left: -400px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
+        #admin-panel { position: fixed; top: 0; left: -420px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
         #admin-panel.open { left: 0; }
-        .pin-switch { margin-bottom: 15px; padding: 15px; border: 1px solid #000; text-align: center; cursor: pointer; font-size: 11px; font-weight: bold; background: #fff; }
-        .pin-switch.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-        .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; }
-        body.pinning-mode-active .edit-x { display: flex; }
-        .admin-section { margin-bottom: 30px; }
+        .admin-section { margin-bottom: 30px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
         .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 12px; display: block; }
-        input, select, textarea { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 10px; font-family: inherit; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; font-family: inherit; }
         .btn { width: 100%; padding: 16px; border: none; border-radius: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 11px; text-transform: uppercase; }
         .btn-black { background: #000; color: #fff; }
         .btn-accent { background: var(--accent); color: #fff; }
+        .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; }
+        body.pinning-mode-active .edit-x { display: flex; }
         #export-output { display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; }
 
-        /* --- MOBILE OPTIMIZATION (FINAL FIX) --- */
         @media screen and (max-width: 768px) {
             #ui-mode-toggle, .nav-arrow, #admin-panel, .location { display: none !important; }
             .brand-title { font-size: 18px; letter-spacing: 0.12em; font-weight: 600; }
-            /* スマホでは120%幅をリセットして画面にフィットさせる */
-            .mol-breakout-wrap { 
-                width: 100% !important; 
-                margin: 0 !important; 
-                display: block !important; 
-                left: 0 !important; 
-            }
-            .mol-breakout-wrap img { 
-                width: 100% !important; 
-                height: auto !important; 
-                max-width: 100vw !important; 
-            }
-            #viewport { 
-                width: 100% !important; 
-                transform: none !important; 
-                padding: 85px 0 85px 0 !important;
-            }
+            .mol-breakout-wrap { width: 100% !important; margin: 0 !important; left: 0 !important; }
+            #viewport { width: 100% !important; transform: none !important; padding: 85px 0 85px 0 !important; }
+            .floor-metrics { gap: 15px; padding: 15px 20px; font-size: 9px; flex-wrap: wrap; }
         }
     </style>
 
     <script>
-        /* --- CORE APP LOGIC v36 --- */
+        /* --- ARCHITECTURAL SUITE v37 --- */
         const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_v36";
+        const DB_NAME = "pmt_master_v37";
 
-        // 【封入データ】現在までの全てのエリア情報
-        let store = {"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766976526239","x":26.01,"y":61.63,"title":"LOGOS","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976267330","x":15.66,"y":80.33,"title":"AURA","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[{"id":"a1766976341506","name":"A","img":"https://i.ibb.co/8gCL3D1N/681877c608d4c-Molteni-C-Palazzo-Molteni-Tokyo-05.jpg","pins":[{"id":"p1766976385017","x":40.23,"y":55.33,"title":"HI-LINE 6","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976411630","x":59.98,"y":60.95,"title":"WOODY","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976429334","x":72.24,"y":36.11,"title":"ARIAL","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"2F":[{"id":"a1766742720802","name":"A","img":"https://i.ibb.co/ZznLmDKS/Tokyo-Palazzo-Molteni-04.jpg","pins":[{"id":"p1766742763402","x":32.75,"y":59.92,"title":"mateo","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976469048","x":25,"y":32.11,"title":"照明","link":"","sub":"この照明は〜〜〜〜〜〜〜〜。","type":"detail"},{"id":"p1766976483167","x":53.82,"y":44.79,"title":"アート","link":"","sub":"このアートは〜〜〜〜〜〜〜〜〜〜・","type":"detail"},{"id":"p1766976696375","x":57.86,"y":57.61,"title":"D.153.1","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766742784668","name":"B","img":"https://i.ibb.co/Zpsy2jCm/682ee4fb185ff-Tokyo-MGL0157-2025-HR.jpg","pins":[{"id":"p1766742829619","x":37.9,"y":48.01,"title":"GLISSMASTER","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742845785","x":16.3,"y":62.2,"title":"DUE FOLIE","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976573904","x":15.39,"y":85.47,"title":"DUNA","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976602048","x":79.99,"y":62.2,"title":"ATTICO","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"3F":[{"id":"a1766734621445","name":"A","img":"https://i.ibb.co/nMKmfKdM/682ee5105f756-Molteni-C-Palazzo-Molteni-Tokyo-02.jpg","pins":[{"id":"p1766734648580","x":35.16,"y":39.92,"title":"ARIAL","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734655028","x":57.58,"y":38.47,"title":"505up","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734663812","x":30.19,"y":82.63,"title":"AUGUSTO","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734680242","x":15.03,"y":45.35,"title":"エコスマート","link":"","sub":"エコスマート","type":"detail"},{"id":"p1766734684899","x":82.42,"y":45.61,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766976636047","x":39.12,"y":66.88,"title":"LOUISA","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766739087337","name":"B","img":"https://i.ibb.co/0pWmGHTM/Tokyo-MGL0117-2025-HR.jpg","pins":[{"id":"p1766976727835","x":47.51,"y":56.54,"title":"FAIRMOUNT","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976737525","x":29.14,"y":81.78,"title":"PALINFRASCA","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976762661","x":70.59,"y":70.4,"title":"D.150.5","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766976785616","x":48.73,"y":74.22,"title":"タイル","link":"","sub":"このタイルは〜〜〜〜〜〜。","type":"detail"}]}]};
+        // 初期データにメトリクス構造を追加
+        let store = JSON.parse(localStorage.getItem(DB_NAME)) || { 
+            'B1F': { metrics: { ch: '2980', sqm: '29', jo: '18', tsubo: '9' }, areas: [] },
+            '1F': { metrics: { ch: '2900', sqm: '40', jo: '25', tsubo: '12' }, areas: [] },
+            '2F': { metrics: { ch: '2650', sqm: '32', jo: '20', tsubo: '10' }, areas: [] },
+            '3F': { metrics: { ch: '2650', sqm: '32', jo: '20', tsubo: '9' }, areas: [] }
+        };
 
         let floor = '1F';
         let areaId = null;
         let mode = 'view';
         let isPinning = false;
-        let touchX = 0;
 
-        /* --- GLOBAL HANDLERS --- */
         window.changeAppMode = function(m) {
             if (window.innerWidth <= 768) return;
             mode = m; isPinning = false;
@@ -151,25 +144,30 @@
             document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('active'));
             const btn = document.getElementById('f-'+f); if(btn) btn.classList.add('active');
             document.getElementById('admin-f-label').innerText = f;
-            renderNavList();
-        };
+            
+            // 編集用メトリクスの同期
+            const m = store[floor].metrics;
+            document.getElementById('m-ch').value = m.ch;
+            document.getElementById('m-sqm').value = m.sqm;
+            document.getElementById('m-jo').value = m.jo;
+            document.getElementById('m-tsubo').value = m.tsubo;
 
-        window.navigateArea = function(dir) {
-            if(mode === 'edit') return;
-            const list = store[floor]; const idx = list.findIndex(x => x.id === areaId);
-            const nextIdx = idx + dir;
-            if (nextIdx >= 0 && nextIdx < list.length) selectActiveArea(list[nextIdx].id);
+            renderNavList();
         };
 
         function renderNavList() {
             const nav = document.getElementById('area-nav');
             nav.innerHTML = '';
-            const list = store[floor];
-            if(list.length === 0) {
-                document.getElementById('scene-display').innerHTML = '<div style="padding:100px; text-align:center; color:#ccc;">Palazzo Molteni Tokyo Suite.</div>';
-                document.getElementById('edit-tools').style.display = 'none';
-                return;
-            }
+            const list = store[floor].areas;
+
+            // 各フロアの最初に「FLOOR MAP」を固定追加
+            const mapItem = document.createElement('div');
+            mapItem.className = `area-item ${areaId === 'map' ? 'active' : ''}`;
+            mapItem.id = `nav-map`;
+            mapItem.innerText = 'FLOOR MAP';
+            mapItem.onclick = (e) => { e.stopPropagation(); selectActiveArea('map'); };
+            nav.appendChild(mapItem);
+
             list.forEach(a => {
                 const el = document.createElement('div');
                 el.className = `area-item ${a.id === areaId ? 'active' : ''}`;
@@ -178,95 +176,152 @@
                 el.onclick = (e) => { e.stopPropagation(); selectActiveArea(a.id); };
                 nav.appendChild(el);
             });
-            if(!areaId || !list.find(x => x.id === areaId)) selectActiveArea(list[0].id);
+
+            if(!areaId) selectActiveArea('map');
             else selectActiveArea(areaId);
         }
 
         function selectActiveArea(id) {
             areaId = id;
-            const a = store[floor].find(x => x.id === id);
-            if(!a) return;
-            document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
+            const list = store[floor].areas;
+            const a = (id === 'map') ? { name: 'FLOOR MAP', img: store[floor].mapImg, pins: store[floor].mapPins || [] } : list.find(x => x.id === id);
+            
+            document.querySelectorAll('.area-item').forEach(el => el.classList.remove('active'));
+            const targetNav = document.getElementById(`nav-${id}`);
+            if(targetNav) targetNav.classList.add('active');
+
             renderActiveScene();
             if(mode === 'edit') document.getElementById('edit-tools').style.display = 'block';
-            document.getElementById('manual-url').value = a.img || '';
-            const activeNav = document.getElementById(`nav-${id}`);
-            if(activeNav) activeNav.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            document.getElementById('manual-url').value = a ? a.img : '';
+            if(targetNav) targetNav.scrollIntoView({ behavior: 'smooth', inline: 'center' });
         }
 
         function renderActiveScene() {
-            const a = store[floor].find(x => x.id === areaId);
+            const list = store[floor].areas;
+            const a = (areaId === 'map') ? { name: 'FLOOR MAP', img: store[floor].mapImg, pins: store[floor].mapPins || [] } : list.find(x => x.id === areaId);
             if(!a) return;
-            let pinsHTML = '';
-            a.pins.forEach(p => {
-                const isP = p.type === 'product';
-                const linkAttrs = isP ? `href="${p.link}" target="_blank" rel="noopener noreferrer"` : '';
-                const xBtn = (mode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
-                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a ${linkAttrs} class="mol-card" ontouchstart=""><strong>${p.title}</strong><span>${p.sub}</span></a></div>`;
-            });
-            const container = document.getElementById('scene-display');
-            container.innerHTML = `<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
-        }
 
-        function addPinAt(x, y) {
-            const t = document.getElementById('marker-type').value;
-            const name = prompt("Title:"); if(!name) return;
-            let l = "", s = "商品詳細はこちら >";
-            if(t==='product') l = prompt("URL:"); else s = prompt("Detail:");
-            store[floor].find(x => x.id === areaId).pins.push({ id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, link:l, sub:s, type:t });
-            renderActiveScene();
+            const m = store[floor].metrics;
+            const metricsHTML = `<div class="floor-metrics"><div class="metric-item"><b>CH</b> ${m.ch}mm</div><div class="metric-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
+
+            let pinsHTML = '';
+            (a.pins || []).forEach(p => {
+                const isP = p.type === 'product';
+                const xBtn = (mode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
+                
+                // スペック情報の構築
+                let specContent = '';
+                if(isP) {
+                    specContent = `
+                        <div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">${p.cat || '-'}</span></div>
+                        <div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">${p.model || '-'}</span></div>
+                        <div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">${p.size || '-'}</span></div>
+                        <div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">${p.finish || '-'}</span></div>
+                        <div class="price">¥${p.price || 'Contact Staff'}</div>
+                        <div class="link-hint">VIEW PRODUCT DETAILS &gt;</div>
+                    `;
+                } else {
+                    specContent = `<span>${p.sub}</span>`;
+                }
+
+                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a ${isP?`href="${p.link}" target="_blank"`:''} class="mol-card" ontouchstart=""><strong>${p.title}</strong>${specContent}</a></div>`;
+            });
+
+            document.getElementById('scene-display').innerHTML = `${metricsHTML}<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://i.ibb.co/v4m86fS/placeholder.jpg'}">${pinsHTML}</div>`;
         }
 
         window.handlePinInteraction = function(e, pid) {
             if (mode === 'edit') {
                 e.stopPropagation();
-                const p = store[floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
-                const nt = prompt("Update Title:", p.title);
-                if (nt) {
-                    p.title = nt;
-                    if(p.type === 'product') p.link = prompt("Update URL:", p.link) || p.link;
-                    else p.sub = prompt("Desc:", p.sub) || p.sub;
-                    renderActiveScene();
+                const a = (areaId === 'map') ? { pins: store[floor].mapPins } : store[floor].areas.find(x => x.id === areaId);
+                const p = a.pins.find(x => x.id === pid);
+                
+                p.title = prompt("Product Name:", p.title) || p.title;
+                if(p.type === 'product') {
+                    p.cat = prompt("Category:", p.cat || "");
+                    p.model = prompt("Model No:", p.model || "");
+                    p.size = prompt("Size (W D H SH):", p.size || "");
+                    p.finish = prompt("Finish:", p.finish || "");
+                    p.price = prompt("Price (inc. tax):", p.price || "");
+                    p.link = prompt("URL:", p.link) || p.link;
+                } else {
+                    p.sub = prompt("Description:", p.sub) || p.sub;
                 }
+                renderActiveScene();
             }
         };
 
         window.handleDeletePin = function(e, pid) {
             e.stopPropagation();
-            const a = store[floor].find(x => x.id === areaId);
-            a.pins = a.pins.filter(x => x.id !== pid);
+            const a = (areaId === 'map') ? store[floor] : store[floor].areas.find(x => x.id === areaId);
+            const targetPins = (areaId === 'map') ? 'mapPins' : 'pins';
+            a[targetPins] = a[targetPins].filter(x => x.id !== pid);
             renderActiveScene();
         };
+
+        function addPinAt(x, y) {
+            const t = document.getElementById('marker-type').value;
+            const name = prompt("Name:"); if(!name) return;
+            const pObj = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
+            
+            if(t === 'product') {
+                pObj.cat = prompt("Category:");
+                pObj.model = prompt("Model No:");
+                pObj.size = prompt("Size (W D H SH):");
+                pObj.finish = prompt("Finish:");
+                pObj.price = prompt("Price:");
+                pObj.link = prompt("URL:", "https://");
+            } else {
+                pObj.sub = prompt("Detail:");
+            }
+
+            if(areaId === 'map') {
+                if(!store[floor].mapPins) store[floor].mapPins = [];
+                store[floor].mapPins.push(pObj);
+            } else {
+                store[floor].areas.find(x => x.id === areaId).pins.push(pObj);
+            }
+            renderActiveScene();
+        }
 
         window.handleCreateArea = function() {
             const n = document.getElementById('new-area-name').value; if(!n) return;
             const id = 'a' + Date.now();
-            store[floor].push({ id, name: n, img: '', pins: [] });
+            store[floor].areas.push({ id, name: n, img: '', pins: [] });
             document.getElementById('new-area-name').value = '';
             window.commitChanges(true); renderNavList(); selectActiveArea(id);
         };
 
         window.handleDeleteArea = function() {
-            if(confirm('Delete this area PERMANENTLY?')) {
-                store[floor] = store[floor].filter(x => x.id !== areaId);
-                areaId = null; window.commitChanges(true); renderNavList();
+            if(areaId === 'map') { alert("Cannot delete the Map."); return; }
+            if(confirm('Delete area?')) {
+                store[floor].areas = store[floor].areas.filter(x => x.id !== areaId);
+                areaId = 'map'; window.commitChanges(true); renderNavList();
             }
         };
 
         window.commitChanges = function(silent = false) {
+            const m = store[floor].metrics;
+            m.ch = document.getElementById('m-ch').value;
+            m.sqm = document.getElementById('m-sqm').value;
+            m.jo = document.getElementById('m-jo').value;
+            m.tsubo = document.getElementById('m-tsubo').value;
+
             localStorage.setItem(DB_NAME, JSON.stringify(store));
-            if(!silent) alert("Progress saved.");
+            if(!silent) alert("Workspace committed.");
+            renderActiveScene();
         };
 
         window.updateImageManual = function(v) {
-            const a = store[floor].find(x => x.id === areaId);
-            if(a) { a.img = v; renderActiveScene(); }
+            if(areaId === 'map') store[floor].mapImg = v;
+            else store[floor].areas.find(x => x.id === areaId).img = v;
+            renderActiveScene();
         };
 
         window.exportPermanentHTML = function() {
             const currentData = JSON.stringify(store);
             let fullSource = document.documentElement.outerHTML;
-            const regex = /let store = (\{.*?\});/;
+            const regex = /let store = JSON\.parse\(localStorage\.getItem\(DB_NAME\)\) \|\| (\{.*?\});/;
             const replacement = `let store = ${currentData};`;
             fullSource = fullSource.replace(regex, replacement);
             const exportDiv = document.getElementById('export-output');
@@ -276,98 +331,66 @@
             exportText.select();
         };
 
+        window.navigateArea = function(dir) {
+            if(mode === 'edit') return;
+            const list = [{id:'map', name:'FLOOR MAP'}, ...store[floor].areas];
+            const idx = list.findIndex(x => x.id === areaId);
+            const nextIdx = idx + dir;
+            if (nextIdx >= 0 && nextIdx < list.length) selectActiveArea(list[nextIdx].id);
+        };
+
         window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
 
         document.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem(DB_NAME);
-            if(saved) { store = JSON.parse(saved); }
-            if (window.innerWidth <= 768) { mode = 'view'; }
             window.handleFloorChange('1F');
-
             const vp = document.getElementById('viewport');
-            vp.addEventListener('touchstart', e => { touchX = e.touches[0].screenX; });
-            vp.addEventListener('touchend', e => {
+            let tX = 0;
+            vp.ontouchstart = e => tX = e.touches[0].screenX;
+            vp.ontouchend = e => {
                 if(mode === 'edit') return;
-                const diff = e.changedTouches[0].screenX - touchX;
-                if(Math.abs(diff) > 80) window.navigateArea(diff > 0 ? -1 : 1);
-            });
+                const d = e.changedTouches[0].screenX - tX;
+                if(Math.abs(d) > 80) window.navigateArea(d > 0 ? -1 : 1);
+            };
         });
-
-        /* API UPLOAD HANDLER */
-        window.handleFileUpload = async (e) => {
-            const f = e.target.files[0]; if(!f) return;
-            const fd = new FormData(); fd.append("image", f);
-            try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
-                const j = await res.json();
-                if(j.success) { window.updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
-            } catch(err) { alert("Upload Fail"); }
-        };
     </script>
 </head>
-
-<body id="app-body" class="">
-
+<body id="app-body">
 <div id="admin-overlay" onclick="closeAdmin()"></div>
-
-<div id="ui-mode-toggle">
-    <button id="mode-view" class="" onclick="changeAppMode('view')">VIEW</button>
-    <button id="mode-edit" onclick="changeAppMode('edit')" class="active">DESIGNER</button>
-</div>
-
-<header>
-    <div class="brand-title">Palazzo Molteni Tokyo</div>
-    <div class="location">Experience Tour Suite</div>
-</header>
-
-<div class="nav-arrow arrow-left" onclick="navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
-<div class="nav-arrow arrow-right" onclick="navigateArea(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-
-<div id="admin-panel" class="open">
+<div id="ui-mode-toggle"><button id="mode-view" class="active" onclick="changeAppMode('view')">VIEW</button><button id="mode-edit" onclick="changeAppMode('edit')">DESIGNER</button></div>
+<header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Architectural Experience</div></header>
+<div class="nav-arrow arrow-left" onclick="navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="nav-arrow arrow-right" onclick="navigateArea(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+<div id="admin-panel">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:40px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
     <div class="admin-section">
-        <span class="admin-label">01. Area Management</span>
-        <input type="text" id="new-area-name" placeholder="Area Name">
-        <button class="btn btn-black" onclick="handleCreateArea()">Add Area to <span id="admin-f-label">3F</span></button>
-    </div>
-    <div id="edit-tools" style="display: block;">
-        <div class="admin-section">
-            <span class="admin-label">02. Media Content</span>
-            <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)">
-            <input type="text" id="manual-url" placeholder="Paste Image URL" onchange="updateImageManual(this.value)">
-            <span class="admin-label" style="margin-top:25px;">03. Interaction Settings</span>
-            <div id="pin-switch-btn" class="pin-switch" onclick="handlePinToggle()">Placement Mode: OFF</div>
-            <select id="marker-type">
-                <option value="product">Product Link (◎)</option>
-                <option value="detail">Interior Detail (▣)</option>
-            </select>
+        <span class="admin-label">Floor Metrics</span>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <input type="text" id="m-ch" placeholder="CH (mm)">
+            <input type="text" id="m-sqm" placeholder="Area (sqm)">
+            <input type="text" id="m-jo" placeholder="Mats (帖)">
+            <input type="text" id="m-tsubo" placeholder="Tsubo (坪)">
         </div>
-        <button class="btn btn-accent" onclick="commitChanges()">1. Save Progress</button>
-        <button class="btn btn-black" style="margin-top:10px;" onclick="exportPermanentHTML()">2. Export for GitHub</button>
-        <button class="btn" style="margin-top:40px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove Entire Area</button>
+    </div>
+    <div class="admin-section">
+        <span class="admin-label">Area Management</span>
+        <input type="text" id="new-area-name" placeholder="New Area Name">
+        <button class="btn btn-black" onclick="handleCreateArea()">Add Area to <span id="admin-f-label">1F</span></button>
+    </div>
+    <div id="edit-tools" style="display:none;">
+        <div class="admin-section">
+            <span class="admin-label">Media Asset</span>
+            <input type="text" id="manual-url" placeholder="Paste Image URL" onchange="updateImageManual(this.value)">
+            <span class="admin-label" style="margin-top:20px;">Interaction</span>
+            <div id="pin-switch-btn" class="pin-switch" onclick="handlePinToggle()">Placement Mode: OFF</div>
+            <select id="marker-type"><option value="product">● Product Link</option><option value="detail">■ Interior Detail</option></select>
+        </div>
+        <button class="btn btn-accent" onclick="commitChanges()">Save Progress</button>
+        <button class="btn btn-black" style="margin-top:10px;" onclick="exportPermanentHTML()">Export for GitHub</button>
+        <button class="btn" style="margin-top:20px; font-size:9px; color:red;" onclick="handleDeleteArea()">Remove Current Area</button>
     </div>
 </div>
-
-<div id="export-output">
-    <div style="max-width: 800px; margin: auto;">
-        <h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2>
-        <textarea id="export-text" readonly="" style="height: 400px; font-size: 10px; width: 100%;"></textarea>
-        <button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back to App</button>
-    </div>
-</div>
-
-<div id="viewport" onclick="handleViewportClick(event)">
-    <div class="area-nav" id="area-nav"><div class="area-item" id="nav-a1766734621445">A</div><div class="area-item active" id="nav-a1766739087337">B</div></div>
-    <div id="scene-display"><div class="mol-breakout-wrap" id="scene-stage"><img src="https://i.ibb.co/0pWmGHTM/Tokyo-MGL0117-2025-HR.jpg"><div class="mol-hs " style="top:56.54%; left:47.51%;" onclick="handlePinInteraction(event, 'p1766976727835')"><div class="edit-x" onclick="handleDeletePin(event,'p1766976727835')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a href="https://www.molteni.it/jp/" target="_blank" rel="noopener noreferrer" class="mol-card" ontouchstart=""><strong>FAIRMOUNT</strong><span>商品詳細はこちら &gt;</span></a></div><div class="mol-hs " style="top:81.78%; left:29.14%;" onclick="handlePinInteraction(event, 'p1766976737525')"><div class="edit-x" onclick="handleDeletePin(event,'p1766976737525')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a href="https://www.molteni.it/jp/" target="_blank" rel="noopener noreferrer" class="mol-card" ontouchstart=""><strong>PALINFRASCA</strong><span>商品詳細はこちら &gt;</span></a></div><div class="mol-hs " style="top:70.4%; left:70.59%;" onclick="handlePinInteraction(event, 'p1766976762661')"><div class="edit-x" onclick="handleDeletePin(event,'p1766976762661')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a href="https://www.molteni.it/jp/" target="_blank" rel="noopener noreferrer" class="mol-card" ontouchstart=""><strong>D.150.5</strong><span>商品詳細はこちら &gt;</span></a></div><div class="mol-hs type-detail" style="top:74.22%; left:48.73%;" onclick="handlePinInteraction(event, 'p1766976785616')"><div class="edit-x" onclick="handleDeletePin(event,'p1766976785616')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a class="mol-card" ontouchstart=""><strong>タイル</strong><span>このタイルは〜〜〜〜〜〜。</span></a></div></div></div>
-</div>
-
-<footer>
-    <div class="floor-btn" onclick="handleFloorChange('B1F')" id="f-B1F"><span class="floor-num">B1</span><span class="floor-label">Basement</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('1F')" id="f-1F"><span class="floor-num">1F</span><span class="floor-label">Ground</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('2F')" id="f-2F"><span class="floor-num">2F</span><span class="floor-label">Living</span></div>
-    <div class="floor-btn active" onclick="handleFloorChange('3F')" id="f-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div>
-</footer>
-
-
-
-</body></html>
+<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back to App</button></div></div>
+<div id="viewport" onclick="handleViewportClick(event)"><div class="area-nav" id="area-nav"></div><div id="scene-display"></div></div>
+<footer><div class="floor-btn" onclick="handleFloorChange('B1F')" id="f-B1F"><span class="floor-num">B1</span><span class="floor-label">Basement</span></div><div class="floor-btn active" onclick="handleFloorChange('1F')" id="f-1F"><span class="floor-num">1F</span><span class="floor-label">Ground</span></div><div class="floor-btn" onclick="handleFloorChange('2F')" id="f-2F"><span class="floor-num">2F</span><span class="floor-label">Living</span></div><div class="floor-btn" onclick="handleFloorChange('3F')" id="f-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div></footer>
+</body>
+</html>
