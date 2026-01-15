@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PALAZZO MOLTENI TOKYO | Virtual Tour Suite</title>
@@ -300,13 +299,13 @@
         });
     </script>
 </head>
-<body id="app-body">
+<body id="app-body" class="">
 
 <div id="admin-overlay" onclick="closeAdmin()"></div>
 
 <div id="ui-mode-toggle">
-    <button id="mode-view" class="active" onclick="changeAppMode('view')">VIEW</button>
-    <button id="mode-edit" onclick="changeAppMode('edit')">DESIGNER</button>
+    <button id="mode-view" class="" onclick="changeAppMode('view')">VIEW</button>
+    <button id="mode-edit" onclick="changeAppMode('edit')" class="active">DESIGNER</button>
 </div>
 
 <header>
@@ -314,13 +313,13 @@
     <div class="location">Interactive Suite</div>
 </header>
 
-<a href="#" id="inquiry-btn" target="_blank">Contact Us</a>
+<a href="https://molteni.it/store/tokyo-flagship-store/jp/#open-contact-form" id="inquiry-btn" target="_blank">Contact Us</a>
 
-<div id="admin-panel">
+<div id="admin-panel" class="open">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:40px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
     
     <div class="admin-section">
-        <span class="admin-label">Floor Metrics & Inquiry</span>
+        <span class="admin-label">Floor Metrics &amp; Inquiry</span>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:10px;">
             <input type="text" id="m-ch" placeholder="CH (mm)">
             <input type="text" id="m-sqm" placeholder="Area (sqm)">
@@ -336,7 +335,7 @@
         <button class="btn btn-black" onclick="handleCreateArea()">Create Area</button>
     </div>
 
-    <div id="edit-tools" style="display:none;">
+    <div id="edit-tools" style="display: block;">
         <div class="admin-section">
             <span class="admin-label">Content</span>
             <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)">
@@ -351,10 +350,10 @@
     </div>
 </div>
 
-<div id="export-output">
+<div id="export-output" style="display: none;">
     <div style="max-width: 800px; margin: auto;">
         <h2 style="font-family: var(--bodoni); font-weight: 600;">Final Export</h2>
-        <textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea>
+        <textarea id="export-text" readonly="" style="height: 400px; font-size: 10px; width:100%;"></textarea>
         <button class="btn btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button>
     </div>
 </div>
@@ -362,12 +361,12 @@
 <div id="viewport" onclick="handleViewportClick(event)">
     <div class="sub-nav-container">
         <div class="mode-nav">
-            <div id="mode-map" class="mode-item active" onclick="switchViewMode('map')">FLOORMAP</div>
-            <div id="mode-tour" class="mode-item" onclick="switchViewMode('tour')">TOUR</div>
+            <div id="mode-map" class="mode-item" onclick="switchViewMode('map')">FLOORMAP</div>
+            <div id="mode-tour" class="mode-item active" onclick="switchViewMode('tour')">TOUR</div>
         </div>
-        <div class="area-nav" id="area-nav"></div>
+        <div class="area-nav" id="area-nav"><div class="area-item active" id="nav-a1768450756005">1F - Living </div></div>
     </div>
-    <div id="scene-display"></div>
+    <div id="scene-display"><div class="floor-metrics"><div class="metric-item"><b>CH</b> 2900mm</div><div class="metric-item"><b>Area</b> 約23㎡ / 約14帖 / 約7坪</div></div><div class="scene-wrap" id="scene-stage"><img src="https://i.ibb.co/DPtZ50qf/1F-01.png"><div class="mol-hs " style="top:68.09%; left:14.2%;" onclick="handlePinInteraction(event, 'p1768450794573')"><div class="edit-x" onclick="handleDeletePin(event,'p1768450794573')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><a href="https://molteni.it/jp/product/emile" target="_blank" class="mol-card" ontouchstart=""><strong>GATWICK</strong><div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">Dining Table</span></div><div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">GTO2412F(BKN)</span></div><div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">Φ.2400 D.1200 H.740</span></div><div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">EU / Eucalyptus, BKN / Black Nickel colour</span></div><div class="price">¥2,245,100</div></a></div></div></div>
 </div>
 
 <footer>
@@ -377,5 +376,6 @@
     <div class="floor-btn" onclick="handleFloorChange('3F')" id="f-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div>
 </footer>
 
-</body>
-</html>
+
+
+</body></html>
