@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
+<html lang="ja"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PALAZZO MOLTENI TOKYO | Virtual Tour Suite</title>
@@ -344,25 +343,25 @@
         });
     </script>
 </head>
-<body id="app-body">
-<div id="admin-overlay" onclick="closeAdmin()"></div>
-<div id="ui-mode-toggle"><button id="mode-view-btn" class="active" onclick="changeAppMode('view')">VIEW</button><button id="mode-edit-btn" onclick="changeAppMode('edit')">DESIGNER</button></div>
+<body id="app-body" class="pinning-mode-active">
+<div id="admin-overlay" onclick="closeAdmin()" style="display: block;"></div>
+<div id="ui-mode-toggle"><button id="mode-view-btn" class="" onclick="changeAppMode('view')">VIEW</button><button id="mode-edit-btn" onclick="changeAppMode('edit')" class="active">DESIGNER</button></div>
 <header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Experience Tour Suite</div></header>
 
 <a href="https://www.molteni.it/jp/contact" id="global-inquiry-btn" target="_blank">製品についてお問い合わせ</a>
 
-<div id="admin-panel">
+<div id="admin-panel" class="open">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:30px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
     <div class="admin-section"><span class="admin-label">Global Inquiry URL</span><input type="text" id="inquiry-url-in" placeholder="Inquiry URL"></div>
-    <div class="admin-section"><span class="admin-label">Floor Metrics (<span id="admin-f-label">1F</span>)</span>
+    <div class="admin-section"><span class="admin-label">Floor Metrics (<span id="admin-f-label">B1F</span>)</span>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;"><input type="text" id="m-ch" placeholder="CH (mm)"><input type="text" id="m-sqm" placeholder="Area (sqm)"><input type="text" id="m-jo" placeholder="Mats (帖)"><input type="text" id="m-tsubo" placeholder="Tsubo (坪)"></div>
     </div>
     <div class="admin-section"><span class="admin-label">Zone Setup</span><input type="text" id="new-area-name" placeholder="Zone Name"><button class="btn-black" style="width:100%;" onclick="handleCreateArea()">Create Zone</button></div>
-    <div id="edit-tools" style="display:none;">
+    <div id="edit-tools" style="display: block;">
         <div class="admin-section">
             <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)" style="font-size:10px; margin-bottom:10px;">
             <input type="text" id="manual-url" placeholder="Asset URL" onchange="updateImageManual(this.value)">
-            <div id="pin-switch-btn" class="pin-switch" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: OFF</div>
+            <div id="pin-switch-btn" class="pin-switch active" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: ACTIVE</div>
             <select id="marker-type"><option value="product">● Product Pin</option><option value="detail">■ Detail Pin</option></select>
         </div>
         <button class="btn-black" style="width:100%; background:var(--accent); color:#fff; border:none; margin-bottom:10px;" onclick="commitChanges()">Save Progress</button>
@@ -371,24 +370,25 @@
     </div>
 </div>
 
-<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button></div></div>
+<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly="" style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button></div></div>
 
 <div id="viewport" onclick="handleViewportClick(event)">
     <div class="sub-nav-container">
         <div class="mode-nav">
-            <div id="mode-map-tab" class="mode-item" onclick="switchViewMode('map')">FLOORMAP</div>
-            <div id="mode-tour-tab" class="mode-item active" onclick="switchViewMode('tour')">TOUR</div>
+            <div id="mode-map-tab" class="mode-item active" onclick="switchViewMode('map')">FLOORMAP</div>
+            <div id="mode-tour-tab" class="mode-item" onclick="switchViewMode('tour')">TOUR</div>
         </div>
-        <div class="area-nav" id="area-nav"></div>
+        <div class="area-nav" id="area-nav"><div class="area-item" id="nav-a1768985580331">B1F D</div><div class="area-item active" id="nav-a1768986262900">B1F E</div></div>
     </div>
-    <div id="scene-display"></div>
+    <div id="scene-display"><div class="floor-info-bar"><div class="info-item"><b>CH</b> 2980mm</div><div class="info-item"><b>Area</b> 53㎡ / 32帖 / 16坪</div></div><div class="mol-breakout-wrap" id="scene-stage"><img src="https://i.ibb.co/35sRY1Lw/B1-Grande.png"><div class="mol-hs " style="top:37.15%; left:52.81%;" onmouseenter="adjustCard(this)" onclick="handlePinInteraction(event, 'p1768986341587')"><div class="edit-x" onclick="handleDeletePin(event,'p1768986341587')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>OCTAVE</strong><div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">SOFA</span></div><div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">W.5355 D.3750/2265 H.610 SH.370</span></div><div class="price">¥9,072,800</div><div class="card-actions"><a href="https://www.molteni.it/jp/product/albert" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="https://www.molteni.it/jp/contact" target="_blank" class="card-btn btn-inq">製品についてお問い合わせ</a></div></div></div></div></div>
 </div>
 
 <footer>
-    <div class="floor-btn" onclick="handleFloorChange('B1F')" id="fbtn-B1F"><span class="floor-num">B1</span></div>
-    <div class="floor-btn active" onclick="handleFloorChange('1F')" id="fbtn-1F"><span class="floor-num">1F</span></div>
+    <div class="floor-btn active" onclick="handleFloorChange('B1F')" id="fbtn-B1F"><span class="floor-num">B1</span></div>
+    <div class="floor-btn" onclick="handleFloorChange('1F')" id="fbtn-1F"><span class="floor-num">1F</span></div>
     <div class="floor-btn" onclick="handleFloorChange('2F')" id="fbtn-2F"><span class="floor-num">2F</span></div>
     <div class="floor-btn" onclick="handleFloorChange('3F')" id="fbtn-3F"><span class="floor-num">3F</span></div>
 </footer>
-</body>
-</html>
+
+
+</body></html>
