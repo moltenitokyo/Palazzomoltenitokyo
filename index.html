@@ -15,38 +15,34 @@
 
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: var(--main-font); overflow: hidden; color: #000; -webkit-font-smoothing: antialiased; }
 
-        /* --- HEADER (Optimized) --- */
         header { position: fixed; top: 0; width: 100%; height: 85px; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); z-index: 2000; border-bottom: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .brand-title { 
             font-family: var(--main-font); 
-            font-size: clamp(14px, 4.5vw, 24px); /* 画面幅に合わせて自動縮小 */
+            font-size: clamp(14px, 4.5vw, 24px); 
             font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; 
             margin-top: 5px; white-space: nowrap; text-align: center; width: 90%;
         }
         .location { font-size: 8px; letter-spacing: 0.5em; color: var(--grey); text-transform: uppercase; margin-top: 8px; margin-bottom: 5px; }
 
-        footer { position: fixed; bottom: 0; width: 100%; height: 85px; background: #000; display: flex; z-index: 3000; }
-        .floor-btn { flex: 1; color: #fff; text-align: center; padding: 18px 0; opacity: 0.35; cursor: pointer; border: none; background: none; font-family: var(--main-font); transition: 0.4s; }
+        /* --- FOOTER (Minimized) --- */
+        footer { position: fixed; bottom: 0; width: 100%; height: 75px; background: #000; display: flex; z-index: 3000; }
+        .floor-btn { flex: 1; color: #fff; text-align: center; display: flex; align-items: center; justify-content: center; opacity: 0.35; cursor: pointer; border: none; background: none; font-family: var(--main-font); transition: 0.4s; }
         .floor-btn.active { opacity: 1; }
-        .floor-num { display: block; font-family: var(--main-font); font-size: 24px; font-weight: 600; }
-        .floor-label { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
+        .floor-num { font-family: var(--main-font); font-size: 22px; font-weight: 600; }
 
-        /* --- GLOBAL INQUIRY BUTTON (Minimal Ghost Glass) --- */
+        /* --- INQUIRY BUTTON --- */
         #global-inquiry-btn { 
-            position: fixed; bottom: 105px; right: 25px; z-index: 2500; 
-            background: rgba(255, 255, 255, 0.4); 
-            color: rgba(0, 0, 0, 0.5); 
-            border: 0.5px solid rgba(0, 0, 0, 0.1); 
-            padding: 12px 18px; 
+            position: fixed; bottom: 95px; right: 25px; z-index: 2500; 
+            background: rgba(255, 255, 255, 0.5); color: rgba(0, 0, 0, 0.5); 
+            border: 0.5px solid rgba(0, 0, 0, 0.1); padding: 12px 18px; 
             font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.15em; 
-            text-decoration: none; transition: 0.3s; 
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
         #global-inquiry-btn:hover { background: rgba(0, 0, 0, 0.8); color: #fff; border-color: #000; }
 
         /* --- NAVIGATION --- */
         .nav-stack { position: sticky; top: 0; z-index: 500; background: #fff; border-bottom: 1px solid #eee; }
-        .mode-nav { display: flex; justify-content: center; gap: 60px; padding: 20px 0; border-bottom: 1px solid #f2f2f2; }
+        .mode-nav { display: flex; justify-content: center; gap: 60px; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
         .mode-item { font-size: 14px; letter-spacing: 0.25em; color: var(--grey); cursor: pointer; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
         .mode-item.active { color: #000; font-weight: bold; border-bottom-color: #000; }
         .area-nav { display: flex; gap: 30px; padding: 15px 40px; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #f2f2f2; }
@@ -65,20 +61,31 @@
         .floor-info-bar { padding: 15px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 40px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
         .info-item b { color: #000; margin-right: 6px; }
 
-        /* PIN ◎ & CARD */
+        /* --- PIN ◎ & SMART CARD --- */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
-        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 20px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 220px; max-width: 280px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0; }
-        .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 15px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        
+        .mol-card { 
+            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 20px; border-radius: 2px; 
+            box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 180px; max-width: 240px; 
+            opacity: 0; visibility: hidden; transition: 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0;
+            pointer-events: none; /* マウスイベントを透過させて背後のリンクを押しやすくする */
+        }
+        /* デザイナーモード中だけカードを触れるように（削除等のため） */
+        body.pinning-mode-active .mol-card { pointer-events: auto; }
+
+        .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 14px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
         .spec-row { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 4px; gap: 20px; }
         .spec-label { color: var(--grey); text-transform: uppercase; font-weight: bold; }
         .mol-card .price { font-size: 11px; font-weight: bold; margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; display: block; text-align: center; }
-        .card-actions { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; display: grid; gap: 8px; }
-        .card-btn { display: block; padding: 10px; font-size: 9px; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; border-radius: 2px; transition: 0.2s; }
+        
+        .card-actions { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; display: grid; gap: 8px; pointer-events: auto; }
+        .card-btn { display: block; padding: 10px; font-size: 9px; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; border-radius: 2px; }
         .btn-prod { background: #000; color: #fff; }
         .btn-inq { border: 1px solid #000; color: #000; }
+
         .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 32px; }
         .mol-hs:hover .mol-dot-outer { background: rgba(255,255,255,0.6); transform: scale(1.1); }
 
@@ -88,15 +95,12 @@
         #ui-mode-toggle button.active { background: #000; color: #fff; }
         #admin-panel { position: fixed; top: 0; left: -400px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
         #admin-panel.open { left: 0; }
-        .pin-switch { margin-bottom: 15px; padding: 15px; border: 1px solid #000; text-align: center; cursor: pointer; font-size: 11px; font-weight: bold; background: #fff; }
-        .pin-switch.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-        .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; }
+        .admin-section { margin-bottom: 25px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
+        .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 12px; display: block; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; }
+        .btn-black { background: #000; color: #fff; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 11px; }
+        .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; pointer-events: auto; }
         body.pinning-mode-active .edit-x { display: flex; }
-        .admin-section { margin-bottom: 30px; }
-        input, select, textarea { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 10px; font-family: inherit; }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 11px; text-transform: uppercase; }
-        .btn-black { background: #000; color: #fff; }
-        .btn-accent { background: var(--accent); color: #fff; }
         #export-output { display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; }
 
         .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; z-index: 1500; cursor: pointer; color: rgba(0,0,0,0.5); background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border-radius: 50%; transition: 0.3s; pointer-events: auto; }
@@ -104,18 +108,20 @@
 
         @media screen and (max-width: 768px) {
             #ui-mode-toggle, #admin-panel, .location, .nav-arrow { display: none !important; }
+            .brand-title { font-size: 4.2vw; letter-spacing: 0.1em; text-align: center; width: 100%; margin: 0; }
             #viewport { width: 100% !important; transform: none !important; padding-top: 85px !important; }
             .mol-breakout-wrap { width: 100% !important; margin: 0 !important; left: 0 !important; }
-            #global-inquiry-btn { bottom: 95px; right: 15px; padding: 10px 15px; font-size: 9px; }
+            #global-inquiry-btn { bottom: 85px; right: 15px; padding: 10px 15px; font-size: 9px; }
+            footer { height: 70px; }
         }
     </style>
 
     <script>
         const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_v49";
+        const DB_NAME = "pmt_master_v50";
 
         /* DATA_START */
-        let store = {"inquiryUrl":"https://www.molteni.it/jp/contact","map":{"B1F":[],"1F":[],"2F":[],"3F":[]},"tour":{"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[{"id":"a1768460970125","name":"1F - FRONT","img":"https://i.ibb.co/FbW9vNns/1F-Front.png","pins":[{"id":"p1768461098707","x":37.63,"y":58.49,"title":"CLEO","cat":"SOFA","model":"TEST","size":"TEST","finish":"TEST","price":"1,234,567,890","link":"https://www.molteni.it/jp/","type":"product"},{"id":"p1768461151173","x":50.16,"y":50.9,"title":"REGENT","cat":"LIVING TABLE","model":"TEST","size":"TEST","finish":"","price":"8,888,888","link":"","type":"product"},{"id":"p1768461181030","x":34.39,"y":27.28,"title":"FLOOR","link":"","sub":"FLOORは","type":"detail"}]}],"2F":[{"id":"a1766742720802","name":"A","img":"https://i.ibb.co/ZznLmDKS/Tokyo-Palazzo-Molteni-04.jpg","pins":[{"id":"p1766742763402","x":32.75,"y":59.92,"title":"mateo","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742778369","x":57.8,"y":55.35,"title":"D.150.3","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766742784668","name":"B","img":"https://i.ibb.co/Zpsy2jCm/682ee4fb185ff-Tokyo-MGL0157-2025-HR.jpg","pins":[{"id":"p1766742829619","x":37.9,"y":48.01,"title":"GLISSMASTER","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742845785","x":16.3,"y":62.2,"title":"DUE FOLIE","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}]},"metrics":{"B1F":{"ch":"2980","sqm":"29","jo":"18","tsubo":"9"},"1F":{"ch":"2900","sqm":"40","jo":"25","tsubo":"12"},"2F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"10"},"3F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"9"}}};
+        let store = {"inquiryUrl":"https://www.molteni.it/jp/contact","map":{"B1F":[],"1F":[{"id":"a1768460970125","name":"1F - FRONT","img":"https://i.ibb.co/FbW9vNns/1F-Front.png","pins":[{"id":"p1768461098707","x":37.63,"y":58.49,"title":"CLEO","cat":"SOFA","size":"TEST","finish":"TEST","price":"1,234,567,890","link":"https://www.molteni.it/jp/","type":"product"},{"id":"p1768461151173","x":50.16,"y":50.9,"title":"REGENT","cat":"LIVING TABLE","size":"TEST","finish":"","price":"8,888,888","link":"","type":"product"},{"id":"p1768461181030","x":34.39,"y":27.28,"title":"FLOOR","link":"","sub":"FLOORは","type":"detail"}]}],"2F":[],"3F":[]},"tour":{"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[],"2F":[{"id":"a1766742720802","name":"A","img":"https://i.ibb.co/ZznLmDKS/Tokyo-Palazzo-Molteni-04.jpg","pins":[{"id":"p1766742763402","x":32.75,"y":59.92,"title":"mateo","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742778369","x":57.8,"y":55.35,"title":"D.150.3","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766742784668","name":"B","img":"https://i.ibb.co/Zpsy2jCm/682ee4fb185ff-Tokyo-MGL0157-2025-HR.jpg","pins":[{"id":"p1766742829619","x":37.9,"y":48.01,"title":"GLISSMASTER","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742845785","x":16.3,"y":62.2,"title":"DUE FOLIE","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"3F":[{"id":"a1766734621445","name":"A","img":"https://i.ibb.co/nMKmfKdM/682ee5105f756-Molteni-C-Palazzo-Molteni-Tokyo-02.jpg","pins":[{"id":"p1766734648580","x":35.16,"y":39.92,"title":"ARIAL","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734655028","x":57.58,"y":38.47,"title":"505up","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734663812","x":30.19,"y":82.63,"title":"AUGUSTO","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734680242","x":15.03,"y":45.35,"title":"エコスマート","link":"","sub":"エコスマート","type":"detail"},{"id":"p1766734684899","x":82.42,"y":45.61,"title":"アート","link":"","sub":"アート","type":"detail"}]}]},"metrics":{"B1F":{"ch":"2980","sqm":"29","jo":"18","tsubo":"9"},"1F":{"ch":"2900","sqm":"40","jo":"25","tsubo":"12"},"2F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"10"},"3F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"9"}}};
         /* DATA_END */
 
         let floor = '1F';
@@ -130,14 +136,41 @@
         window.changeAppMode = function(m) {
             if (window.innerWidth <= 768) return;
             adminMode = m; isPinning = false;
-            const vBtn = document.getElementById('mode-view-btn');
-            const eBtn = document.getElementById('mode-edit-btn');
-            if(vBtn) vBtn.className = (m === 'view' ? 'active' : '');
-            if(eBtn) eBtn.className = (m === 'edit' ? 'active' : '');
+            document.getElementById('mode-view-btn').className = (m === 'view' ? 'active' : '');
+            document.getElementById('mode-edit-btn').className = (m === 'edit' ? 'active' : '');
             document.getElementById('admin-panel').classList.toggle('open', m === 'edit');
             document.getElementById('admin-overlay').style.display = (m === 'edit' ? 'block' : 'none');
             document.body.classList.remove('pinning-mode-active');
             renderActiveScene();
+        };
+
+        window.handleViewportClick = function(e) {
+            if (adminMode === 'edit' && !isPinning) {
+                if (e.target.closest('.nav-stack') || e.target.closest('.mol-hs')) return;
+                window.changeAppMode('view'); return;
+            }
+            if (adminMode === 'edit' && isPinning) {
+                const stage = document.getElementById('scene-stage');
+                if (stage && e.target.closest('#scene-stage') && !e.target.closest('.mol-hs')) {
+                    const r = stage.getBoundingClientRect();
+                    const x = ((e.clientX - r.left)/r.width)*100;
+                    const y = ((e.clientY - r.top)/r.height)*100;
+                    const t = document.getElementById('marker-type').value;
+                    const name = prompt("Name:"); if(!name) return;
+                    const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
+                    if(t === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Detail:"); }
+                    store[viewMode][floor].find(x => x.id === areaId).pins.push(p);
+                    autoSave(); renderActiveScene();
+                }
+            }
+        };
+
+        window.handlePinToggle = function() {
+            isPinning = !isPinning;
+            const btn = document.getElementById('pin-switch-btn');
+            btn.classList.toggle('active', isPinning);
+            btn.innerText = isPinning ? "Placement Mode: ON" : "Placement Mode: OFF";
+            document.body.classList.toggle('pinning-mode-active', isPinning);
         };
 
         window.handleFloorChange = function(f) {
@@ -146,10 +179,9 @@
             const btn = document.getElementById('fbtn-'+f); if(btn) btn.classList.add('active');
             document.getElementById('admin-f-label').innerText = f;
             const m = store.metrics[f];
-            if(document.getElementById('m-ch')) document.getElementById('m-ch').value = m.ch;
-            if(document.getElementById('m-sqm')) document.getElementById('m-sqm').value = m.sqm;
-            if(document.getElementById('m-jo')) document.getElementById('m-jo').value = m.jo;
-            if(document.getElementById('m-tsubo')) document.getElementById('m-tsubo').value = m.tsubo;
+            document.getElementById('m-ch').value = m.ch; document.getElementById('m-sqm').value = m.sqm;
+            document.getElementById('m-jo').value = m.jo; document.getElementById('m-tsubo').value = m.tsubo;
+            document.getElementById('inquiry-url-in').value = store.inquiryUrl;
             areaId = null; renderZoneNav();
         };
 
@@ -161,11 +193,10 @@
         };
 
         function renderZoneNav() {
-            const nav = document.getElementById('area-nav'); if(!nav) return;
-            nav.innerHTML = '';
-            const list = (store[viewMode] && store[viewMode][floor]) ? store[viewMode][floor] : [];
+            const nav = document.getElementById('area-nav'); nav.innerHTML = '';
+            const list = store[viewMode][floor];
             if(list.length === 0) {
-                document.getElementById('scene-display').innerHTML = '<div style="padding:100px;text-align:center;color:#ccc;">Experience palazzo...</div>';
+                document.getElementById('scene-display').innerHTML = '<div style="padding:100px;text-align:center;color:#ccc;">Experience Molteni & C.</div>';
                 document.getElementById('edit-tools').style.display = 'none';
                 return;
             }
@@ -186,12 +217,12 @@
             document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
             renderActiveScene();
             if(adminMode === 'edit') document.getElementById('edit-tools').style.display = 'block';
-            if(document.getElementById('manual-url')) document.getElementById('manual-url').value = a ? a.img : '';
+            document.getElementById('manual-url').value = a ? a.img : '';
             document.getElementById('global-inquiry-btn').href = store.inquiryUrl;
         }
 
         function renderActiveScene() {
-            const a = (store[viewMode] && store[viewMode][floor]) ? store[viewMode][floor].find(x => x.id === areaId) : null;
+            const a = store[viewMode][floor].find(x => x.id === areaId);
             if(!a) return;
             const m = store.metrics[floor];
             const infoHTML = `<div class="floor-info-bar"><div class="info-item"><b>CH</b> ${m.ch}mm</div><div class="info-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
@@ -202,7 +233,6 @@
                 let specs = '';
                 if(isP) {
                     if(p.cat) specs += `<div class="spec-row"><span class="spec-label">Category</span><span class="spec-value">${p.cat}</span></div>`;
-                    if(p.model) specs += `<div class="spec-row"><span class="spec-label">Model No</span><span class="spec-value">${p.model}</span></div>`;
                     if(p.size) specs += `<div class="spec-row"><span class="spec-label">Size</span><span class="spec-value">${p.size}</span></div>`;
                     if(p.finish) specs += `<div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">${p.finish}</span></div>`;
                     if(p.price) specs += `<div class="price">¥${p.price}</div>`;
@@ -213,41 +243,14 @@
             document.getElementById('scene-display').innerHTML = infoHTML + `<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://placehold.jp/24/000000/ffffff/1200x800.png?text=Awaiting+Visual'}">${pinsHTML}</div>`;
         }
 
-        window.handleFileUpload = async (e) => {
-            const f = e.target.files[0]; if(!f) return;
-            const fd = new FormData(); fd.append("image", f);
-            const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
-            const j = await res.json();
-            if(j.success) { window.updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
-        };
-
-        window.handleViewportClick = function(e) {
-            if (adminMode === 'edit' && !isPinning) {
-                if (e.target.closest('.nav-stack') || e.target.closest('.mol-hs')) return;
-                window.changeAppMode('view'); return;
-            }
-            if (adminMode === 'edit' && isPinning) {
-                const stage = document.getElementById('scene-stage');
-                if (stage && e.target.closest('#scene-stage') && !e.target.closest('.mol-hs')) {
-                    const r = stage.getBoundingClientRect();
-                    const x = ((e.clientX - r.left)/r.width)*100;
-                    const y = ((e.clientY - r.top)/r.height)*100;
-                    const t = document.getElementById('marker-type').value;
-                    const name = prompt("Name:"); if(!name) return;
-                    const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
-                    if(t === 'product') { p.cat = prompt("Category:"); p.model = prompt("Model:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Detail:"); }
-                    store[viewMode][floor].find(x => x.id === areaId).pins.push(p);
-                    autoSave(); renderActiveScene();
-                }
-            }
-        };
-
         window.handlePinInteraction = function(e, pid) {
             if (adminMode === 'edit') {
                 e.stopPropagation();
                 const p = store[viewMode][floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
                 p.title = prompt("Update Name:", p.title) || p.title;
-                if(p.type === 'product') { p.cat = prompt("Category:", p.cat); p.model = prompt("Model:", p.model); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link); } else { p.sub = prompt("Desc:", p.sub); }
+                if(p.type === 'product') {
+                    p.cat = prompt("Category:", p.cat); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link);
+                } else { p.sub = prompt("Desc:", p.sub); }
                 autoSave(); renderActiveScene();
             }
         };
@@ -287,6 +290,16 @@
             if(a) { a.img = v; autoSave(); renderActiveScene(); }
         };
 
+        window.handleFileUpload = async (e) => {
+            const f = e.target.files[0]; if(!f) return;
+            const fd = new FormData(); fd.append("image", f);
+            try {
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
+                const j = await res.json();
+                if(j.success) { window.updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
+            } catch(err) { alert("Upload Fail"); }
+        };
+
         window.exportPermanentHTML = function() {
             const currentData = JSON.stringify(store);
             let fullSource = document.documentElement.outerHTML;
@@ -303,18 +316,14 @@
 
         window.navigateArea = function(dir) {
             if(adminMode === 'edit') return;
-            const list = (store[viewMode] && store[viewMode][floor]) ? store[viewMode][floor] : [];
+            const list = store[viewMode][floor];
             const idx = list.findIndex(x => x.id === areaId);
             const nextIdx = idx + dir;
             if (nextIdx >= 0 && nextIdx < list.length) selectZone(list[nextIdx].id);
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem(DB_NAME);
-            if(saved) { store = JSON.parse(saved); }
-            if (window.innerWidth <= 768) { mode = 'view'; }
             window.handleFloorChange('1F');
-            
             const vp = document.getElementById('viewport');
             vp.addEventListener('touchstart', e => { touchX = e.touches[0].screenX; });
             vp.addEventListener('touchend', e => {
@@ -365,14 +374,11 @@
     <div id="scene-display"></div>
 </div>
 
-<div class="nav-arrow arrow-left" onclick="navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
-<div class="nav-arrow arrow-right" onclick="navigateArea(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-
 <footer>
-    <div class="floor-btn" onclick="handleFloorChange('B1F')" id="fbtn-B1F"><span class="floor-num">B1</span><span class="floor-label">Basement</span></div>
-    <div class="floor-btn active" onclick="handleFloorChange('1F')" id="fbtn-1F"><span class="floor-num">1F</span><span class="floor-label">Ground</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('2F')" id="fbtn-2F"><span class="floor-num">2F</span><span class="floor-label">Living</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('3F')" id="fbtn-3F"><span class="floor-num">3F</span><span class="floor-label">Apartment</span></div>
+    <div class="floor-btn" onclick="handleFloorChange('B1F')" id="fbtn-B1F"><span class="floor-num">B1</span></div>
+    <div class="floor-btn active" onclick="handleFloorChange('1F')" id="fbtn-1F"><span class="floor-num">1F</span></div>
+    <div class="floor-btn" onclick="handleFloorChange('2F')" id="fbtn-2F"><span class="floor-num">2F</span></div>
+    <div class="floor-btn" onclick="handleFloorChange('3F')" id="fbtn-3F"><span class="floor-num">3F</span></div>
 </footer>
 </body>
 </html>
