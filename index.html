@@ -15,6 +15,7 @@
 
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: var(--main-font); overflow: hidden; color: #000; -webkit-font-smoothing: antialiased; }
 
+        /* --- HEADER & FOOTER --- */
         header { position: fixed; top: 0; width: 100%; height: 85px; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); z-index: 2000; border-bottom: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .brand-title { font-family: var(--main-font); font-size: 24px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 5px; white-space: nowrap; text-align: center; }
         .location { font-size: 8px; letter-spacing: 0.5em; color: var(--grey); text-transform: uppercase; margin-top: 8px; margin-bottom: 5px; }
@@ -24,19 +25,16 @@
         .floor-btn.active { opacity: 1; }
         .floor-num { display: block; font-family: var(--main-font); font-size: 24px; font-weight: 600; }
 
-        /* --- GLOBAL INQUIRY BUTTON --- */
-        #global-inquiry-btn { 
-            position: fixed; bottom: 105px; right: 25px; z-index: 2500; 
-            background: transparent; color: rgba(0, 0, 0, 0.4); 
-            border: 1px solid rgba(0, 0, 0, 0.1); padding: 12px 22px; 
-            font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.18em; 
-            text-decoration: none; transition: 0.4s; backdrop-filter: blur(4px);
-        }
-        #global-inquiry-btn:hover { background: rgba(0, 0, 0, 0.03); color: #000; border-color: rgba(0, 0, 0, 0.6); }
+        /* --- GLOBAL INQUIRY --- */
+        #global-inquiry-btn { position: fixed; bottom: 105px; right: 25px; z-index: 2500; background: transparent; color: rgba(0,0,0,0.4); border: 1px solid rgba(0,0,0,0.1); padding: 12px 22px; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; text-decoration: none; transition: 0.4s; backdrop-filter: blur(4px); }
+        #global-inquiry-btn:hover { background: rgba(0,0,0,0.03); color: #000; border-color: rgba(0,0,0,0.6); }
 
-        /* --- NAVIGATION --- */
+        /* --- VIEWPORT & NAV --- */
+        #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
+        @media screen and (min-width: 769px) { body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); } }
+
         .nav-stack { position: sticky; top: 0; z-index: 500; background: #fff; border-bottom: 1px solid #eee; }
-        .mode-nav { display: flex; justify-content: center; gap: 60px; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
+        .mode-nav { display: flex; justify-content: center; gap: 60px; padding: 20px 0; border-bottom: 1px solid #f2f2f2; }
         .mode-item { font-size: 14px; letter-spacing: 0.25em; color: var(--grey); cursor: pointer; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
         .mode-item.active { color: #000; font-weight: bold; border-bottom-color: #000; }
         .area-nav { display: flex; gap: 30px; padding: 15px 40px; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #f2f2f2; }
@@ -44,48 +42,39 @@
         .area-item { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--grey); cursor: pointer; white-space: nowrap; padding-bottom: 5px; transition: 0.3s; }
         .area-item.active { color: #000; font-weight: bold; }
 
-        #viewport { width: 100%; height: 100%; padding: 85px 0 85px 0; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 100; transition: 0.5s; touch-action: pan-y; }
-        @media screen and (min-width: 769px) { body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); } }
-
+        /* --- IMAGE BREAKOUT 120% --- */
         .mol-breakout-wrap { width: 120% !important; margin-left: -10% !important; position: relative; left: 0; text-align: center; line-height: 0; font-size: 0; }
-        .mol-breakout-wrap img { width: 100%; height: auto; display: block; border: none; }
+        .mol-breakout-wrap img { width: 100%; height: auto; display: block; border-radius: 0; border: none; }
 
         .floor-info-bar { padding: 15px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 40px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
         .info-item b { color: #000; margin-right: 6px; }
 
-        /* PIN ◎ & SMART CARD */
+        /* --- PIN ◎ & SPEC CARD --- */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
         
-        /* 【修正】カードを常に最前面にするため z-index を 100 に固定 */
-        .mol-card { 
-            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 20px; border-radius: 2px; 
-            box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 200px; max-width: 280px; 
-            opacity: 0; visibility: hidden; transition: opacity 0.3s, bottom 0.3s, transform 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0;
-            pointer-events: none; z-index: 100;
-        }
-        body.pinning-mode-active .mol-card { pointer-events: auto; }
+        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 20px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15); width: max-content; min-width: 220px; max-width: 280px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: left; line-height: 1.6; color: #000; border: 1px solid #f0f0f0; pointer-events: none; z-index: 100; }
         .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 15px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
         .spec-row { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 4px; gap: 20px; }
         .spec-label { color: var(--grey); text-transform: uppercase; font-weight: bold; }
         .mol-card .price { font-size: 11px; font-weight: bold; margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; display: block; text-align: center; }
+        
         .card-actions { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; display: grid; gap: 8px; pointer-events: auto; }
         .card-btn { display: block; padding: 10px; font-size: 9px; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; border-radius: 2px; }
         .btn-prod { background: #000; color: #fff; }
         .btn-inq { border: 1px solid #000; color: #000; }
 
-        /* 【修正】ホバーしたピン自身の z-index を 999 に上げ、カードが上にくるようにする */
         .mol-hs:hover { z-index: 999 !important; }
         .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 32px; }
         .mol-hs:hover .mol-dot-outer { background: rgba(255,255,255,0.6); transform: scale(1.1); }
 
-        /* DESIGNER UI */
+        /* --- DESIGNER PANEL --- */
         #ui-mode-toggle { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; background: rgba(255,255,255,0.9); padding: 4px; border: 1px solid var(--border); border-radius: 2px; }
         #ui-mode-toggle button { border: none; background: none; padding: 8px 18px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: var(--main-font); }
         #ui-mode-toggle button.active { background: #000; color: #fff; }
-        #admin-panel { position: fixed; top: 0; left: -420px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
+        #admin-panel { position: fixed; top: 0; left: -400px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
         #admin-panel.open { left: 0; }
         .admin-section { margin-bottom: 25px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
         .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 12px; display: block; }
@@ -112,10 +101,10 @@
 
     <script>
         const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_v54";
+        const DB_NAME = "pmt_master_v56";
 
         /* DATA_START */
-        let store = {"inquiryUrl":"https://www.molteni.it/jp/contact","map":{"B1F":[],"1F":[],"2F":[],"3F":[]},"tour":{"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[],"2F":[{"id":"a1766742720802","name":"A","img":"https://i.ibb.co/ZznLmDKS/Tokyo-Palazzo-Molteni-04.jpg","pins":[{"id":"p1766742763402","x":32.75,"y":59.92,"title":"mateo","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742778369","x":57.8,"y":55.35,"title":"D.150.3","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766742784668","name":"B","img":"https://i.ibb.co/Zpsy2jCm/682ee4fb185ff-Tokyo-MGL0157-2025-HR.jpg","pins":[{"id":"p1766742829619","x":37.9,"y":48.01,"title":"GLISSMASTER","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742845785","x":16.3,"y":62.2,"title":"DUE FOLIE","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"3F":[{"id":"a1766734621445","name":"A","img":"https://i.ibb.co/nMKmfKdM/682ee5105f756-Molteni-C-Palazzo-Molteni-Tokyo-02.jpg","pins":[{"id":"p1766734648580","x":35.16,"y":39.92,"title":"ARIAL","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734655028","x":57.58,"y":38.47,"title":"505up","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734663812","x":30.19,"y":82.63,"title":"AUGUSTO","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734680242","x":15.03,"y":45.35,"title":"エコスマート","link":"","sub":"エコスマート","type":"detail"},{"id":"p1766734684899","x":82.42,"y":45.61,"title":"アート","link":"","sub":"アート","type":"detail"}]}]},"metrics":{"B1F":{"ch":"2980","sqm":"29","jo":"18","tsubo":"9"},"1F":{"ch":"2900","sqm":"40","jo":"25","tsubo":"12"},"2F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"10"},"3F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"9"}}};
+        let store = JSON.parse(localStorage.getItem(DB_NAME)) || {"inquiryUrl":"https://www.molteni.it/jp/contact","map":{"B1F":[],"1F":[{"id":"a1768460970125","name":"1F - FRONT","img":"https://i.ibb.co/FbW9vNns/1F-Front.png","pins":[{"id":"p1768461098707","x":37.63,"y":58.49,"title":"CLEO","cat":"SOFA","size":"TEST","finish":"TEST","price":"1,234,567,890","link":"https://www.molteni.it/jp/","type":"product"},{"id":"p1768461151173","x":50.16,"y":50.9,"title":"REGENT","cat":"LIVING TABLE","size":"TEST","finish":"","price":"8,888,888","link":"","type":"product"},{"id":"p1768461181030","x":34.39,"y":27.28,"title":"FLOOR","link":"","sub":"FLOORは","type":"detail"}]}],"2F":[],"3F":[]},"tour":{"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[],"2F":[{"id":"a1766742720802","name":"A","img":"https://i.ibb.co/ZznLmDKS/Tokyo-Palazzo-Molteni-04.jpg","pins":[{"id":"p1766742763402","x":32.75,"y":59.92,"title":"mateo","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742778369","x":57.8,"y":55.35,"title":"D.150.3","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766742784668","name":"B","img":"https://i.ibb.co/Zpsy2jCm/682ee4fb185ff-Tokyo-MGL0157-2025-HR.jpg","pins":[{"id":"p1766742829619","x":37.9,"y":48.01,"title":"GLISSMASTER","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742845785","x":16.3,"y":62.2,"title":"DUE FOLIE","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"3F":[{"id":"a1766734621445","name":"A","img":"https://i.ibb.co/nMKmfKdM/682ee5105f756-Molteni-C-Palazzo-Molteni-Tokyo-02.jpg","pins":[{"id":"p1766734648580","x":35.16,"y":39.92,"title":"ARIAL","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734655028","x":57.58,"y":38.47,"title":"505up","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734663812","x":30.19,"y":82.63,"title":"AUGUSTO","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734680242","x":15.03,"y":45.35,"title":"エコスマート","link":"","sub":"エコスマート","type":"detail"},{"id":"p1766734684899","x":82.42,"y":45.61,"title":"アート","link":"","sub":"アート","type":"detail"}]}]},"metrics":{"B1F":{"ch":"2980","sqm":"29","jo":"18","tsubo":"9"},"1F":{"ch":"2900","sqm":"40","jo":"25","tsubo":"12"},"2F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"10"},"3F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"9"}}};
         /* DATA_END */
 
         let floor = '1F';
@@ -125,7 +114,8 @@
         let isPinning = false;
         let touchX = 0;
 
-        // 全主要関数をグローバルに定義
+        function autoSave() { localStorage.setItem(DB_NAME, JSON.stringify(store)); }
+
         window.changeAppMode = function(m) {
             if (window.innerWidth <= 768) return;
             adminMode = m; isPinning = false;
@@ -139,7 +129,7 @@
 
         window.handleViewportClick = function(e) {
             if (adminMode === 'edit' && !isPinning) {
-                if (e.target.closest('.area-nav') || e.target.closest('.mode-nav') || e.target.closest('.mol-hs')) return;
+                if (e.target.closest('.nav-stack') || e.target.closest('.mol-hs')) return;
                 window.changeAppMode('view'); return;
             }
             if (adminMode === 'edit' && isPinning) {
@@ -148,7 +138,12 @@
                     const r = stage.getBoundingClientRect();
                     const x = ((e.clientX - r.left)/r.width)*100;
                     const y = ((e.clientY - r.top)/r.height)*100;
-                    addPinAt(x, y);
+                    const t = document.getElementById('marker-type').value;
+                    const name = prompt("Name:"); if(!name) return;
+                    const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
+                    if(t === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Detail:"); }
+                    store[viewMode][floor].find(x => x.id === areaId).pins.push(p);
+                    autoSave(); renderActiveScene();
                 }
             }
         };
@@ -157,14 +152,14 @@
             isPinning = !isPinning;
             const btn = document.getElementById('pin-switch-btn');
             btn.classList.toggle('active', isPinning);
-            btn.innerText = isPinning ? "Placement Mode: ACTIVE" : "Placement Mode: OFF";
+            btn.innerText = isPinning ? "Placement Mode: ON" : "Placement Mode: OFF";
             document.body.classList.toggle('pinning-mode-active', isPinning);
         };
 
         window.handleFloorChange = function(f) {
             floor = f;
             document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('active'));
-            const btn = document.getElementById('fbtn-'+f); if(btn) btn.classList.add('active');
+            document.getElementById('fbtn-'+f).classList.add('active');
             document.getElementById('admin-f-label').innerText = f;
             const m = store.metrics[f];
             document.getElementById('m-ch').value = m.ch; document.getElementById('m-sqm').value = m.sqm;
@@ -180,6 +175,18 @@
             areaId = null; renderZoneNav();
         };
 
+        window.selectZone = function(id) {
+            areaId = id;
+            const a = store[viewMode][floor].find(x => x.id === id);
+            document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
+            renderActiveScene();
+            if(adminMode === 'edit') document.getElementById('edit-tools').style.display = 'block';
+            document.getElementById('manual-url').value = a ? a.img : '';
+            document.getElementById('global-inquiry-btn').href = store.inquiryUrl;
+            const activeNav = document.getElementById(`nav-${id}`);
+            if(activeNav) activeNav.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        };
+
         function renderZoneNav() {
             const nav = document.getElementById('area-nav'); nav.innerHTML = '';
             const list = (store[viewMode] && store[viewMode][floor]) ? store[viewMode][floor] : [];
@@ -192,23 +199,11 @@
                 const el = document.createElement('div');
                 el.className = `area-item ${a.id === areaId ? 'active' : ''}`;
                 el.id = `nav-${a.id}`; el.innerText = a.name;
-                el.onclick = (e) => { e.stopPropagation(); selectZone(a.id); };
+                el.onclick = (e) => { e.stopPropagation(); window.selectZone(a.id); };
                 nav.appendChild(el);
             });
-            if(!areaId || !list.find(x => x.id === areaId)) selectZone(list[0].id);
-            else selectZone(areaId);
-        }
-
-        function selectZone(id) {
-            areaId = id;
-            const a = store[viewMode][floor].find(x => x.id === id);
-            document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
-            renderActiveScene();
-            if(adminMode === 'edit') document.getElementById('edit-tools').style.display = 'block';
-            document.getElementById('manual-url').value = a ? a.img : '';
-            document.getElementById('global-inquiry-btn').href = store.inquiryUrl;
-            const activeNav = document.getElementById(`nav-${id}`);
-            if(activeNav) activeNav.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            if(!areaId || !list.find(x => x.id === areaId)) window.selectZone(list[0].id);
+            else window.selectZone(areaId);
         }
 
         function renderActiveScene() {
@@ -245,62 +240,7 @@
             if(adminMode === 'edit') return;
             const list = store[viewMode][floor]; const idx = list.findIndex(x => x.id === areaId);
             const nextIdx = idx + dir;
-            if (nextIdx >= 0 && nextIdx < list.length) selectZone(list[nextIdx].id);
-        };
-
-        function addPinAt(x, y) {
-            const t = document.getElementById('marker-type').value;
-            const name = prompt("Name:"); if(!name) return;
-            const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
-            if(t === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Detail:"); }
-            store[viewMode][floor].find(x => x.id === areaId).pins.push(p);
-            autoSave(); renderActiveScene();
-        }
-
-        window.handlePinInteraction = function(e, pid) {
-            if (adminMode === 'edit') {
-                e.stopPropagation();
-                const p = store[viewMode][floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
-                p.title = prompt("Update Name:", p.title) || p.title;
-                if(p.type === 'product') { p.cat = prompt("Category:", p.cat); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link); } else { p.sub = prompt("Desc:", p.sub); }
-                autoSave(); renderActiveScene();
-            }
-        };
-
-        window.handleDeletePin = function(e, pid) {
-            e.stopPropagation();
-            const a = store[viewMode][floor].find(x => x.id === areaId);
-            a.pins = a.pins.filter(x => x.id !== pid);
-            autoSave(); renderActiveScene();
-        };
-
-        window.handleCreateArea = function() {
-            const n = document.getElementById('new-area-name').value; if(!n) return;
-            const id = 'a' + Date.now();
-            if(!store[viewMode][floor]) store[viewMode][floor] = [];
-            store[viewMode][floor].push({ id, name: n, img: '', pins: [] });
-            document.getElementById('new-area-name').value = '';
-            autoSave(); renderZoneNav(); selectZone(id);
-        };
-
-        window.handleDeleteArea = function() {
-            if(confirm('Permanently delete this area?')) {
-                store[viewMode][floor] = store[viewMode][floor].filter(x => x.id !== areaId);
-                areaId = null; autoSave(); renderZoneNav();
-            }
-        };
-
-        window.commitChanges = function() {
-            const m = store.metrics[floor];
-            m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
-            m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
-            store.inquiryUrl = document.getElementById('inquiry-url-in').value;
-            autoSave(); alert("Floor metrics saved."); renderActiveScene();
-        };
-
-        window.updateImageManual = function(v) {
-            const a = store[viewMode][floor].find(x => x.id === areaId);
-            if(a) { a.img = v; autoSave(); renderActiveScene(); }
+            if (nextIdx >= 0 && nextIdx < list.length) window.selectZone(list[nextIdx].id);
         };
 
         window.handleFileUpload = async (e) => {
@@ -325,31 +265,88 @@
             exportDiv.style.display = 'block'; exportText.select();
         };
 
-        window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
+        // --- NEW: EXPORT CURRENT SCENE ONLY FOR MOLTENI CMS ---
+        window.exportCmsCode = function() {
+            const a = store[viewMode][floor].find(x => x.id === areaId);
+            if(!a || !a.img) { alert("No image in this area."); return; }
+            const m = store.metrics[floor];
+            const infoHTML = `<div class="floor-info-bar" style="padding:15px 40px;background:#fafafa;border-bottom:1px solid #eee;display:flex;justify-content:center;gap:40px;font-size:10px;letter-spacing:0.1em;color:#86868B;text-transform:uppercase;font-family:'Tabac SemiBold',sans-serif;"><div class="info-item"><b style="color:#000;">CH</b> ${m.ch}mm</div><div class="info-item"><b style="color:#000;">Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
+            let pinsHTML = "";
+            a.pins.forEach(p => {
+                const isP = p.type === 'product';
+                const tag = isP ? 'a' : 'div';
+                const href = isP ? `href="${p.link}" target="_blank"` : '';
+                const shape = isP ? '50%' : '0';
+                let specs = isP ? `<div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px;gap:20px;"><span style="color:#86868B;text-transform:uppercase;font-weight:bold;">Category</span><span style="text-align:right;">${p.cat||'-'}</span></div><div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px;gap:20px;"><span style="color:#86868B;text-transform:uppercase;font-weight:bold;">Size</span><span style="text-align:right;">${p.size||'-'}</span></div><div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px;gap:20px;"><span style="color:#86868B;text-transform:uppercase;font-weight:bold;">Finish</span><span style="text-align:right;">${p.finish||'-'}</span></div><div style="font-size:11px;font-weight:bold;margin-top:8px;border-top:1px solid #eee;padding-top:8px;display:block;text-align:center;">¥${p.price||'Ask'}</div><div style="margin-top:15px;border-top:1px solid #eee;padding-top:15px;display:grid;gap:8px;"><a href="${p.link}" target="_blank" style="display:block;padding:10px;font-size:9px;font-weight:bold;text-align:center;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;border-radius:2px;background:#000;color:#fff;">商品詳細はこちら</a><a href="${store.inquiryUrl}" target="_blank" style="display:block;padding:10px;font-size:9px;font-weight:bold;text-align:center;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;border-radius:2px;border:1px solid #000;color:#000;">製品についてお問い合わせ</a></div>` : `<span style="white-space:normal;display:block;">${p.sub}</span>`;
+                pinsHTML += `<div class="mol-hs" style="position:absolute;top:${p.y}%;left:${p.x}%;transform:translate(-50%,-50%);text-decoration:none;z-index:10;display:block;"><span class="mol-dot-outer" style="width:12px;height:12px;background:rgba(255,255,255,0.2);border:1px solid #fff;border-radius:${shape};display:flex;align-items:center;justify-content:center;transition:0.3s;"><span style="width:4px;height:4px;background:#fff;border-radius:${shape};"></span></span><div class="mol-card" style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);background:#fff;padding:20px;border-radius:2px;box-shadow:0 15px 45px rgba(0,0,0,0.15);width:max-content;min-width:220px;max-width:280px;opacity:0;visibility:hidden;transition:0.3s;text-align:left;line-height:1.6;color:#000;border:1px solid #f0f0f0;font-family:'Tabac SemiBold',sans-serif;"><strong style="font-family:'Libre Bodoni',serif;font-size:15px;font-weight:600;display:block;text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid #eee;padding-bottom:8px;">${p.title}</strong>${specs}</div></div>`;
+            });
+            const cmsFinal = `<div style="width:100%;text-align:center;line-height:0;font-size:0;overflow:hidden;">${infoHTML}<div style="width:120%;margin-left:-10%;position:relative;left:0;"><img src="${a.img}" style="width:100%;height:auto;display:block;border:none;">${pinsHTML}</div></div><style>.mol-hs:hover .mol-card,.mol-hs:active .mol-card{opacity:1!important;visibility:visible!important;bottom:32px!important;}.mol-hs:hover .mol-dot-outer{background-color:rgba(255,255,255,0.6)!important;transform:scale(1.1);}@media screen and (max-width:768px){.mol-hs .mol-card{width:180px!important;padding:15px!important;}}</style>`.replace(/>\s+</g, '><');
+            const exportDiv = document.getElementById('export-output');
+            const exportText = document.getElementById('export-text');
+            exportText.value = cmsFinal;
+            exportDiv.style.display = 'block'; exportText.select();
+        };
 
-        function autoSave() { localStorage.setItem(DB_NAME, JSON.stringify(store)); }
+        window.handlePinInteraction = function(e, pid) {
+            if (adminMode === 'edit') {
+                e.stopPropagation();
+                const p = store[viewMode][floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
+                p.title = prompt("Update Name:", p.title) || p.title;
+                if(p.type === 'product') { p.cat = prompt("Category:", p.cat); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link); } else { p.sub = prompt("Desc:", p.sub); }
+                autoSave(); renderActiveScene();
+            }
+        };
+
+        window.handleDeletePin = function(e, pid) {
+            e.stopPropagation();
+            const a = store[viewMode][floor].find(x => x.id === areaId);
+            a.pins = a.pins.filter(x => x.id !== pid);
+            autoSave(); renderActiveScene();
+        };
+
+        window.handleCreateArea = function() {
+            const n = document.getElementById('new-area-name').value; if(!n) return;
+            const id = 'a' + Date.now();
+            if(!store[viewMode][floor]) store[viewMode][floor] = [];
+            store[viewMode][floor].push({ id, name: n, img: '', pins: [] });
+            document.getElementById('new-area-name').value = '';
+            autoSave(); renderZoneNav(); window.selectZone(id);
+        };
+
+        window.handleDeleteArea = function() {
+            if(confirm('Delete zone?')) {
+                store[viewMode][floor] = store[viewMode][floor].filter(x => x.id !== areaId);
+                areaId = null; autoSave(); renderZoneNav();
+            }
+        };
+
+        window.commitChanges = function() {
+            const m = store.metrics[floor];
+            m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
+            m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
+            store.inquiryUrl = document.getElementById('inquiry-url-in').value;
+            autoSave(); alert("Floor metrics saved."); renderActiveScene();
+        };
+
+        window.updateImageManual = function(v) {
+            const a = store[viewMode][floor].find(x => x.id === areaId);
+            if(a) { a.img = v; autoSave(); renderActiveScene(); }
+        };
+
+        window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
 
         document.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem(DB_NAME);
             if(saved) { store = JSON.parse(saved); }
             if (window.innerWidth <= 768) { mode = 'view'; }
             window.handleFloorChange('1F');
-            const vp = document.getElementById('viewport');
-            vp.addEventListener('touchstart', e => { touchX = e.touches[0].screenX; });
-            vp.addEventListener('touchend', e => {
-                if(adminMode === 'edit') return;
-                const d = e.changedTouches[0].screenX - touchX;
-                if(Math.abs(d) > 80) window.navigateArea(d > 0 ? -1 : 1);
-            });
         });
     </script>
 </head>
 <body id="app-body">
 <div id="admin-overlay" onclick="closeAdmin()"></div>
 <div id="ui-mode-toggle"><button id="mode-view-btn" class="active" onclick="changeAppMode('view')">VIEW</button><button id="mode-edit-btn" onclick="changeAppMode('edit')">DESIGNER</button></div>
-<header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Experience Tour Suite</div></header>
-
-<a href="https://www.molteni.it/jp/contact" id="global-inquiry-btn" target="_blank">製品についてお問い合わせ</a>
+<header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Interactive Tour Suite</div></header>
 
 <div id="admin-panel">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:30px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
@@ -359,25 +356,26 @@
     </div>
     <div class="admin-section"><span class="admin-label">Zone Setup</span><input type="text" id="new-area-name" placeholder="Zone Name"><button class="btn-black" style="width:100%;" onclick="handleCreateArea()">Create Zone</button></div>
     <div id="edit-tools" style="display:none;">
-        <div class="admin-section"><span class="admin-label">Zone Media</span>
+        <div class="admin-section">
             <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)" style="font-size:10px; margin-bottom:10px;">
             <input type="text" id="manual-url" placeholder="Asset URL" onchange="updateImageManual(this.value)">
             <div id="pin-switch-btn" class="pin-switch" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: OFF</div>
             <select id="marker-type"><option value="product">● Product Pin</option><option value="detail">■ Detail Pin</option></select>
         </div>
         <button class="btn-black" style="width:100%; background:var(--accent); color:#fff; border:none; margin-bottom:10px;" onclick="commitChanges()">Save Progress</button>
-        <button class="btn-black" style="width:100%; background:#333; color:#fff; border:none; margin-bottom:10px;" onclick="exportPermanentHTML()">Export Code</button>
+        <button class="btn-black" style="width:100%; background:#000; color:#fff; border:none; margin-bottom:10px;" onclick="exportCmsCode()">3. Export Current Scene for Molteni CMS</button>
+        <button class="btn-black" style="width:100%; background:#333; color:#fff; border:none; margin-bottom:10px;" onclick="exportPermanentHTML()">Export Full App Code</button>
         <button class="btn-black" style="width:100%; background:#fff; color:red; border:1px solid red;" onclick="handleDeleteArea()">Remove Zone</button>
     </div>
 </div>
 
-<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button></div></div>
+<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Export Output</h2><textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button></div></div>
 
 <div id="viewport" onclick="handleViewportClick(event)">
     <div class="sub-nav-container">
-        <div class="mode-nav">
-            <div id="mode-map-tab" class="mode-item" onclick="switchViewMode('map')">FLOORMAP</div>
-            <div id="mode-tour-tab" class="mode-item active" onclick="switchViewMode('tour')">TOUR</div>
+        <div class="mode-nav" style="display:flex;justify-content:center;gap:40px;padding:15px 0;border-bottom:1px solid #f2f2f2;">
+            <div id="mode-map-tab" class="mode-item" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('map')">FLOORMAP</div>
+            <div id="mode-tour-tab" class="mode-item active" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('tour')">TOUR</div>
         </div>
         <div class="area-nav" id="area-nav"></div>
     </div>
