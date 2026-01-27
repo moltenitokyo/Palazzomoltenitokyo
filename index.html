@@ -19,18 +19,24 @@
         .brand-title { font-family: var(--main-font); font-size: 24px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 5px; white-space: nowrap; text-align: center; width: 90%; }
         .location { font-size: 8px; letter-spacing: 0.5em; color: var(--grey); text-transform: uppercase; margin-top: 8px; margin-bottom: 5px; }
 
-        footer { position: fixed; bottom: 0; width: 100%; height: 75px; background: #000; display: flex; z-index: 3000; }
+        footer { position: fixed; bottom: 0; width: 100%; height: 85px; background: #000; display: flex; z-index: 3000; }
         .floor-btn { flex: 1; color: #fff; text-align: center; display: flex; align-items: center; justify-content: center; opacity: 0.35; cursor: pointer; border: none; background: none; font-family: var(--main-font); transition: 0.4s; }
         .floor-btn.active { opacity: 1; }
-        .floor-num { font-family: var(--main-font); font-size: 22px; font-weight: 600; }
+        .floor-num { font-family: var(--main-font); font-size: 24px; font-weight: 600; }
 
-        /* --- GLOBAL INQUIRY (Glassmorphism) --- */
-        #global-inquiry-btn { position: fixed; bottom: 95px; right: 25px; z-index: 2500; background: rgba(255, 255, 255, 0.45); color: rgba(0, 0, 0, 0.5); border: 0.5px solid rgba(0, 0, 0, 0.1); padding: 12px 18px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        /* Inquiry Button - Minimal Ghost Glass */
+        #global-inquiry-btn { 
+            position: fixed; bottom: 105px; right: 25px; z-index: 2500; 
+            background: rgba(255, 255, 255, 0.4); color: rgba(0, 0, 0, 0.5); 
+            border: 0.5px solid rgba(0, 0, 0, 0.1); padding: 12px 18px; 
+            font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.15em; 
+            text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
         #global-inquiry-btn:hover { background: rgba(0, 0, 0, 0.8); color: #fff; border-color: #000; }
 
-        /* --- NAVIGATION --- */
+        /* Navigation */
         .nav-stack { position: sticky; top: 0; z-index: 500; background: #fff; border-bottom: 1px solid #eee; }
-        .mode-nav { display: flex; justify-content: center; gap: 60px; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
+        .mode-nav { display: flex; justify-content: center; gap: 60px; padding: 20px 0; border-bottom: 1px solid #f2f2f2; }
         .mode-item { font-size: 14px; letter-spacing: 0.25em; color: var(--grey); cursor: pointer; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
         .mode-item.active { color: #000; font-weight: bold; border-bottom-color: #000; }
         .area-nav { display: flex; gap: 30px; padding: 15px 40px; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #f2f2f2; }
@@ -42,20 +48,26 @@
         @media screen and (min-width: 769px) { body.pinning-mode-active #viewport { width: calc(100% - var(--panel-w)); transform: translateX(var(--panel-w)); } }
 
         .scene-wrap { width: 100%; position: relative; line-height: 0; font-size: 0; }
-        .mol-breakout-wrap { width: 120% !important; margin-left: -10% !important; position: relative; left: 0; text-align: center; }
+        .mol-breakout-wrap { width: 120% !important; margin-left: -10% !important; position: relative; left: 0; text-align: center; line-height: 0; font-size: 0; }
         @media screen and (max-width: 768px) { .mol-breakout-wrap { width: 100% !important; margin: 0 !important; left: 0 !important; } }
         .mol-breakout-wrap img { width: 100%; height: auto; display: block; border: none; }
 
         .floor-info-bar { padding: 15px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 40px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
         .info-item b { color: #000; margin-right: 6px; }
 
-        /* --- PIN ◎ & CLEAN CARD --- */
+        /* PIN ◎ & SMART CARD */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
         
-        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 22px 25px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.12); width: max-content; min-width: 200px; max-width: 280px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: center; line-height: 1.6; color: #000; border: none; pointer-events: none; z-index: 100; }
+        .mol-card { 
+            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 22px 25px; border-radius: 2px; 
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12); width: max-content; min-width: 200px; max-width: 280px; 
+            opacity: 0; visibility: hidden; transition: opacity 0.3s, bottom 0.3s, transform 0.3s; 
+            text-align: center; line-height: 1.6; color: #000; border: none; 
+            pointer-events: none; z-index: 100;
+        }
         body.pinning-mode-active .mol-card { pointer-events: auto; }
         .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 16px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 10px; }
         .spec-row-centered { display: block; font-size: 9px; margin-bottom: 6px; }
@@ -77,15 +89,19 @@
         #ui-mode-toggle button.active { background: #000; color: #fff; }
         #admin-panel { position: fixed; top: 0; left: -400px; width: var(--panel-w); height: 100%; background: #fff; z-index: 5000; transition: 0.5s; padding: 40px 30px; box-sizing: border-box; overflow-y: auto; border-right: 1px solid #eee; }
         #admin-panel.open { left: 0; }
+        .pin-switch { margin-bottom: 15px; padding: 15px; border: 1px solid #000; text-align: center; cursor: pointer; font-size: 11px; font-weight: bold; background: #fff; }
+        .pin-switch.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; pointer-events: auto; }
+        body.pinning-mode-active .edit-x { display: flex; }
         .admin-section { margin-bottom: 25px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
         .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 12px; display: block; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; font-family: inherit; }
         .btn { width: 100%; padding: 16px; border: none; border-radius: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 11px; text-transform: uppercase; }
         .btn-black { background: #000; color: #fff; }
         .btn-accent { background: var(--accent); color: #fff; }
-        .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; pointer-events: auto; }
-        body.pinning-mode-active .edit-x { display: flex; }
-        #export-output { display:none; position: fixed; top: 10%; left: 10%; width: 80%; height: 80%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; border: 1px solid #000; }
+        
+        /* EXPORT TEXTAREA */
+        #export-overlay { display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; border: 1px solid #000; }
 
         .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; z-index: 1500; cursor: pointer; color: rgba(0,0,0,0.5); background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border-radius: 50%; transition: 0.3s; pointer-events: auto; }
         .nav-arrow:hover { color: rgba(0,0,0,1); background: rgba(255,255,255,0.8); }
@@ -102,7 +118,7 @@
 
     <script>
         const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_data_final";
+        const DB_NAME = "pmt_master_v61_final";
 
         /* --- データベース --- */
         /* DATA_START */
@@ -112,21 +128,59 @@
         let floor = '1F';
         let viewMode = 'tour'; 
         let areaId = null;
-        let adminMode = 'view';
+        let mode = 'view';
         let isPinning = false;
         let touchX = 0;
 
+        /* --- 全主要関数をグローバルに定義 --- */
         window.autoSave = function() { localStorage.setItem(DB_NAME, JSON.stringify(store)); };
+
+        window.adjustCardPosition = function(el) {
+            const card = el.querySelector('.mol-card'); if(!card) return;
+            card.style.left = "50%"; card.style.transform = "translateX(-50%)";
+            const rect = card.getBoundingClientRect();
+            if (rect.left < 15) card.style.transform = `translateX(calc(-50% + ${15 - rect.left}px))`;
+            else if (rect.right > window.innerWidth - 15) card.style.transform = `translateX(calc(-50% + ${(window.innerWidth - 15) - rect.right}px))`;
+        };
 
         window.changeAppMode = function(m) {
             if (window.innerWidth <= 768) return;
-            adminMode = m; isPinning = false;
+            mode = m; isPinning = false;
             document.getElementById('mode-view-btn').className = (m === 'view' ? 'active' : '');
             document.getElementById('mode-edit-btn').className = (m === 'edit' ? 'active' : '');
             document.getElementById('admin-panel').classList.toggle('open', m === 'edit');
             document.getElementById('admin-overlay').style.display = (m === 'edit' ? 'block' : 'none');
             document.body.classList.remove('pinning-mode-active');
             renderActiveScene();
+        };
+
+        window.handleViewportClick = function(e) {
+            if (mode === 'edit' && !isPinning) {
+                if (e.target.closest('.area-nav') || e.target.closest('.mode-nav') || e.target.closest('.mol-hs')) return;
+                window.changeAppMode('view'); return;
+            }
+            if (mode === 'edit' && isPinning) {
+                const stage = document.getElementById('scene-stage');
+                if (stage && e.target.closest('#scene-stage') && !e.target.closest('.mol-hs')) {
+                    const r = stage.getBoundingClientRect();
+                    const x = ((e.clientX - r.left)/r.width)*100;
+                    const y = ((e.clientY - r.top)/r.height)*100;
+                    const t = document.getElementById('marker-type').value;
+                    const name = prompt("Name:"); if(!name) return;
+                    const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
+                    if(t === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Detail:"); }
+                    store[viewMode][floor].find(x => x.id === areaId).pins.push(p);
+                    window.autoSave(); renderActiveScene();
+                }
+            }
+        };
+
+        window.handlePinToggle = function() {
+            isPinning = !isPinning;
+            const btn = document.getElementById('pin-switch-btn');
+            btn.classList.toggle('active', isPinning);
+            btn.innerText = isPinning ? "Placement Mode: ACTIVE" : "Placement Mode: OFF";
+            document.body.classList.toggle('pinning-mode-active', isPinning);
         };
 
         window.handleFloorChange = function(f) {
@@ -154,9 +208,11 @@
             const a = store[viewMode][floor].find(x => x.id === id);
             document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
             renderActiveScene();
-            if(adminMode === 'edit') document.getElementById('edit-tools').style.display = 'block';
+            if(mode === 'edit') document.getElementById('edit-tools').style.display = 'block';
             document.getElementById('manual-url').value = a ? a.img : '';
             document.getElementById('global-inquiry-btn').href = store.inquiryUrl;
+            const activeNav = document.getElementById(`nav-${id}`);
+            if(activeNav) activeNav.scrollIntoView({ behavior: 'smooth', inline: 'center' });
         };
 
         function renderZoneNav() {
@@ -186,7 +242,7 @@
             let pinsHTML = '';
             (a.pins || []).forEach(p => {
                 const isP = p.type === 'product';
-                const xBtn = (adminMode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
+                const xBtn = (mode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
                 let specs = '';
                 if(isP) {
                     if(p.cat) specs += `<div class="spec-row-centered"><span class="spec-label-centered">Category</span><span class="spec-value-centered">${p.cat}</span></div>`;
@@ -195,17 +251,55 @@
                     if(p.price) specs += `<div class="price">¥${p.price}</div>`;
                     specs += `<div class="card-actions"><a href="${p.link}" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="${store.inquiryUrl}" target="_blank" class="card-btn btn-inq">製品についてお問い合わせ</a></div>`;
                 } else { specs = `<span>${p.sub}</span>`; }
-                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onmouseenter="adjustCardPosition(this)" ontouchstart="adjustCardPosition(this)" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>${p.title}</strong>${specs}</div></div>`;
+                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onmouseenter="window.adjustCardPosition(this)" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>${p.title}</strong>${specs}</div></div>`;
             });
             document.getElementById('scene-display').innerHTML = infoHTML + `<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://placehold.jp/24/ffffff/000000/1200x800.png?text=Awaiting+Visual'}">${pinsHTML}</div>`;
         }
 
-        window.adjustCardPosition = function(el) {
-            const card = el.querySelector('.mol-card'); if(!card) return;
-            card.style.left = "50%"; card.style.transform = "translateX(-50%)";
-            const rect = card.getBoundingClientRect();
-            if (rect.left < 15) card.style.transform = `translateX(calc(-50% + ${15 - rect.left}px))`;
-            else if (rect.right > window.innerWidth - 15) card.style.transform = `translateX(calc(-50% + ${(window.innerWidth - 15) - rect.right}px))`;
+        window.handlePinInteraction = function(e, pid) {
+            if (mode === 'edit') {
+                e.stopPropagation();
+                const p = store[viewMode][floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
+                p.title = prompt("Update Name:", p.title) || p.title;
+                if(p.type === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:"); } else { p.sub = prompt("Desc:", p.sub); }
+                window.autoSave(); renderActiveScene();
+            }
+        };
+
+        window.handleDeletePin = function(e, pid) {
+            e.stopPropagation();
+            const a = store[viewMode][floor].find(x => x.id === areaId);
+            a.pins = a.pins.filter(x => x.id !== pid);
+            window.autoSave(); renderActiveScene();
+        };
+
+        window.handleCreateArea = function() {
+            const n = document.getElementById('new-area-name').value; if(!n) return;
+            const id = 'a' + Date.now();
+            if(!store[viewMode][floor]) store[viewMode][floor] = [];
+            store[viewMode][floor].push({ id, name: n, img: '', pins: [] });
+            document.getElementById('new-area-name').value = '';
+            window.autoSave(); renderZoneNav(); window.selectZone(id);
+        };
+
+        window.handleDeleteArea = function() {
+            if(confirm('Delete entire area?')) {
+                store[viewMode][floor] = store[viewMode][floor].filter(x => x.id !== areaId);
+                areaId = null; window.autoSave(); renderZoneNav();
+            }
+        };
+
+        window.commitChanges = function() {
+            const m = store.metrics[floor];
+            m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
+            m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
+            store.inquiryUrl = document.getElementById('inquiry-url-in').value;
+            window.autoSave(); alert("Floor metrics saved."); renderActiveScene();
+        };
+
+        window.updateImageManual = function(v) {
+            const a = store[viewMode][floor].find(x => x.id === areaId);
+            if(a) { a.img = v; window.autoSave(); renderActiveScene(); }
         };
 
         window.handleFileUpload = async (e) => {
@@ -230,87 +324,11 @@
             exportDiv.style.display = 'block'; exportText.select();
         };
 
-        window.handlePinToggle = function() {
-            isPinning = !isPinning;
-            const btn = document.getElementById('pin-switch-btn');
-            btn.classList.toggle('active', isPinning);
-            btn.innerText = isPinning ? "Placement Mode: ACTIVE" : "Placement Mode: OFF";
-            document.body.classList.toggle('pinning-mode-active', isPinning);
-        };
-
-        window.handleViewportClick = function(e) {
-            if (adminMode === 'edit' && !isPinning) {
-                if (e.target.closest('.area-nav') || e.target.closest('.mode-nav') || e.target.closest('.mol-hs')) return;
-                window.changeAppMode('view'); return;
-            }
-            if (adminMode === 'edit' && isPinning) {
-                const stage = document.getElementById('scene-stage');
-                if (stage && e.target.closest('#scene-stage') && !e.target.closest('.mol-hs')) {
-                    const r = stage.getBoundingClientRect();
-                    const x = ((e.clientX - r.left)/r.width)*100;
-                    const y = ((e.clientY - r.top)/r.height)*100;
-                    const t = document.getElementById('marker-type').value;
-                    const name = prompt("Name:"); if(!name) return;
-                    const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
-                    if(t === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Detail:"); }
-                    store[viewMode][floor].find(x => x.id === areaId).pins.push(p);
-                    window.autoSave(); renderActiveScene();
-                }
-            }
-        };
-
-        window.handlePinInteraction = function(e, pid) {
-            if (adminMode === 'edit') {
-                e.stopPropagation();
-                const p = store[viewMode][floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
-                p.title = prompt("Update Name:", p.title) || p.title;
-                if(p.type === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Desc:", p.sub); }
-                window.autoSave(); renderActiveScene();
-            }
-        };
-
-        window.handleDeletePin = function(e, pid) {
-            e.stopPropagation();
-            const a = store[viewMode][floor].find(x => x.id === areaId);
-            a.pins = a.pins.filter(x => x.id !== pid);
-            window.autoSave(); renderActiveScene();
-        };
-
-        window.handleCreateArea = function() {
-            const n = document.getElementById('new-area-name').value; if(!n) return;
-            const id = 'a' + Date.now();
-            if(!store[viewMode][floor]) store[viewMode][floor] = [];
-            store[viewMode][floor].push({ id, name: n, img: '', pins: [] });
-            document.getElementById('new-area-name').value = '';
-            window.autoSave(); renderZoneNav(); window.selectZone(id);
-        };
-
-        window.handleDeleteArea = function() {
-            if(confirm('Delete zone?')) {
-                store[viewMode][floor] = store[viewMode][floor].filter(x => x.id !== areaId);
-                areaId = null; window.autoSave(); renderZoneNav();
-            }
-        };
-
-        window.commitChanges = function() {
-            const m = store.metrics[floor];
-            m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
-            m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
-            store.inquiryUrl = document.getElementById('inquiry-url-in').value;
-            window.autoSave(); alert("Floor metrics saved."); renderActiveScene();
-        };
-
-        window.updateImageManual = function(v) {
-            const a = store[viewMode][floor].find(x => x.id === areaId);
-            if(a) { a.img = v; window.autoSave(); renderActiveScene(); }
-        };
-
         window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
 
         window.navigateArea = function(dir) {
-            if(adminMode === 'edit') return;
-            const list = store[viewMode][floor];
-            const idx = list.findIndex(x => x.id === areaId);
+            if(mode === 'edit') return;
+            const list = store[viewMode][floor]; const idx = list.findIndex(x => x.id === areaId);
             const nextIdx = idx + dir;
             if (nextIdx >= 0 && nextIdx < list.length) window.selectZone(list[nextIdx].id);
         };
@@ -323,7 +341,7 @@
             const vp = document.getElementById('viewport');
             vp.addEventListener('touchstart', e => { touchX = e.touches[0].screenX; });
             vp.addEventListener('touchend', e => {
-                if(adminMode === 'edit') return;
+                if(mode === 'edit') return;
                 const d = e.changedTouches[0].screenX - touchX;
                 if(Math.abs(d) > 80) window.navigateArea(d > 0 ? -1 : 1);
             });
@@ -332,8 +350,14 @@
 </head>
 <body id="app-body">
 <div id="admin-overlay" onclick="closeAdmin()"></div>
-<div id="ui-mode-toggle"><button id="mode-view-btn" class="active" onclick="changeAppMode('view')">VIEW</button><button id="mode-edit-btn" onclick="changeAppMode('edit')">DESIGNER</button></div>
-<header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Experience Tour Suite</div></header>
+<div id="ui-mode-toggle">
+    <button id="mode-view-btn" class="active" onclick="changeAppMode('view')">VIEW</button>
+    <button id="mode-edit-btn" onclick="changeAppMode('edit')">DESIGNER</button>
+</div>
+<header>
+    <div class="brand-title">Palazzo Molteni Tokyo</div>
+    <div class="location">Experience Tour</div>
+</header>
 
 <a href="https://www.molteni.it/jp/contact" id="global-inquiry-btn" target="_blank">製品についてお問い合わせ</a>
 
@@ -345,8 +369,9 @@
     </div>
     <div class="admin-section"><span class="admin-label">Zone Setup</span><input type="text" id="new-area-name" placeholder="Zone Name"><button class="btn-black" style="width:100%;" onclick="handleCreateArea()">Create Zone</button></div>
     <div id="edit-tools" style="display:none;">
-        <div class="admin-section"><span class="admin-label">Zone Media</span>
-            <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)" style="font-size:10px; margin-bottom:10px;">
+        <div class="admin-section">
+            <span class="admin-label">Zone Media</span>
+            <input type="file" id="file-input" accept="image/*" onchange="window.handleFileUpload(event)" style="font-size:10px; margin-bottom:10px;">
             <input type="text" id="manual-url" placeholder="Asset URL" onchange="updateImageManual(this.value)">
             <div id="pin-switch-btn" class="pin-switch" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: OFF</div>
             <select id="marker-type"><option value="product">● Product Pin</option><option value="detail">■ Detail Pin</option></select>
@@ -357,18 +382,28 @@
     </div>
 </div>
 
-<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button></div></div>
+<div id="export-output">
+    <div style="max-width: 800px; margin: auto;">
+        <h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2>
+        <p style="font-size: 13px; color: #666;">Copy code and paste into GitHub index.html.</p>
+        <textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea>
+        <button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button>
+    </div>
+</div>
 
 <div id="viewport" onclick="handleViewportClick(event)">
     <div class="sub-nav-container">
-        <div class="mode-nav">
-            <div id="mode-map-tab" class="mode-item" onclick="switchViewMode('map')">FLOORMAP</div>
-            <div id="mode-tour-tab" class="mode-item active" onclick="switchViewMode('tour')">TOUR</div>
+        <div class="mode-nav" style="display:flex;justify-content:center;gap:40px;padding:15px 0;border-bottom:1px solid #f2f2f2;">
+            <div id="mode-map-tab" class="mode-item" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('map')">FLOORMAP</div>
+            <div id="mode-tour-tab" class="mode-item active" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('tour')">TOUR</div>
         </div>
         <div class="area-nav" id="area-nav"></div>
     </div>
     <div id="scene-display"></div>
 </div>
+
+<div class="nav-arrow arrow-left" onclick="navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="nav-arrow arrow-right" onclick="navigateArea(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
 
 <footer>
     <div class="floor-btn" onclick="handleFloorChange('B1F')" id="fbtn-B1F"><span class="floor-num">B1</span></div>
