@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
+<html lang="ja"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PALAZZO MOLTENI TOKYO | Virtual Tour Suite</title>
@@ -22,19 +21,18 @@
         footer { position: fixed; bottom: 0; width: 100%; height: 75px; background: #000; display: flex; z-index: 3000; }
         .floor-btn { flex: 1; color: #fff; text-align: center; display: flex; align-items: center; justify-content: center; opacity: 0.35; cursor: pointer; border: none; background: none; font-family: var(--main-font); transition: 0.4s; }
         .floor-btn.active { opacity: 1; }
-        .floor-num { display: block; font-family: var(--main-font); font-size: 22px; font-weight: 600; }
+        .floor-num { font-family: var(--main-font); font-size: 22px; font-weight: 600; }
 
-        /* --- GLOBAL INQUIRY (Glass Ghost) --- */
+        /* Inquiry Button - Minimal Ghost Glass */
         #global-inquiry-btn { 
             position: fixed; bottom: 95px; right: 25px; z-index: 2500; 
             background: rgba(255, 255, 255, 0.4); color: rgba(0, 0, 0, 0.5); 
             border: 0.5px solid rgba(0, 0, 0, 0.1); padding: 12px 18px; 
-            font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.15em; 
+            font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.18em; 
             text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
         #global-inquiry-btn:hover { background: rgba(0, 0, 0, 0.8); color: #fff; border-color: #000; }
 
-        /* --- NAVIGATION --- */
         .nav-stack { position: sticky; top: 0; z-index: 500; background: #fff; border-bottom: 1px solid #eee; }
         .mode-nav { display: flex; justify-content: center; gap: 60px; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
         .mode-item { font-size: 14px; letter-spacing: 0.25em; color: var(--grey); cursor: pointer; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
@@ -55,19 +53,12 @@
         .floor-info-bar { padding: 15px 40px; background: #fafafa; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 40px; font-size: 10px; letter-spacing: 0.1em; color: var(--grey); text-transform: uppercase; }
         .info-item b { color: #000; margin-right: 6px; }
 
-        /* PIN ◎ & SMART CARD */
         .mol-hs { position: absolute; transform: translate(-50%, -50%); text-decoration: none; z-index: 10; display: block; }
         .mol-dot-outer { width: 12px; height: 12px; background: rgba(255,255,255,0.2); border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .mol-dot-inner { width: 4px; height: 4px; border: 1px solid #fff; border-radius: 50%; background: transparent; }
         .type-detail .mol-dot-outer, .type-detail .mol-dot-inner { border-radius: 0; }
         
-        .mol-card { 
-            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 22px 25px; border-radius: 2px; 
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12); width: max-content; min-width: 200px; max-width: 280px; 
-            opacity: 0; visibility: hidden; transition: opacity 0.3s, bottom 0.3s, transform 0.3s; 
-            text-align: center; line-height: 1.6; color: #000; border: none; 
-            pointer-events: none; z-index: 100;
-        }
+        .mol-card { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; padding: 22px 25px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.12); width: max-content; min-width: 200px; max-width: 280px; opacity: 0; visibility: hidden; transition: 0.3s; text-align: center; line-height: 1.6; color: #000; border: none; pointer-events: none; z-index: 100; }
         body.pinning-mode-active .mol-card { pointer-events: auto; }
         .mol-card strong { font-family: "Libre Bodoni", serif; font-size: 16px; font-weight: 600; display: block; text-transform: uppercase; margin-bottom: 10px; }
         .spec-row-centered { display: block; font-size: 9px; margin-bottom: 6px; }
@@ -83,7 +74,6 @@
         .mol-hs:hover .mol-card, .mol-hs:active .mol-card { opacity: 1; visibility: visible; bottom: 32px; }
         .mol-hs:hover .mol-dot-outer { background: rgba(255,255,255,0.6); transform: scale(1.1); }
 
-        /* DESIGNER UI */
         #ui-mode-toggle { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; background: rgba(255,255,255,0.9); padding: 4px; border: 1px solid var(--border); border-radius: 2px; }
         #ui-mode-toggle button { border: none; background: none; padding: 8px 18px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: var(--main-font); }
         #ui-mode-toggle button.active { background: #000; color: #fff; }
@@ -93,13 +83,11 @@
         .pin-switch.active { background: var(--accent); color: #fff; border-color: var(--accent); }
         .edit-x { position: absolute; bottom: -18px; right: -18px; width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 500; border: 2px solid #fff; pointer-events: auto; }
         body.pinning-mode-active .edit-x { display: flex; }
-        .admin-section { margin-bottom: 30px; }
-        .admin-label { font-size: 10px; font-weight: 800; color: var(--grey); text-transform: uppercase; margin-bottom: 12px; display: block; }
-        input, select, textarea { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 10px; font-family: inherit; }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 11px; text-transform: uppercase; }
-        .btn-black { background: #000; color: #fff; }
+        .admin-section { margin-bottom: 25px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 13px; box-sizing: border-box; margin-bottom: 8px; }
+        .btn-black { background: #000; color: #fff; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 11px; }
         .btn-accent { background: var(--accent); color: #fff; }
-        #export-output { display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; border: 1px solid #000; }
+        #export-output { display:none; position: fixed; top: 10%; left: 10%; width: 80%; height: 80%; z-index: 20000; background: white; padding: 40px; box-sizing: border-box; border: 1px solid #000; }
 
         .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; z-index: 1500; cursor: pointer; color: rgba(0,0,0,0.5); background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border-radius: 50%; transition: 0.3s; pointer-events: auto; }
         .nav-arrow:hover { color: rgba(0,0,0,1); background: rgba(255,255,255,0.8); }
@@ -109,291 +97,282 @@
             .brand-title { font-size: 16px; letter-spacing: 0.1em; text-align: center; width: 100%; margin: 0; }
             #viewport { width: 100% !important; transform: none !important; padding-top: 85px !important; }
             .mol-breakout-wrap { width: 100% !important; margin: 0 !important; left: 0 !important; }
-            #global-inquiry-btn { bottom: 95px; right: 15px; padding: 10px 15px; font-size: 9px; }
+            #global-inquiry-btn { bottom: 85px; right: 15px; padding: 10px 15px; font-size: 9px; }
             footer { height: 70px; }
         }
     </style>
-
-    <script>
-        const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
-        const DB_NAME = "pmt_master_v57_final_v2";
-
-        /* --- データベース --- */
-        /* DATA_START */
-        let store = {"inquiryUrl":"https://www.molteni.it/jp/contact","map":{"B1F":[],"1F":[{"id":"a1768460970125","name":"1F - FRONT","img":"https://i.ibb.co/FbW9vNns/1F-Front.png","pins":[{"id":"p1768461098707","x":37.63,"y":58.49,"title":"CLEO","cat":"SOFA","size":"TEST","finish":"TEST","price":"1,234,567,890","link":"https://www.molteni.it/jp/","type":"product"},{"id":"p1768461151173","x":50.16,"y":50.9,"title":"REGENT","cat":"LIVING TABLE","size":"TEST","finish":"","price":"8,888,888","link":"","type":"product"},{"id":"p1768461181030","x":34.39,"y":27.28,"title":"FLOOR","link":"","sub":"FLOORは","type":"detail"}]}],"2F":[],"3F":[]},"tour":{"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[],"2F":[{"id":"a1766742720802","name":"A","img":"https://i.ibb.co/ZznLmDKS/Tokyo-Palazzo-Molteni-04.jpg","pins":[{"id":"p1766742763402","x":32.75,"y":59.92,"title":"mateo","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742778369","x":57.8,"y":55.35,"title":"D.150.3","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766742784668","name":"B","img":"https://i.ibb.co/Zpsy2jCm/682ee4fb185ff-Tokyo-MGL0157-2025-HR.jpg","pins":[{"id":"p1766742829619","x":37.9,"y":48.01,"title":"GLISSMASTER","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742845785","x":16.3,"y":62.2,"title":"DUE FOLIE","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"3F":[{"id":"a1766734621445","name":"A","img":"https://i.ibb.co/nMKmfKdM/682ee5105f756-Molteni-C-Palazzo-Molteni-Tokyo-02.jpg","pins":[{"id":"p1766734648580","x":35.16,"y":39.92,"title":"ARIAL","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734655028","x":57.58,"y":38.47,"title":"505up","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734663812","x":30.19,"y":82.63,"title":"AUGUSTO","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734680242","x":15.03,"y":45.35,"title":"エコスマート","link":"","sub":"エコスマート","type":"detail"},{"id":"p1766734684899","x":82.42,"y":45.61,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766739087337","name":"B","img":"https://i.ibb.co/0pWmGHTM/Tokyo-MGL0117-2025-HR.jpg","pins":[]}]},"metrics":{"B1F":{"ch":"2980","sqm":"29","jo":"18","tsubo":"9"},"1F":{"ch":"2900","sqm":"40","jo":"25","tsubo":"12"},"2F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"10"},"3F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"9"}}};
-        /* DATA_END */
-
-        let floor = '1F';
-        let viewMode = 'tour'; 
-        let areaId = null;
-        let mode = 'view';
-        let isPinning = false;
-        let touchX = 0;
-
-        /* --- GLOBAL FUNCTIONS --- */
-        window.autoSave = function() { localStorage.setItem(DB_NAME, JSON.stringify(store)); };
-
-        window.changeAppMode = function(m) {
-            if (window.innerWidth <= 768) return;
-            mode = m; isPinning = false;
-            document.getElementById('mode-view-btn').className = (m === 'view' ? 'active' : '');
-            document.getElementById('mode-edit-btn').className = (m === 'edit' ? 'active' : '');
-            document.getElementById('admin-panel').classList.toggle('open', m === 'edit');
-            document.getElementById('admin-overlay').style.display = (m === 'edit' ? 'block' : 'none');
-            document.body.classList.remove('pinning-mode-active');
-            renderActiveScene();
-        };
-
-        window.handleViewportClick = function(e) {
-            if (mode === 'edit' && !isPinning) {
-                if (e.target.closest('.area-nav') || e.target.closest('.mode-nav') || e.target.closest('.mol-hs')) return;
-                window.changeAppMode('view'); return;
-            }
-            if (mode === 'edit' && isPinning) {
-                const stage = document.getElementById('scene-stage');
-                if (stage && e.target.closest('#scene-stage') && !e.target.closest('.mol-hs')) {
-                    const r = stage.getBoundingClientRect();
-                    const x = ((e.clientX - r.left) / r.width) * 100;
-                    const y = ((e.clientY - r.top) / r.height) * 100;
-                    addPinAt(x, y);
-                }
-            }
-        };
-
-        function addPinAt(x, y) {
-            const t = document.getElementById('marker-type').value;
-            const name = prompt("Name:"); if(!name) return;
-            const p = { id:'p'+Date.now(), x:parseFloat(x.toFixed(2)), y:parseFloat(y.toFixed(2)), title:name, type:t };
-            if(t === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:", "https://"); } else { p.sub = prompt("Detail:"); }
-            store[viewMode][floor].find(x => x.id === areaId).pins.push(p);
-            window.autoSave(); renderActiveScene();
-        }
-
-        window.handlePinToggle = function() {
-            isPinning = !isPinning;
-            const btn = document.getElementById('pin-switch-btn');
-            btn.classList.toggle('active', isPinning);
-            btn.innerText = isPinning ? "Placement Mode: ACTIVE" : "Placement Mode: OFF";
-            document.body.classList.toggle('pinning-mode-active', isPinning);
-        };
-
-        window.handleFloorChange = function(f) {
-            floor = f;
-            document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('active'));
-            const btn = document.getElementById('fbtn-'+f); if(btn) btn.classList.add('active');
-            document.getElementById('admin-f-label').innerText = f;
-            const m = store.metrics[f];
-            if(document.getElementById('m-ch')) document.getElementById('m-ch').value = m.ch;
-            if(document.getElementById('m-sqm')) document.getElementById('m-sqm').value = m.sqm;
-            if(document.getElementById('m-jo')) document.getElementById('m-jo').value = m.jo;
-            if(document.getElementById('m-tsubo')) document.getElementById('m-tsubo').value = m.tsubo;
-            areaId = null; renderZoneNav();
-        };
-
-        window.switchViewMode = function(m) {
-            viewMode = m;
-            document.getElementById('mode-map-tab').classList.toggle('active', m === 'map');
-            document.getElementById('mode-tour-tab').classList.toggle('active', m === 'tour');
-            areaId = null; renderZoneNav();
-        };
-
-        window.selectZone = function(id) {
-            areaId = id;
-            const a = store[viewMode][floor].find(x => x.id === id);
-            document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
-            renderActiveScene();
-            if(mode === 'edit') document.getElementById('edit-tools').style.display = 'block';
-            if(document.getElementById('manual-url')) document.getElementById('manual-url').value = a ? a.img : '';
-            document.getElementById('global-inquiry-btn').href = store.inquiryUrl;
-        };
-
-        function renderZoneNav() {
-            const nav = document.getElementById('area-nav'); nav.innerHTML = '';
-            const list = store[viewMode][floor];
-            if(list.length === 0) {
-                document.getElementById('scene-display').innerHTML = '<div style="padding:100px;text-align:center;color:#ccc;">Experience palazzo...</div>';
-                document.getElementById('edit-tools').style.display = 'none';
-                return;
-            }
-            list.forEach(a => {
-                const el = document.createElement('div');
-                el.className = `area-item ${a.id === areaId ? 'active' : ''}`;
-                el.id = `nav-${a.id}`; el.innerText = a.name;
-                el.onclick = (e) => { e.stopPropagation(); window.selectZone(a.id); };
-                nav.appendChild(el);
-            });
-            if(!areaId || !list.find(x => x.id === areaId)) window.selectZone(list[0].id);
-            else window.selectZone(areaId);
-        }
-
-        function renderActiveScene() {
-            const a = store[viewMode][floor].find(x => x.id === areaId);
-            if(!a) return;
-            const m = store.metrics[floor];
-            const infoHTML = `<div class="floor-info-bar"><div class="info-item"><b>CH</b> ${m.ch}mm</div><div class="info-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
-            let pinsHTML = '';
-            (a.pins || []).forEach(p => {
-                const isP = p.type === 'product';
-                const xBtn = (mode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
-                let specs = '';
-                if(isP) {
-                    if(p.cat) specs += `<div class="spec-row-centered"><span class="spec-label-centered">Category</span><span class="spec-value-centered">${p.cat}</span></div>`;
-                    if(p.size) specs += `<div class="spec-row-centered"><span class="spec-label-centered">Size</span><span class="spec-value-centered">${p.size}</span></div>`;
-                    if(p.finish) specs += `<div class="spec-row-centered"><span class="spec-label-centered">Finish</span><span class="spec-value-centered">${p.finish}</span></div>`;
-                    if(p.price) specs += `<div class="price">¥${p.price}</div>`;
-                    specs += `<div class="card-actions"><a href="${p.link}" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="${store.inquiryUrl}" target="_blank" class="card-btn btn-inq">製品についてお問い合わせ</a></div>`;
-                } else { specs = `<span>${p.sub}</span>`; }
-                pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onmouseenter="adjustCardPosition(this)" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>${p.title}</strong>${specs}</div></div>`;
-            });
-            document.getElementById('scene-display').innerHTML = infoHTML + `<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://placehold.jp/24/ffffff/000000/1200x800.png?text=Awaiting+Visual'}">${pinsHTML}</div>`;
-        }
-
-        window.adjustCardPosition = function(el) {
-            const card = el.querySelector('.mol-card'); if(!card) return;
-            card.style.left = "50%"; card.style.transform = "translateX(-50%)";
-            const rect = card.getBoundingClientRect();
-            if (rect.left < 15) card.style.transform = `translateX(calc(-50% + ${15 - rect.left}px))`;
-            else if (rect.right > window.innerWidth - 15) card.style.transform = `translateX(calc(-50% + ${(window.innerWidth - 15) - rect.right}px))`;
-        };
-
-        window.handlePinInteraction = function(e, pid) {
-            if (mode === 'edit') {
-                e.stopPropagation();
-                const p = store[viewMode][floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
-                p.title = prompt("Update Name:", p.title) || p.title;
-                if(p.type === 'product') { p.cat = prompt("Category:"); p.size = prompt("Size:"); p.finish = prompt("Finish:"); p.price = prompt("Price:"); p.link = prompt("URL:"); } else { p.sub = prompt("Desc:", p.sub); }
-                window.autoSave(); renderActiveScene();
-            }
-        };
-
-        window.handleDeletePin = function(e, pid) {
-            e.stopPropagation();
-            const a = store[viewMode][floor].find(x => x.id === areaId);
-            a.pins = a.pins.filter(x => x.id !== pid);
-            window.autoSave(); renderActiveScene();
-        };
-
-        window.handleCreateArea = function() {
-            const n = document.getElementById('new-area-name').value; if(!n) return;
-            const id = 'a' + Date.now();
-            if(!store[viewMode][floor]) store[viewMode][floor] = [];
-            store[viewMode][floor].push({ id, name: n, img: '', pins: [] });
-            document.getElementById('new-area-name').value = '';
-            window.autoSave(); renderZoneNav(); window.selectZone(id);
-        };
-
-        window.handleDeleteArea = function() {
-            if(confirm('Delete zone?')) {
-                store[viewMode][floor] = store[viewMode][floor].filter(x => x.id !== areaId);
-                areaId = null; window.autoSave(); renderZoneNav();
-            }
-        };
-
-        window.commitChanges = function() {
-            const m = store.metrics[floor];
-            m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
-            m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
-            store.inquiryUrl = document.getElementById('inquiry-url-in').value;
-            window.autoSave(); alert("Floor metrics saved."); renderActiveScene();
-        };
-
-        window.updateImageManual = function(v) {
-            const a = store[viewMode][floor].find(x => x.id === areaId);
-            if(a) { a.img = v; window.autoSave(); renderActiveScene(); }
-        };
-
-        window.handleFileUpload = async (e) => {
-            const f = e.target.files[0]; if(!f) return;
-            const fd = new FormData(); fd.append("image", f);
-            try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
-                const j = await res.json();
-                if(j.success) { window.updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
-            } catch(err) { alert("Upload Fail"); }
-        };
-
-        window.exportPermanentHTML = function() {
-            const currentData = JSON.stringify(store);
-            let fullSource = document.documentElement.outerHTML;
-            const regex = /\/\* DATA_START \*\/ let store = (\{.*?\}); \/\* DATA_END \*\//;
-            const replacement = `/* DATA_START */ let store = ${currentData}; /* DATA_END */`;
-            fullSource = fullSource.replace(regex, replacement);
-            const exportDiv = document.getElementById('export-output');
-            const exportText = document.getElementById('export-text');
-            exportText.value = "<!DOCTYPE html>\n" + fullSource;
-            exportDiv.style.display = 'block'; exportText.select();
-        };
-
-        window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
-
-        window.navigateArea = function(dir) {
-            if(adminMode === 'edit') return;
-            const list = store[viewMode][floor]; const idx = list.findIndex(x => x.id === areaId);
-            const nextIdx = idx + dir;
-            if (nextIdx >= 0 && nextIdx < list.length) window.selectZone(list[nextIdx].id);
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem(DB_NAME);
-            if(saved) { store = JSON.parse(saved); }
-            if (window.innerWidth <= 768) { mode = 'view'; }
-            window.handleFloorChange('1F');
-            const vp = document.getElementById('viewport');
-            vp.addEventListener('touchstart', e => { touchX = e.touches[0].screenX; });
-            vp.addEventListener('touchend', e => {
-                if(adminMode === 'edit') return;
-                const d = e.changedTouches[0].screenX - touchX;
-                if(Math.abs(d) > 80) window.navigateArea(d > 0 ? -1 : 1);
-            });
-        });
-    </script>
 </head>
-<body id="app-body">
-<div id="admin-overlay" onclick="closeAdmin()"></div>
-<div id="ui-mode-toggle"><button id="mode-view-btn" class="active" onclick="changeAppMode('view')">VIEW</button><button id="mode-edit-btn" onclick="changeAppMode('edit')">DESIGNER</button></div>
-<header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Interactive Tour Suite</div></header>
+<body id="app-body" class="pinning-mode-active">
+<div id="admin-overlay" onclick="window.closeAdmin()" style="display: block;"></div>
+<div id="ui-mode-toggle"><button id="mode-view-btn" class="" onclick="window.changeAppMode('view')">VIEW</button><button id="mode-edit-btn" onclick="window.changeAppMode('edit')" class="active">DESIGNER</button></div>
+<header><div class="brand-title">Palazzo Molteni Tokyo</div><div class="location">Experience Tour Suite</div></header>
 
 <a href="https://www.molteni.it/jp/contact" id="global-inquiry-btn" target="_blank">製品についてお問い合わせ</a>
 
-<div id="admin-panel">
+<div id="admin-panel" class="open">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:30px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
-    <div class="admin-section"><span class="admin-label">Global Inquiry URL</span><input type="text" id="inquiry-url-in" placeholder="Inquiry URL"></div>
-    <div class="admin-section"><span class="admin-label">Floor Metrics (<span id="admin-f-label">1F</span>)</span>
+    <div class="admin-section"><span style="font-size:10px; font-weight:800; color:grey; text-transform:uppercase;">Inquiry URL</span><input type="text" id="inquiry-url-in" placeholder="Inquiry URL"></div>
+    <div class="admin-section"><span style="font-size:10px; font-weight:800; color:grey; text-transform:uppercase;">Floor Metrics (<span id="admin-f-label">B1F</span>)</span>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;"><input type="text" id="m-ch" placeholder="CH (mm)"><input type="text" id="m-sqm" placeholder="Area (sqm)"><input type="text" id="m-jo" placeholder="Mats (帖)"><input type="text" id="m-tsubo" placeholder="Tsubo (坪)"></div>
     </div>
-    <div class="admin-section"><span class="admin-label">Zone Setup</span><input type="text" id="new-area-name" placeholder="Zone Name"><button class="btn-black" style="width:100%;" onclick="handleCreateArea()">Create Zone</button></div>
-    <div id="edit-tools" style="display:none;">
-        <div class="admin-section">
-            <span class="admin-label">Zone Media</span>
+    <div class="admin-section"><span style="font-size:10px; font-weight:800; color:grey; text-transform:uppercase;">Zone Setup</span><input type="text" id="new-area-name" placeholder="Zone Name"><button class="btn-black" style="width:100%;" onclick="window.handleCreateArea()">Create Zone</button></div>
+    <div id="edit-tools" style="display: block;">
+        <div class="admin-section"><span style="font-size:10px; font-weight:800; color:grey; text-transform:uppercase;">Zone Media</span>
             <input type="file" id="file-input" accept="image/*" onchange="window.handleFileUpload(event)" style="font-size:10px; margin-bottom:10px;">
-            <input type="text" id="manual-url" placeholder="Asset URL" onchange="updateImageManual(this.value)">
-            <div id="pin-switch-btn" class="pin-switch" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: OFF</div>
+            <input type="text" id="manual-url" placeholder="Asset URL" onchange="window.updateImageManual(this.value)">
+            <div id="pin-switch-btn" class="pin-switch active" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="window.handlePinToggle()">Placement Mode: ACTIVE</div>
             <select id="marker-type"><option value="product">● Product Pin</option><option value="detail">■ Detail Pin</option></select>
         </div>
-        <button class="btn-black" style="width:100%; background:var(--accent); color:#fff; border:none; margin-bottom:10px;" onclick="commitChanges()">Save Progress</button>
-        <button class="btn-black" style="width:100%; background:#333; color:#fff; border:none; margin-bottom:10px;" onclick="exportPermanentHTML()">Export Code</button>
-        <button class="btn-black" style="width:100%; background:#fff; color:red; border:1px solid red;" onclick="handleDeleteArea()">Remove Zone</button>
+        <button class="btn-black" style="width:100%; background:var(--accent); color:#fff; border:none; margin-bottom:10px;" onclick="window.commitChanges()">Save Progress</button>
+        <button class="btn-black" style="width:100%; background:#333; color:#fff; border:none; margin-bottom:10px;" onclick="window.exportPermanentHTML()">Export Code for GitHub</button>
+        <button class="btn-black" style="width:100%; background:#fff; color:red; border:1px solid red;" onclick="window.handleDeleteArea()">Remove Zone</button>
     </div>
 </div>
 
-<div id="export-output"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button></div></div>
+<div id="export-output"><div id="export-overlay"><div style="max-width: 800px; margin: auto;"><h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2><textarea id="export-text" readonly="" style="height: 400px; font-size: 10px; width:100%;"></textarea><button class="btn-black" onclick="document.getElementById('export-output').style.display='none'">Back</button></div></div></div>
 
-<div id="viewport" onclick="handleViewportClick(event)">
+<div id="viewport" onclick="window.handleViewportClick(event)">
     <div class="sub-nav-container">
-        <div class="mode-nav" style="display:flex;justify-content:center;gap:40px;padding:15px 0;border-bottom:1px solid #f2f2f2;">
-            <div id="mode-map-tab" class="mode-item" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('map')">FLOORMAP</div>
-            <div id="mode-tour-tab" class="mode-item active" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('tour')">TOUR</div>
+        <div class="mode-nav">
+            <div id="mode-map-tab" class="mode-item active" onclick="window.switchViewMode('map')">FLOORMAP</div>
+            <div id="mode-tour-tab" class="mode-item" onclick="window.switchViewMode('tour')">TOUR</div>
         </div>
-        <div class="area-nav" id="area-nav"></div>
+        <div class="area-nav" id="area-nav"><div class="area-item" id="nav-a1769486170489">A</div><div class="area-item active" id="nav-a1769486652285">B</div></div>
     </div>
-    <div id="scene-display"></div>
+    <div id="scene-display"><div class="floor-info-bar"><div class="info-item"><b>CH</b> 2980mm</div><div class="info-item"><b>Area</b> 29㎡ / 18帖 / 9坪</div></div><div class="mol-breakout-wrap" id="scene-stage"><img src="https://i.ibb.co/k28Mc29c/B1-Kitchen-1.png"></div></div>
 </div>
+
+<div class="nav-arrow arrow-left" onclick="window.navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="nav-arrow arrow-right" onclick="window.navigateArea(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
 
 <footer>
-    <div class="floor-btn" onclick="handleFloorChange('B1F')" id="fbtn-B1F"><span class="floor-num">B1</span></div>
-    <div class="floor-btn active" onclick="handleFloorChange('1F')" id="fbtn-1F"><span class="floor-num">1F</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('2F')" id="fbtn-2F"><span class="floor-num">2F</span></div>
-    <div class="floor-btn" onclick="handleFloorChange('3F')" id="fbtn-3F"><span class="floor-num">3F</span></div>
+    <div class="floor-btn active" onclick="window.handleFloorChange('B1F')" id="fbtn-B1F"><span class="floor-num">B1</span></div>
+    <div class="floor-btn" onclick="window.handleFloorChange('1F')" id="fbtn-1F"><span class="floor-num">1F</span></div>
+    <div class="floor-btn" onclick="window.handleFloorChange('2F')" id="fbtn-2F"><span class="floor-num">2F</span></div>
+    <div class="floor-btn" onclick="window.handleFloorChange('3F')" id="fbtn-3F"><span class="floor-num">3F</span></div>
 </footer>
-</body>
-</html>
+
+<script>
+/* --- STABLE CORE LOGIC v62 --- */
+const API_KEY = "ddb8687d0558d57aad3e6155ccaab2e2";
+const DB_NAME = "pmt_master_v62_stable";
+
+/* DATA_START */
+let store = {"inquiryUrl":"https://www.molteni.it/jp/contact","map":{"B1F":[],"1F":[{"id":"a1768460970125","name":"1F - FRONT","img":"https://i.ibb.co/FbW9vNns/1F-Front.png","pins":[{"id":"p1768461098707","x":37.63,"y":58.49,"title":"CLEO","cat":"SOFA","size":"TEST","finish":"TEST","price":"1,234,567,890","link":"https://www.molteni.it/jp/","type":"product"},{"id":"p1768461151173","x":50.16,"y":50.9,"title":"REGENT","cat":"LIVING TABLE","size":"TEST","finish":"","price":"8,888,888","link":"","type":"product"},{"id":"p1768461181030","x":34.39,"y":27.28,"title":"FLOOR","link":"","sub":"FLOORは","type":"detail"}]}],"2F":[],"3F":[]},"tour":{"B1F":[{"id":"a1766734702128","name":"A","img":"https://i.ibb.co/tMMctTzh/Tokyo-Palazzo-Molteni-03.jpg","pins":[{"id":"p1766734744429","x":55.48,"y":59.78,"title":"CINNAMON","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734749296","x":80.06,"y":70.53,"title":"MARTEEN","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734770297","x":24.14,"y":50.1,"title":"アート","link":"","sub":"アート","type":"detail"},{"id":"p1766734776811","x":60.32,"y":45.34,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766734782946","name":"B","img":"https://i.ibb.co/JjL08Z85/Tokyo-MGL0240-2025-HR-1.jpg","pins":[{"id":"p1766734808779","x":55.67,"y":69.64,"title":"ALBERT","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734813196","x":21.08,"y":64.36,"title":"SWAY","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"}]}],"1F":[],"2F":[{"id":"a1766742720802","name":"A","img":"https://i.ibb.co/ZznLmDKS/Tokyo-Palazzo-Molteni-04.jpg","pins":[{"id":"p1766742763402","x":32.75,"y":59.92,"title":"mateo","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742778369","x":57.8,"y":55.35,"title":"D.150.3","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]},{"id":"a1766742784668","name":"B","img":"https://i.ibb.co/Zpsy2jCm/682ee4fb185ff-Tokyo-MGL0157-2025-HR.jpg","pins":[{"id":"p1766742829619","x":37.9,"y":48.01,"title":"GLISSMASTER","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766742845785","x":16.3,"y":62.2,"title":"DUE FOLIE","link":"https://www.molteni.it/jp/","sub":"商品詳細はこちら >","type":"product"}]}],"3F":[{"id":"a1766734621445","name":"A","img":"https://i.ibb.co/nMKmfKdM/682ee5105f756-Molteni-C-Palazzo-Molteni-Tokyo-02.jpg","pins":[{"id":"p1766734648580","x":35.16,"y":39.92,"title":"ARIAL","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734655028","x":57.58,"y":38.47,"title":"505up","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734663812","x":30.19,"y":82.63,"title":"AUGUSTO","link":"https://www.molteni.it/jp/all-products","sub":"商品詳細はこちら >","type":"product"},{"id":"p1766734680242","x":15.03,"y":45.35,"title":"エコスマート","link":"","sub":"エコスマート","type":"detail"},{"id":"p1766734684899","x":82.42,"y":45.61,"title":"アート","link":"","sub":"アート","type":"detail"}]},{"id":"a1766739087337","name":"B","img":"https://i.ibb.co/0pWmGHTM/Tokyo-MGL0117-2025-HR.jpg","pins":[]}]},"metrics":{"B1F":{"ch":"2980","sqm":"29","jo":"18","tsubo":"9"},"1F":{"ch":"2900","sqm":"40","jo":"25","tsubo":"12"},"2F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"10"},"3F":{"ch":"2650","sqm":"32","jo":"20","tsubo":"9"}}};
+/* DATA_END */
+
+let floor = '1F';
+let viewMode = 'tour'; 
+let areaId = null;
+let mode = 'view';
+let isPinning = false;
+let touchX = 0;
+
+window.changeAppMode = function(m) {
+    if (window.innerWidth <= 768) return;
+    mode = m; isPinning = false;
+    document.getElementById('mode-view-btn').className = (m === 'view' ? 'active' : '');
+    document.getElementById('mode-edit-btn').className = (m === 'edit' ? 'active' : '');
+    document.getElementById('admin-panel').classList.toggle('open', m === 'edit');
+    document.getElementById('admin-overlay').style.display = (m === 'edit' ? 'block' : 'none');
+    document.body.classList.remove('pinning-mode-active');
+    renderActiveScene();
+};
+
+window.handleViewportClick = function(e) {
+    if (mode === 'edit' && !isPinning) {
+        if (e.target.closest('.area-nav') || e.target.closest('.mode-nav') || e.target.closest('.mol-hs')) return;
+        window.changeAppMode('view'); return;
+    }
+    if (mode === 'edit' && isPinning) {
+        const stage = document.getElementById('scene-stage');
+        if (stage && e.target.closest('#scene-stage') && !e.target.closest('.mol-hs')) {
+            const r = stage.getBoundingClientRect();
+            addPinAt(((e.clientX - r.left)/r.width)*100, ((e.clientY - r.top)/r.height)*100);
+        }
+    }
+};
+
+window.handlePinToggle = function() {
+    isPinning = !isPinning;
+    const btn = document.getElementById('pin-switch-btn');
+    btn.classList.toggle('active', isPinning);
+    btn.innerText = isPinning ? "Placement Mode: ACTIVE" : "Placement Mode: OFF";
+    document.body.classList.toggle('pinning-mode-active', isPinning);
+};
+
+window.handleFloorChange = function(f) {
+    floor = f;
+    document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('active'));
+    const btn = document.getElementById('fbtn-'+f); if(btn) btn.classList.add('active');
+    document.getElementById('admin-f-label').innerText = f;
+    const m = store.metrics[f];
+    document.getElementById('m-ch').value = m.ch; document.getElementById('m-sqm').value = m.sqm;
+    document.getElementById('m-jo').value = m.jo; document.getElementById('m-tsubo').value = m.tsubo;
+    document.getElementById('inquiry-url-in').value = store.inquiryUrl;
+    areaId = null; renderZoneNav();
+};
+
+window.switchViewMode = function(m) {
+    viewMode = m;
+    document.getElementById('mode-map-tab').classList.toggle('active', m === 'map');
+    document.getElementById('mode-tour-tab').classList.toggle('active', m === 'tour');
+    areaId = null; renderZoneNav();
+};
+
+window.selectZone = function(id) {
+    areaId = id;
+    const a = store[viewMode][floor].find(x => x.id === id);
+    document.querySelectorAll('.area-item').forEach(el => el.classList.toggle('active', el.id === `nav-${id}`));
+    renderActiveScene();
+    if(mode === 'edit') document.getElementById('edit-tools').style.display = 'block';
+    document.getElementById('manual-url').value = a ? a.img : '';
+    document.getElementById('global-inquiry-btn').href = store.inquiryUrl;
+    const activeNav = document.getElementById(`nav-${id}`);
+    if(activeNav) activeNav.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+};
+
+function renderZoneNav() {
+    const nav = document.getElementById('area-nav'); nav.innerHTML = '';
+    const list = store[viewMode][floor];
+    if(list.length === 0) {
+        document.getElementById('scene-display').innerHTML = '<div style="padding:100px;text-align:center;color:#ccc;">Experience palazzo...</div>';
+        document.getElementById('edit-tools').style.display = 'none';
+        return;
+    }
+    list.forEach(a => {
+        const el = document.createElement('div');
+        el.className = `area-item ${a.id === areaId ? 'active' : ''}`;
+        el.id = `nav-${a.id}`; el.innerText = a.name;
+        el.onclick = (e) => { e.stopPropagation(); window.selectZone(a.id); };
+        nav.appendChild(el);
+    });
+    if(!areaId || !list.find(x => x.id === areaId)) window.selectZone(list[0].id);
+    else window.selectZone(areaId);
+}
+
+function renderActiveScene() {
+    const a = store[viewMode][floor].find(x => x.id === areaId);
+    if(!a) return;
+    const m = store.metrics[floor];
+    const infoHTML = `<div class="floor-info-bar"><div class="info-item"><b>CH</b> ${m.ch}mm</div><div class="info-item"><b>Area</b> ${m.sqm}㎡ / ${m.jo}帖 / ${m.tsubo}坪</div></div>`;
+    let pinsHTML = '';
+    (a.pins || []).forEach(p => {
+        const isP = p.type === 'product';
+        const xBtn = (mode === 'edit') ? `<div class="edit-x" onclick="handleDeletePin(event,'${p.id}')">×</div>` : '';
+        let specs = '';
+        if(isP) {
+            if(p.cat) specs += `<div class="spec-row-centered"><span class="spec-label-centered">Category</span><span class="spec-value-centered">${p.cat}</span></div>`;
+            if(p.size) specs += `<div class="spec-row-centered"><span class="spec-label-centered">Size</span><span class="spec-value-centered">${p.size}</span></div>`;
+            if(p.finish) specs += `<div class="spec-row-centered"><span class="spec-label-centered">Finish</span><span class="spec-value-centered">${p.finish}</span></div>`;
+            if(p.price) specs += `<div class="price">¥${p.price}</div>`;
+            specs += `<div class="card-actions"><a href="${p.link}" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="${store.inquiryUrl}" target="_blank" class="card-btn btn-inq">製品についてお問い合わせ</a></div>`;
+        } else { specs = `<span>${p.sub}</span>`; }
+        pinsHTML += `<div class="mol-hs ${p.type==='detail'?'type-detail':''}" style="top:${p.y}%; left:${p.x}%;" onmouseenter="window.adjustCardPosition(this)" ontouchstart="window.adjustCardPosition(this)" onclick="handlePinInteraction(event, '${p.id}')">${xBtn}<span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>${p.title}</strong>${specs}</div></div>`;
+    });
+    document.getElementById('scene-display').innerHTML = infoHTML + `<div class="mol-breakout-wrap" id="scene-stage"><img src="${a.img || 'https://placehold.jp/24/ffffff/000000/1200x800.png?text=Awaiting+Visual'}">${pinsHTML}</div>`;
+}
+
+window.adjustCardPosition = function(el) {
+    const card = el.querySelector('.mol-card'); if(!card) return;
+    card.style.left = "50%"; card.style.transform = "translateX(-50%)";
+    const rect = card.getBoundingClientRect();
+    if (rect.left < 15) card.style.transform = `translateX(calc(-50% + ${15 - rect.left}px))`;
+    else if (rect.right > window.innerWidth - 15) card.style.transform = `translateX(calc(-50% + ${(window.innerWidth - 15) - rect.right}px))`;
+};
+
+window.handleFileUpload = async (e) => {
+    const f = e.target.files[0]; if(!f) return;
+    const fd = new FormData(); fd.append("image", f);
+    try {
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: "POST", body: fd });
+        const j = await res.json();
+        if(j.success) { window.updateImageManual(j.data.url); document.getElementById('manual-url').value = j.data.url; }
+    } catch(err) { alert("Upload Fail"); }
+};
+
+window.handlePinInteraction = function(e, pid) {
+    if (mode === 'edit') {
+        e.stopPropagation();
+        const p = store[viewMode][floor].find(x => x.id === areaId).pins.find(x => x.id === pid);
+        p.title = prompt("Update Name:", p.title) || p.title;
+        if(p.type === 'product') { p.cat = prompt("Category:", p.cat); p.size = prompt("Size:", p.size); p.finish = prompt("Finish:", p.finish); p.price = prompt("Price:", p.price); p.link = prompt("URL:", p.link); } else { p.sub = prompt("Desc:", p.sub); }
+        window.autoSave(); renderActiveScene();
+    }
+};
+
+window.handleDeletePin = function(e, pid) {
+    e.stopPropagation();
+    const a = store[viewMode][floor].find(x => x.id === areaId);
+    a.pins = a.pins.filter(x => x.id !== pid);
+    window.autoSave(); renderActiveScene();
+};
+
+window.handleCreateArea = function() {
+    const n = prompt("New Zone Name:"); if(!n) return;
+    const id = 'a' + Date.now();
+    if(!store[viewMode][floor]) store[viewMode][floor] = [];
+    store[viewMode][floor].push({ id, name: n, img: '', pins: [] });
+    window.autoSave(); renderZoneNav(); window.selectZone(id);
+};
+
+window.handleDeleteArea = function() {
+    if(confirm('Delete zone?')) {
+        store[viewMode][floor] = store[viewMode][floor].filter(x => x.id !== areaId);
+        areaId = null; window.autoSave(); renderZoneNav();
+    }
+};
+
+window.commitChanges = function() {
+    const m = store.metrics[floor];
+    m.ch = document.getElementById('m-ch').value; m.sqm = document.getElementById('m-sqm').value;
+    m.jo = document.getElementById('m-jo').value; m.tsubo = document.getElementById('m-tsubo').value;
+    store.inquiryUrl = document.getElementById('inquiry-url-in').value;
+    window.autoSave(); alert("Floor metrics saved."); renderActiveScene();
+};
+
+window.updateImageManual = function(v) {
+    const a = store[viewMode][floor].find(x => x.id === areaId);
+    if(a) { a.img = v; window.autoSave(); renderActiveScene(); }
+};
+
+window.exportPermanentHTML = function() {
+    const currentData = JSON.stringify(store);
+    let fullSource = document.documentElement.outerHTML;
+    const regex = /\/\* DATA_START \*\/ let store = (\{.*?\}); \/\* DATA_END \*\//;
+    const replacement = `/* DATA_START */ let store = ${currentData}; /* DATA_END */`;
+    fullSource = fullSource.replace(regex, replacement);
+    const exportDiv = document.getElementById('export-output');
+    const exportText = document.getElementById('export-text');
+    exportText.value = "<!DOCTYPE html>\n" + fullSource;
+    exportDiv.style.display = 'block'; exportText.select();
+};
+
+window.closeAdmin = function() { if(!isPinning) window.changeAppMode('view'); };
+
+window.navigateArea = function(dir) {
+    if(mode === 'edit') return;
+    const list = store[viewMode][floor]; const idx = list.findIndex(x => x.id === areaId);
+    const nextIdx = idx + dir;
+    if (nextIdx >= 0 && nextIdx < list.length) window.selectZone(list[nextIdx].id);
+};
+
+window.autoSave = function() { localStorage.setItem(DB_NAME, JSON.stringify(store)); };
+
+document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem(DB_NAME);
+    if(saved) { store = JSON.parse(saved); }
+    if (window.innerWidth <= 768) { mode = 'view'; }
+    window.handleFloorChange('1F');
+    const vp = document.getElementById('viewport');
+    vp.addEventListener('touchstart', e => { touchX = e.touches[0].screenX; });
+    vp.addEventListener('touchend', e => {
+        if(mode === 'edit') return;
+        const d = e.changedTouches[0].screenX - touchX;
+        if(Math.abs(d) > 80) window.navigateArea(d > 0 ? -1 : 1);
+    });
+});
+</script>
+
+
+</body></html>
