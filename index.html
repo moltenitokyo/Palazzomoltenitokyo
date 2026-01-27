@@ -347,7 +347,7 @@
         });
     </script>
 </head>
-<body id="app-body" class="pinning-mode-active">
+<body id="app-body" class="">
 <div id="admin-overlay" onclick="closeAdmin()" style="display: block;"></div>
 <div id="ui-mode-toggle">
     <button id="mode-view-btn" class="" onclick="changeAppMode('view')">VIEW</button>
@@ -358,7 +358,7 @@
     <div class="location">Experience Tour</div>
 </header>
 
-<a href="https://www.molteni.it/jp/contact" id="global-inquiry-btn" target="_blank">製品についてお問い合わせ</a>
+<a href="" id="global-inquiry-btn" target="_blank">製品についてお問い合わせ</a>
 
 <div id="admin-panel" class="open">
     <div style="font-weight:900; letter-spacing:2px; font-size:14px; margin-bottom:30px; border-bottom:2px solid #000; padding-bottom:15px; text-transform:uppercase;">Administration</div>
@@ -372,7 +372,7 @@
             <span class="admin-label">Zone Media</span>
             <input type="file" id="file-input" accept="image/*" onchange="window.handleFileUpload(event)" style="font-size:10px; margin-bottom:10px;">
             <input type="text" id="manual-url" placeholder="Asset URL" onchange="updateImageManual(this.value)">
-            <div id="pin-switch-btn" class="pin-switch active" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: ACTIVE</div>
+            <div id="pin-switch-btn" class="pin-switch" style="margin-bottom:10px;border:1px solid #000;padding:10px;text-align:center;cursor:pointer;font-size:10px;font-weight:bold;" onclick="handlePinToggle()">Placement Mode: OFF</div>
             <select id="marker-type"><option value="product">● Product Pin</option><option value="detail">■ Detail Pin</option></select>
         </div>
         <button class="btn-black" style="width:100%; background:var(--accent); color:#fff; border:none; margin-bottom:10px;" onclick="commitChanges()">Save Progress</button>
@@ -381,7 +381,7 @@
     </div>
 </div>
 
-<div id="export-output" style="display: none;">
+<div id="export-output" style="display: block;">
     <div style="max-width: 800px; margin: auto;">
         <h2 style="font-family: var(--main-font); font-weight: 600;">Final Export</h2>
         <p style="font-size: 13px; color: #666;">Copy code and paste into GitHub index.html.</p>
@@ -396,9 +396,9 @@
             <div id="mode-map-tab" class="mode-item active" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('map')">FLOORMAP</div>
             <div id="mode-tour-tab" class="mode-item" style="font-size:11px;letter-spacing:0.2em;color:#86868B;cursor:pointer;" onclick="switchViewMode('tour')">TOUR</div>
         </div>
-        <div class="area-nav" id="area-nav"><div class="area-item active" id="nav-a1769484347654">A</div></div>
+        <div class="area-nav" id="area-nav"><div class="area-item " id="nav-a1769484347654">A</div><div class="area-item " id="nav-a1769484760152">B</div><div class="area-item " id="nav-a1769484790649">C</div><div class="area-item " id="nav-a1769484816103">D</div><div class="area-item" id="nav-a1769484826724">E</div><div class="area-item active" id="nav-a1769484855241">F</div></div>
     </div>
-    <div id="scene-display"><div class="floor-info-bar"><div class="info-item"><b>CH</b> 2980mm</div><div class="info-item"><b>Area</b> 29㎡ / 18帖 / 9坪</div></div><div class="mol-breakout-wrap" id="scene-stage"><img src="https://i.ibb.co/4gCfb7Gz/B1-Grande.png"><div class="mol-hs " style="top:51.35%; left:45.67%;" onmouseenter="window.adjustCardPosition(this)" onclick="handlePinInteraction(event, 'p1769484416189')"><div class="edit-x" onclick="handleDeletePin(event,'p1769484416189')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>test</strong><div class="spec-row-centered"><span class="spec-label-centered">Category</span><span class="spec-value-centered">test</span></div><div class="spec-row-centered"><span class="spec-label-centered">Size</span><span class="spec-value-centered">test</span></div><div class="spec-row-centered"><span class="spec-label-centered">Finish</span><span class="spec-value-centered">test</span></div><div class="price">¥1234567890</div><div class="card-actions"><a href="https://www.molteni.it/store/tokyo-flagship-store/jp/" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="" target="_blank" class="card-btn btn-inq">製品についてお問い合わせ</a></div></div></div><div class="mol-hs " style="top:33.17%; left:57.41%;" onmouseenter="window.adjustCardPosition(this)" onclick="handlePinInteraction(event, 'p1769484434874')"><div class="edit-x" onclick="handleDeletePin(event,'p1769484434874')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>test</strong><div class="spec-row-centered"><span class="spec-label-centered">Category</span><span class="spec-value-centered">sofa</span></div><div class="spec-row-centered"><span class="spec-label-centered">Size</span><span class="spec-value-centered">test size</span></div><div class="spec-row-centered"><span class="spec-label-centered">Finish</span><span class="spec-value-centered">test</span></div><div class="price">¥99999999999</div><div class="card-actions"><a href="https://www.molteni.it/store/tokyo-flagship-store/jp/" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="" target="_blank" class="card-btn btn-inq">製品についてお問い合わせ</a></div></div></div></div></div>
+    <div id="scene-display"><div class="floor-info-bar"><div class="info-item"><b>CH</b> 2980mm</div><div class="info-item"><b>Area</b> 29㎡ / 18帖 / 9坪</div></div><div class="mol-breakout-wrap" id="scene-stage"><img src="https://i.ibb.co/qYgNdy02/B1-Garden.png"><div class="mol-hs " style="top:42.21%; left:24.73%;" onmouseenter="window.adjustCardPosition(this)" onclick="handlePinInteraction(event, 'p1769484909719')"><div class="edit-x" onclick="handleDeletePin(event,'p1769484909719')">×</div><span class="mol-dot-outer"><span class="mol-dot-inner"></span></span><div class="mol-card"><strong>test</strong><div class="spec-row-centered"><span class="spec-label-centered">Category</span><span class="spec-value-centered">test</span></div><div class="spec-row-centered"><span class="spec-label-centered">Size</span><span class="spec-value-centered">test</span></div><div class="spec-row-centered"><span class="spec-label-centered">Finish</span><span class="spec-value-centered">test</span></div><div class="price">¥000000000</div><div class="card-actions"><a href="https://www.molteni.it/store/tokyo-flagship-store/jp/" target="_blank" class="card-btn btn-prod">商品詳細はこちら</a><a href="" target="_blank" class="card-btn btn-inq">製品についてお問い合わせ</a></div></div></div></div></div>
 </div>
 
 <div class="nav-arrow arrow-left" onclick="navigateArea(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
